@@ -3,17 +3,6 @@ package org.seleniumng.utils;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
-
-import app.heimdall.gui.pageObjects.*;
 
 public class PageObjectRepository {
 	 public void load  () {

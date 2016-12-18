@@ -1,11 +1,7 @@
 package seleniumng;
 
-import java.io.FileOutputStream;
+
 import java.io.UnsupportedEncodingException;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
-import static java.nio.charset.StandardCharsets.*;
 import org.seleniumng.driver.DriverInventory;
 import org.testng.annotations.Test;
 

@@ -3,7 +3,6 @@ package org.seleniumng.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.seleniumng.controls.*;
 import org.seleniumng.utils.PageConfigLoader;
 
 import com.typesafe.config.Config;

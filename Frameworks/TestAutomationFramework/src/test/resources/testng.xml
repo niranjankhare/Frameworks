@@ -2,7 +2,7 @@
 <suite name="Parallel test suite" parallel="methods" thread-count="2">
   <test name="Regression 1">
     <classes>
-      <class name="org.gradle.FeatureOne"/>
+      <class name="seleniumng.ParallelExecutions"/>
     </classes>
   </test>
 </suite>

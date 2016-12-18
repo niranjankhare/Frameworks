@@ -4,7 +4,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,11 +32,10 @@ public class PageConfigLoader {
 	
 	static Object getField(Field field, Config myConfig) {
 		Class<?> ftype = field.getType();
-		Class<?> parent = field.getDeclaringClass();
+		
 		List <Class<?>> classHeirarchy = new ArrayList<Class<?>>();
 		classHeirarchy.add(ftype);
 		Class<?> c = ftype.getSuperclass();
-//		while (!c.isAssignableFrom(java.lang.Object.class) ){
 		while (!c.isAssignableFrom(org.seleniumng.driver.GuiControl.class) ){	
 			
 			classHeirarchy.add(c);

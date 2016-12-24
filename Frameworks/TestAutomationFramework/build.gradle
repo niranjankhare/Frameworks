@@ -26,7 +26,7 @@ repositories {
 dependencies {
     compile group: 'com.typesafe', name: 'config', version: '1.3.1'
     // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
-	compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.+'
+	compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.0.0'
    compile "org.testng:testng:$testngVersion"
    compile group: 'org.slf4j', name: 'slf4j-simple', version: "$slf4jsimpleVersion"
     

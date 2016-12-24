@@ -18,9 +18,9 @@ public class PageConfigLoader {
 		String langPath = tafConfig.getString("language")+ "/";
 		String langDefault = tafConfig.hasPath("language.fallback")?tafConfig.getString("language.fallback")+ "/": "en_us/"; 
 		String propFile = class1.getName().replace(".", "/")+ ".p";
-		String prop_lang ="gui/"+langPath + propFile;
-		String prop_fallback ="gui/" +langDefault+ propFile ;
-		URL u = Thread.currentThread().getContextClassLoader().getResource("gui/" +propFile);
+		String prop_lang =propFile.replace(class1.getSimpleName(), langPath+class1.getSimpleName());
+		String prop_fallback =propFile.replace(class1.getSimpleName(), langDefault+class1.getSimpleName());
+		URL u = Thread.currentThread().getContextClassLoader().getResource(propFile);
 		URL u_lang = Thread.currentThread().getContextClassLoader().getResource(prop_lang);
 		URL u_en_us = Thread.currentThread().getContextClassLoader().getResource(prop_fallback);
 		Config c_lang = ConfigFactory.parseURL(u_lang);

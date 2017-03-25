@@ -9,12 +9,6 @@ import com.typesafe.config.ConfigResolveOptions;
 public class testMain {
 
 	public static void main(String[] args) {
-//		new HeimdallPageRepository();
-//		System.out.println(pageLogin.userName.desc);
-//		System.out.println(pageLogin.menuConfig.desc);
-//		System.out.println(pageLogin.selLanguage.desc);
-//		System.out.println(pageLogin.footerStuff.desc);
-//		System.out.println(pageDashboard.footerStuff.desc);
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		ConfigParseOptions parseOptions = ConfigParseOptions.defaults();
 		ConfigResolveOptions resolveOptions = ConfigResolveOptions.defaults().setAllowUnresolved(true);

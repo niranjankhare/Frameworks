@@ -13,11 +13,11 @@ import org.openqa.selenium.WebElement;
 import com.typesafe.config.Config;
 
 public class GuiControl implements WebElement {
-	public String desc ;
+	public String friendlyName ;
 	public String locType;
 	public String locValue;
 	public GuiControl (Config config){
-		desc = config.getString("description");
+		friendlyName = config.getString("description");
 		locType= config.getString("locatorType");
 		locValue = config.getString("locatorValue");
 	}

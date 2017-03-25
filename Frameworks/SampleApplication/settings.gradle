@@ -1,0 +1,2 @@
+include ':TestAutomationFramework'
+project(':TestAutomationFramework').projectDir = new File(settingsDir, '../TestAutomationFramework')

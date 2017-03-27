@@ -12,7 +12,7 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
 import static org.seleniumng.utils.TAFConfig.*;
-public class PageConfigLoader {
+public class XPageConfigLoader {
 
 	public static Config loadPageConfig (Class<?> class1){
 		String langPath = tafConfig.getString("language")+ "/";

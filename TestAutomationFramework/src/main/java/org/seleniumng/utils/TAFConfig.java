@@ -4,5 +4,6 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
 public class TAFConfig {
-	public static Config tafConfig = ConfigFactory.load();
+	private static final Config resolver = ConfigFactory.parseResourcesAnySyntax("resolver");
+	public static Config tafConfig = ConfigFactory.load().withFallback(resolver).resolve();
 }

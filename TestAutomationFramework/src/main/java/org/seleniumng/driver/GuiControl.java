@@ -9,10 +9,11 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebElement;
 
 import com.typesafe.config.Config;
 
-public class GuiControl implements WebElement {
+public class GuiControl extends RemoteWebElement {
 	public String friendlyName ;
 	public String locType;
 	public String locValue;
@@ -29,8 +30,7 @@ public class GuiControl implements WebElement {
 	
 	public void setText(CharSequence... keysToSend) {
 		clear ();
-		sendKeys();
-
+		sendKeys(keysToSend);
 	}
 	
 	
@@ -41,106 +41,90 @@ public class GuiControl implements WebElement {
 	/*All interface methods below?*/
 	@Override
 	public void click() {
-		// TODO Auto-generated method stub
+		super.click();
 
 	}
 
 	@Override
 	public void submit() {
-		// TODO Auto-generated method stub
-
+		super.submit();
 	}
 
 	@Override
 	public void sendKeys(CharSequence... keysToSend) {
-		// TODO Auto-generated method stub
-
+		super.sendKeys (keysToSend);
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		super.clear();
 
 	}
 
 	@Override
 	public String getTagName() {
-		// TODO Auto-generated method stub
-		return null;
+		return super.getTagName();
 	}
 
 	@Override
 	public String getAttribute(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return super.getAttribute(name);
 	}
 
 	@Override
 	public boolean isSelected() {
-		// TODO Auto-generated method stub
-		return false;
+		return super.isSelected();
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return super.isEnabled();
 	}
 
 	@Override
 	public String getText() {
-		// TODO Auto-generated method stub
-		return null;
+		return super.getText();
 	}
 
 	@Override
 	public List<WebElement> findElements(By by) {
-		// TODO Auto-generated method stub
-		return null;
+		return super.findElements(by);
 	}
 
 	@Override
 	public WebElement findElement(By by) {
-		// TODO Auto-generated method stub
-		return null;
+		return super.findElement(by);
 	}
 
 	@Override
 	public boolean isDisplayed() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		return super.isDisplayed();	}
 
 	@Override
 	public Point getLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return super.getLocation();
 	}
 
 	@Override
 	public Dimension getSize() {
-		// TODO Auto-generated method stub
-		return null;
+		return super.getSize();
 	}
 
 	@Override
 	public String getCssValue(String propertyName) {
-		// TODO Auto-generated method stub
-		return null;
+		return super.getCssValue(propertyName);
 	}
 
 
 	@Override
 	public <X> X getScreenshotAs(OutputType<X> target) throws WebDriverException {
-		// TODO Auto-generated method stub
-		return null;
+		return super.getScreenshotAs(target);
 	}
 
 
 	@Override
 	public Rectangle getRect() {
-		// TODO Auto-generated method stub
-		return null;
+		return super.getRect();
 	}
 
 }

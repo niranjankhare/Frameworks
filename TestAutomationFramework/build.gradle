@@ -15,8 +15,13 @@ jar {
     }
 }
 ext {
+	typesafeConfigVersion = '1.3.1'
 	slf4jsimpleVersion = '1.7.22'
 	testngVersion = '6.9.12'
+	seleniumJavaVersion = '3.0.0'
+	jooqVersion = '3.9.6'
+	codeModelVersion = '2.3.0'
+	h2databaseVersion = '1.4.196'
 }
 repositories {
     mavenCentral()
@@ -24,11 +29,17 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.typesafe', name: 'config', version: '1.3.1'
+    compile group: 'com.typesafe', name: 'config', version: "$typesafeConfigVersion"
     // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
-	compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.0.0'
+	compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: "$seleniumJavaVersion"
    compile "org.testng:testng:$testngVersion"
    compile group: 'org.slf4j', name: 'slf4j-simple', version: "$slf4jsimpleVersion"
+   // https://mvnrepository.com/artifact/org.glassfish.jaxb/codemodel
+   compile group: 'org.glassfish.jaxb', name: 'codemodel', version: "$codeModelVersion"
+   // https://mvnrepository.com/artifact/org.jooq/jooq
+compile group: 'org.jooq', name: 'jooq', version: "$jooqVersion"
+// https://mvnrepository.com/artifact/com.h2database/h2
+testCompile group: 'com.h2database', name: 'h2', version: "$h2databaseVersion"
     
 }
 

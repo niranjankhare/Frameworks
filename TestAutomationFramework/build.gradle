@@ -1,11 +1,8 @@
 apply plugin: 'java'
-apply plugin: 'eclipse'
 
 sourceCompatibility = 1.7
 version = '1.0'
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.2.1'
-}
+
 jar {
     manifest {
         attributes 'Main-Class': 'org.gradle.MainMethod', 
@@ -19,9 +16,20 @@ ext {
 	slf4jsimpleVersion = '1.7.22'
 	testngVersion = '6.9.12'
 	seleniumJavaVersion = '3.0.0'
-	jooqVersion = '3.9.6'
+	jooqVersion = '3.10.0'
 	codeModelVersion = '2.3.0'
 	h2databaseVersion = '1.4.196'
+}
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jooq:jooq-codegen:3.10.0"
+		classpath "org.mariadb.jdbc:mariadb-java-client:1.1.7"
+ 		classpath 'mysql:mysql-connector-java:5.1.6'
+ 		
+	    }
 }
 repositories {
     mavenCentral()
@@ -37,11 +45,27 @@ dependencies {
    // https://mvnrepository.com/artifact/org.glassfish.jaxb/codemodel
    compile group: 'org.glassfish.jaxb', name: 'codemodel', version: "$codeModelVersion"
    // https://mvnrepository.com/artifact/org.jooq/jooq
-compile group: 'org.jooq', name: 'jooq', version: "$jooqVersion"
-// https://mvnrepository.com/artifact/com.h2database/h2
-testCompile group: 'com.h2database', name: 'h2', version: "$h2databaseVersion"
+   compile group: 'org.jooq', name: 'jooq', version: "$jooqVersion"
+   // https://mvnrepository.com/artifact/org.jooq/jooq-meta
+ 	compile group: 'org.jooq', name: 'jooq-meta', version: "$jooqVersion"
+   // https://mvnrepository.com/artifact/org.jooq/jooq-codegen-maven
+   compile group: 'org.jooq', name: 'jooq-codegen-maven', version: "$jooqVersion"
+   // https://mvnrepository.com/artifact/com.h2database/h2
+   testCompile group: 'com.h2database', name: 'h2', version: "$h2databaseVersion"
     
 }
+
+
+task jooqGenerate << {
+	def f = sourceSets.main.resources.srcDirs[0].toString()+"/db/automation.xml"
+	println "Generating jooq classes using:" + f
+	org.jooq.util.GenerationTool.generate(
+	    javax.xml.bind.JAXB.unmarshal(new StringReader( file(f).text), org.jooq.util.jaxb.Configuration.class)
+	) 
+  
+}
+compileJava.dependsOn jooqGenerate
+
 
 test {
     systemProperties 'property': 'value'

@@ -56,9 +56,9 @@ public class PageObjectBaseClass {
 		
 		Config confControl = pageConf.getConfig(field.getName());
 		Constructor<?> constructor = null;
-		for (int i = classHeirarchy.size()-1; i>0; i--){
-			confControl = loadPageConfig(classHeirarchy.get(i-1)).withFallback(confControl);
-		}
+//		for (int i = classHeirarchy.size()-1; i>0; i--){
+//			confControl = loadPageConfig(classHeirarchy.get(i-1)).withFallback(confControl);
+//		}
 		
 		try {
 			constructor = ftype.getConstructor(new Class[]{Config.class});

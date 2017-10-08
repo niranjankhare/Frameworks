@@ -8,6 +8,7 @@ public class MainWrapper {
 
 	public static void main(String[] args) {
 		new AUTPageRepository();
+		pageDashboard.userRole.select ("WHere are you");
 		System.out.println(pageLogin.userName.friendlyName);
 		System.out.println(pageLogin.menuConfig.friendlyName);
 		System.out.println(pageLogin.menuConfig.locValue);

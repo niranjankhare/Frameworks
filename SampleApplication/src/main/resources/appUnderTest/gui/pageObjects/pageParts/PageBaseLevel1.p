@@ -6,4 +6,5 @@ userRole {
 description = "An Ember Select"
 locatorType = "ID"
 locatorValue = "roleDropdown"
+someNewPoperty = "Added Property"
 }

@@ -1,0 +1,22 @@
+<html>
+ <head></head>
+ <script>function add_fields() {document.getElementById("myTable").insertRow(-1).innerHTML = '<tr><td><textarea name="Question" placeholder="Question" th:field="${questionAnswerSet.question}" id="question" style = "resize: none; width:100%;"></textarea></td><td><textarea name="Answer" placeholder ="Answer" th:field="${questionAnswerSet.answer}" id="answer" style="resize:none;width: 100%;"></textarea></td ></tr>';}</script>
+ <body>
+  <div>
+   <table id="myTable">
+    <tbody>
+     <tr>
+      <th>Question</th>
+      <th>Answer</th>
+     </tr>
+     <tr>
+      <td><textarea name="Question" placeholder="Question" id="question" style="resize: none; width: 100%;"></textarea></td>
+      <td><textarea name="Answer" placeholder="Answer" id="answer" style="resize: none; width: 100%;"></textarea></td>
+     </tr>
+    </tbody>
+   </table>
+  </div>
+  <input type="button" id="addRow" onclick="add_fields();" value="Add row">
+  <input type="submit" id="submit" value="Go!">
+ </body>
+</html>

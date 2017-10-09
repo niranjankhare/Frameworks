@@ -3,50 +3,61 @@ package org.seleniumng.ui;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Entities.EscapeMode;
+import org.jsoup.parser.Parser;
 
 public class LibHtml {
-    
-    private static String addRowScript = "function add_fields() {document.getElementById('myTable').insertRow(-1).innerHTML = '<tr><td><textarea name='Question' placeholder='Question' th:field='${questionAnswerSet.question}' id='question' style = 'resize: none; width:100%;'></textarea></td><td><textarea name='Answer' placeholder ='Answer' th: field='${questionAnswerSet.answer}' id='answer' style='resize:none;width: 100%;'></textarea></td ></tr>';}";
-    
+
+
+    private static String addRowScript  = "function add_fields() {document.getElementById(\"myTable\").insertRow(-1).innerHTML = '<tr><td><textarea name=\"Question\" placeholder=\"Question\" th:field=\"${questionAnswerSet.question}\" id=\"question\" style = \"resize: none; width:100%;\"></textarea></td><td><textarea name=\"Answer\" placeholder =\"Answer\" th:field=\"${questionAnswerSet.answer}\" id=\"answer\" style=\"resize:none;width: 100%;\"></textarea></td ></tr>';}";
+
     public static void main(String[] args) {
         Document html = Jsoup.parse("<html></html>");
-       
+        
         Element scriptElement = new Element ("script").text(addRowScript);
         
-        
-//        .appendElement("table")
-//        .appendElement("tr")
-//        .appendElement("th")
-        ;
-//        print (html);
-        
-        Element table = new Element("table");
+        Element table = new Element("table").attr("id","myTable");
         Element headerRow = new Element("tr");
-        headerRow.appendElement("th");
+        headerRow.appendElement("th").text("Question");
+        headerRow.appendElement("th").text("Answer");
         
         Element dataRow = new Element("tr");
         
-        dataRow.appendElement("td").appendElement("textarea").attr("name","Question");
-        dataRow.appendElement("td").appendElement("textarea").attr("name","Answer");
+        dataRow.appendElement("td").appendElement("textarea").attr("name","Question").attr("placeholder","Question").attr("id","question").attr("style","resize: none; width: 100%;");
+        dataRow.appendElement("td").appendElement("textarea").attr("name","Answer").attr("placeholder","Answer").attr("id","answer").attr("style","resize: none; width: 100%;");
+        Element tbody = new Element("tbody");
         
-        table.appendChild(headerRow);
-        table.appendChild(dataRow);
+        table.appendChild(tbody);
+        tbody.appendChild(headerRow);
+        tbody.appendChild(dataRow);
         Element addMore = new Element ("input");
         addMore.attr("type", "button");
         addMore.attr("id", "addRow");
         addMore.attr("onclick","add_fields();");
         addMore.attr("value","Add row"); 
+        
+        
+        Element submit = new Element ("input");
+        submit.attr("type", "submit");
+        submit.attr("id", "submit");
+        submit.attr("value", "Go!");
+      
+        
         html.body()
         .appendElement("div").appendChild(table);
         ;
         html.body().appendChild(addMore);
+        html.body().appendChild(submit);
         html.body().before(scriptElement);
+        
+
         print (html);
         
     }
     
     private static void print (Document d){
-       System.out.println(d.toString());
+
+       System.out.println(Parser.unescapeEntities(d.toString(),false));
     }
 }
 

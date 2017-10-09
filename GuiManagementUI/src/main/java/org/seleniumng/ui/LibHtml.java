@@ -42,14 +42,12 @@ public class LibHtml {
         submit.attr("id", "submit");
         submit.attr("value", "Go!");
       
-        
-        html.body()
-        .appendElement("div").appendChild(table);
-        ;
-        html.body().appendChild(addMore);
-        html.body().appendChild(submit);
+        Element form = new Element("form").attr("id", "guimap").attr("method", "post");
+        form.appendChild(table);
+        form.appendChild(addMore);
+        form.appendChild(submit);
         html.body().before(scriptElement);
-        
+        html.body().appendChild(form);
 
         print (html);
         
@@ -59,5 +57,13 @@ public class LibHtml {
 
        System.out.println(Parser.unescapeEntities(d.toString(),false));
     }
+    
+    
+    /*
+     * formHtml = "<form id='"+formId+"' method='get' action='"+ serveletPath +formAction+"'>"
+        + formContent 
+        +"<button type='submit' value='Submit' form='"+ formId +"'>GO!</button>"
+        + "</form>";
+     */
 }
 

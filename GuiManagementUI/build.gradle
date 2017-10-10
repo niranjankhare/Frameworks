@@ -18,6 +18,8 @@ ext {
 	codeModelVersion = '2.3.0'
 	h2databaseVersion = '1.4.196'
 	jsoupVersion = '1.10.3'
+	javaxServletApiVersion = '3.1.0'
+	eclipseJettyAggregateVersion = '9.3.6.v20151106'
 }
 repositories {
     mavenCentral()
@@ -37,7 +39,10 @@ dependencies {
    compile group: 'org.jooq', name: 'jooq-codegen-maven', version: "$jooqVersion"
    // https://mvnrepository.com/artifact/org.jsoup/jsoup
    compile group: 'org.jsoup', name: 'jsoup', version: "$jsoupVersion"
-    
+   compile group: 'javax.servlet', name: 'javax.servlet-api', version: "$javaxServletApiVersion"
+   compile group: 'org.eclipse.jetty.aggregate', name: 'jetty-all', version: "$eclipseJettyAggregateVersion"
+   compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.6.1'
+   compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.6.1' 
 }
 
 test {

@@ -12,6 +12,10 @@ public class LibHtml {
     private static String addRowScript  = "function add_fields() {document.getElementById(\"myTable\").insertRow(-1).innerHTML = '<tr><td><textarea name=\"Question\" placeholder=\"Question\" th:field=\"${questionAnswerSet.question}\" id=\"question\" style = \"resize: none; width:100%;\"></textarea></td><td><textarea name=\"Answer\" placeholder =\"Answer\" th:field=\"${questionAnswerSet.answer}\" id=\"answer\" style=\"resize:none;width: 100%;\"></textarea></td ></tr>';}";
 
     public static void main(String[] args) {
+    	getDocumentStr();
+    }
+    
+    public static Document getHtmlReponse() {
         Document html = Jsoup.parse("<html></html>");
         
         Element scriptElement = new Element ("script").text(addRowScript);
@@ -49,21 +53,18 @@ public class LibHtml {
         html.body().before(scriptElement);
         html.body().appendChild(form);
 
-        print (html);
-        
-    }
-    
-    private static void print (Document d){
+        return html;
 
-       System.out.println(Parser.unescapeEntities(d.toString(),false));
+		
+	}
+
+	public static String getDocumentStr (){
+		String toPrint = Parser.unescapeEntities(getHtmlReponse().toString(),false);
+       System.out.println(toPrint);
+       return toPrint;
     }
     
     
-    /*
-     * formHtml = "<form id='"+formId+"' method='get' action='"+ serveletPath +formAction+"'>"
-        + formContent 
-        +"<button type='submit' value='Submit' form='"+ formId +"'>GO!</button>"
-        + "</form>";
-     */
+
 }
 

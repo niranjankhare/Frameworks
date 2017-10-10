@@ -9,7 +9,7 @@ import org.jsoup.parser.Parser;
 public class LibHtml {
 
 
-    private static String addRowScript  = "function add_fields() {document.getElementById(\"myTable\").insertRow(-1).innerHTML = '<tr><td><textarea name=\"Question\" placeholder=\"Question\" th:field=\"${questionAnswerSet.question}\" id=\"question\" style = \"resize: none; width:100%;\"></textarea></td><td><textarea name=\"Answer\" placeholder =\"Answer\" th:field=\"${questionAnswerSet.answer}\" id=\"answer\" style=\"resize:none;width: 100%;\"></textarea></td ></tr>';}";
+    private static String addRowScript  = "function add_fields() {var rowCount = document.getElementById('myTable').getElementsByTagName(\"tbody\")[0].rows.length;document.getElementById(\"myTable\").insertRow(-1).innerHTML = '<tr><td><textarea name=\"Question\" placeholder=\"Question\" th:field=\"${questionAnswerSet.question}\" id=\"question'+rowCount+'\" style = \"resize: none; width:100%;\"></textarea></td><td><textarea name=\"Answer\" placeholder =\"Answer\" th:field=\"${questionAnswerSet.answer}\" id=\"answer'+rowCount+'\" style=\"resize:none;width: 100%;\"></textarea></td ></tr>';}";
 
     public static void main(String[] args) {
     	getDocumentStr();

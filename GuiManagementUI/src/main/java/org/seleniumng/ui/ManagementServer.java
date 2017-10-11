@@ -44,15 +44,18 @@ public class ManagementServer  extends HttpServlet{
 		String sPath = req.getPathInfo();	
 		req.getParameterMap();
 		getParameter (req, "Question");
+		processBoth(req, resp);
 		}
 	protected void processBoth(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
 		String sPath = req.getPathInfo().toLowerCase();
 		
 		switch (sPath){
-		case "":
-		case "/":
-			
-		default:
+		    case "/test":
+		        writeResponse (resp,req.getParameterMap().toString(), null);
+		        break;
+    		case "":
+    		case "/":
+			default:
 			writeResponse (resp,LibHtml.getDocumentStr(),null);
 			
 		}
@@ -67,7 +70,7 @@ public class ManagementServer  extends HttpServlet{
 			respStr = writer.toString();
 			
 			}
-
+		// TODO: write jsoup document
 		response.setContentType("text/html;charset=UTF-8");	
 		response.getWriter().println(respStr);
 		response.getWriter().close();

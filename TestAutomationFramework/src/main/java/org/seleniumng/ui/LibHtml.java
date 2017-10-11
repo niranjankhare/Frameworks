@@ -13,7 +13,7 @@ public class LibHtml {
 
 
 //    private static String addRowScript  = "function add_fields() {var rowCount = document.getElementById('myTable').rows.length;document.getElementById(\"myTable\").getElementsByTagName(\"tbody\")[0].insertRow(-1).innerHTML = '<tr><td><textarea name=\"Question'+rowCount+'\" placeholder=\"Question\" id=\"question'+rowCount+'\" style = \"resize: none; width:100%;\"></textarea></td><td><textarea name=\"Answer'+rowCount+'\" placeholder =\"Answer\" id=\"answer'+rowCount+'\" style=\"resize:none;width: 100%;\"></textarea></td ></tr>';window.onload = add_fields();}";
-    private static String addRowScript  = "function add_fields() {var rowCount = document.getElementById('myTable').getElementsByTagName(\"tbody\")[0].rows.length;document.getElementById(\"myTable\").insertRow(-1).innerHTML = '<tr><td><textarea name=\"Question'+rowCount+'\" placeholder=\"Question\" th:field=\"${questionAnswerSet.question}\" id=\"question'+rowCount+'\" style = \"resize: none; width:100%;\"></textarea></td><td><textarea name=\"Answer'+rowCount+'\" placeholder =\"Answer\" th:field=\"${questionAnswerSet.answer}\" id=\"answer'+rowCount+'\" style=\"resize:none;width: 100%;\"></textarea></td ></tr>';} ";
+    private static String addRowScript  = "function add_fields() {var rowCount = document.getElementById('myTable').getElementsByTagName(\"tbody\")[0].rows.length;document.getElementById(\"myTable\").insertRow(-1).innerHTML = '<tr><td><textarea name=\"PAGENAME'+rowCount+'\" placeholder=\"PAGENAME\" id=\"PAGENAME'+rowCount+'\" style = \"resize: none; width:100%;\"></textarea></td><td><textarea name=\"PARENTID'+rowCount+'\" placeholder =\"PARENTID\" id=\"PARENTID'+rowCount+'\" style=\"resize:none;width: 100%;\"></textarea></td ></tr>';} ";
 
     public static void main(String[] args) {
     	getDocumentStr();
@@ -26,8 +26,8 @@ public class LibHtml {
         
         Element table = new Element("table").attr("id","myTable");
         Element headerRow = new Element("tr");
-        headerRow.appendElement("th").text("Question");
-        headerRow.appendElement("th").text("Answer");
+        headerRow.appendElement("th").text("PAGENAME");
+        headerRow.appendElement("th").text("PARENTID");
         
 //        Element dataRow = new Element("tr");
         // TODO: parameterise based on table data // or do I run jscript on document load?

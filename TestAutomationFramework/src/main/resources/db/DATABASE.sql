@@ -1,3 +1,5 @@
+use automation;
+
 create table PAGES (
 `PAGEID` int (10) NOT NULL AUTO_INCREMENT,
 `PAGENAME` VARCHAR (50),
@@ -37,6 +39,11 @@ CONSTRAINT fk_guimap FOREIGN KEY (GUIMAPID)
   ON UPDATE CASCADE
 );
 
+CREATE VIEW automation.sample AS
+
+SELECT PAGENAME, PARENTID,PAGEDESCRIPTION 
+FROM
+automation.PAGES;
 /*
 delimiter //
 CREATE TRIGGER updateElements AFTER INSERT ON GUIMAP

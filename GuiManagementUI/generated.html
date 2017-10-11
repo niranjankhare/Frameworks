@@ -1,0 +1,18 @@
+<html>
+ <head></head>
+ <script>function add_fields() {var rowCount = document.getElementById('myTable').getElementsByTagName("tbody")[0].rows.length;document.getElementById("myTable").insertRow(-1).innerHTML = '<tr><td><textarea name="Question'+rowCount+'" placeholder="Question" th:field="${questionAnswerSet.question}" id="question'+rowCount+'" style = "resize: none; width:100%;"></textarea></td><td><textarea name="Answer'+rowCount+'" placeholder ="Answer" th:field="${questionAnswerSet.answer}" id="answer'+rowCount+'" style="resize:none;width: 100%;"></textarea></td ></tr>';} </script>
+ <body onload="add_fields()">
+  <form id="guimap" method="post" action="/test">
+   <table id="myTable">
+    <tbody>
+     <tr>
+      <th>Question</th>
+      <th>Answer</th>
+     </tr>
+    </tbody>
+   </table>
+   <input type="button" id="addRow" onclick="add_fields();" value="Add row">
+   <input type="submit" id="submit" value="Go!">
+  </form>
+ </body>
+</html>

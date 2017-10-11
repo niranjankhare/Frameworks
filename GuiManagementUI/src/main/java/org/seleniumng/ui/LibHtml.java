@@ -9,7 +9,7 @@ import org.jsoup.parser.Parser;
 public class LibHtml {
 
 
-    private static String addRowScript  = "function add_fields() {var rowCount = document.getElementById('myTable').rows.length;document.getElementById(\"myTable\").getElementsByTagName(\"tbody\")[0].insertRow(-1).innerHTML = '<tr><td><textarea name=\"Question'+rowCount+'\" placeholder=\"Question\" id=\"question'+rowCount+'\" style = \"resize: none; width:100%;\"></textarea></td><td><textarea name=\"Answer'+rowCount+'\" placeholder =\"Answer\" id=\"answer'+rowCount+'\" style=\"resize:none;width: 100%;\"></textarea></td ></tr>';}";
+    private static String addRowScript  = "function add_fields() {var rowCount = document.getElementById('myTable').rows.length;document.getElementById(\"myTable\").getElementsByTagName(\"tbody\")[0].insertRow(-1).innerHTML = '<tr><td><textarea name=\"Question'+rowCount+'\" placeholder=\"Question\" id=\"question'+rowCount+'\" style = \"resize: none; width:100%;\"></textarea></td><td><textarea name=\"Answer'+rowCount+'\" placeholder =\"Answer\" id=\"answer'+rowCount+'\" style=\"resize:none;width: 100%;\"></textarea></td ></tr>';window.onload = add_fields();}";
 
     public static void main(String[] args) {
     	getDocumentStr();
@@ -27,8 +27,8 @@ public class LibHtml {
         
         Element dataRow = new Element("tr");
         // TODO: parameterise based on table data // or do I run jscript on document load?
-        dataRow.appendElement("td").appendElement("textarea").attr("name","Question").attr("placeholder","Question").attr("id","question1").attr("style","resize: none; width: 100%;");
-        dataRow.appendElement("td").appendElement("textarea").attr("name","Answer").attr("placeholder","Answer").attr("id","answer1").attr("style","resize: none; width: 100%;");
+//        dataRow.appendElement("td").appendElement("textarea").attr("name","Question").attr("placeholder","Question").attr("id","question1").attr("style","resize: none; width: 100%;");
+//        dataRow.appendElement("td").appendElement("textarea").attr("name","Answer").attr("placeholder","Answer").attr("id","answer1").attr("style","resize: none; width: 100%;");
         Element tbody = new Element("tbody");
         
         table.appendChild(tbody);

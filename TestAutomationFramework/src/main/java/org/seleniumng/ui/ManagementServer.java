@@ -10,15 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-public class ManagementServer  extends HttpServlet{
+public class ManagementServer extends HttpServlet {
 
-	
-	public ManagementServer(){
-		
+	public ManagementServer() {
+
 	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		processGet (req, resp);
+		processGet(req, resp);
 	}
 
 	@Override
@@ -26,54 +26,57 @@ public class ManagementServer  extends HttpServlet{
 		processPost(req, resp);
 	}
 
-	private String getParameter (HttpServletRequest httpReq, String parameter){
-		String value = "Expected parameter:" + parameter +   " was not found, please check the url for correct parameters";
+	private String getParameter(HttpServletRequest httpReq, String parameter) {
+		String value = "Expected parameter:" + parameter
+				+ " was not found, please check the url for correct parameters";
 		try {
 			value = httpReq.getParameter(parameter);
-		} catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return value ;
+		return value;
 	}
-	
-	protected void processGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
-		String sPath = req.getPathInfo();
-		processBoth (req, resp);
-	}
-	protected void processPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
-		String sPath = req.getPathInfo();	
-		req.getParameterMap();
-		getParameter (req, "Question");
+
+	protected void processGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		processBoth(req, resp);
-		}
-	protected void processBoth(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
-		String sPath = req.getPathInfo().toLowerCase();
-		
-		switch (sPath){
-		    case "/test":
-		        writeResponse (resp,req.getParameterMap().toString(), null);
-		        break;
-    		case "":
-    		case "/":
-			default:
-			writeResponse (resp,LibHtml.getDocumentStr(),null);
-			
-		}
 	}
-	
-	protected void writeResponse (HttpServletResponse response, String respStr, Exception e) throws  IOException {
-		if (e != null){
+
+	protected void processPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.getParameterMap();
+		getParameter(req, "Question");
+		processBoth(req, resp);
+	}
+
+	protected void processBoth(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String sPath = req.getPathInfo().toLowerCase();
+		String responseStr = "";
+		switch (sPath) {
+		case "/test":
+			responseStr = req.getParameterMap().toString();
+			break;
+		case "":
+		case "/":
+		default:
+			responseStr = LibHtml.getTableEntryForm("PAGES");
+
+		}
+		writeResponse(resp, responseStr, null);
+
+	}
+
+	protected void writeResponse(HttpServletResponse response, String respStr, Exception e) throws IOException {
+		if (e != null) {
 			StringWriter writer = new StringWriter();
-			PrintWriter printWriter = new PrintWriter( writer );
-			e.printStackTrace( printWriter );
+			PrintWriter printWriter = new PrintWriter(writer);
+			e.printStackTrace(printWriter);
 			printWriter.flush();
 			respStr = writer.toString();
-			
-			}
+
+		}
 		// TODO: write jsoup document
-		response.setContentType("text/html;charset=UTF-8");	
+		response.setContentType("text/html;charset=UTF-8");
 		response.getWriter().println(respStr);
 		response.getWriter().close();
 	}
-	
+
 }

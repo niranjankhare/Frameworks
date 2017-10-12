@@ -23,6 +23,7 @@ ext {
 	eclipseJettyAggregateVersion = '9.3.6.v20151106'
 	codeModelVersion = '2.3.0'
 	h2databaseVersion = '1.4.196'
+	mysqlDriverVersion = '5.1.6'
 }
 buildscript {
     repositories {
@@ -61,6 +62,7 @@ dependencies {
    compile group: 'org.eclipse.jetty.aggregate', name: 'jetty-all', version: "$eclipseJettyAggregateVersion"
    // https://mvnrepository.com/artifact/com.h2database/h2
    testCompile group: 'com.h2database', name: 'h2', version: "$h2databaseVersion"
+   compile group: 'mysql', name: 'mysql-connector-java', version: "$mysqlDriverVersion"
     
 }
 
@@ -73,7 +75,7 @@ task jooqGenerate << {
 	) 
   
 }
-compileJava.dependsOn jooqGenerate
+// compileJava.dependsOn jooqGenerate
 
 
 test {

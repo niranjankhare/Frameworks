@@ -23,7 +23,7 @@ public class LibHtml {
 	public static String getTableEntryForm(String tableName) {
 		// TODO: Get list of columns for the view/table
 		tableName.replaceAll(tableName, tableName.toLowerCase());
-		List<String> fieldsList = Arrays.asList("PAGENAME", "PARENTID", "PAGEDESCRIPTION");
+		List<String> fieldsList = LibDatabase.getTableData(tableName);
 
 		String scriptBlock = addRowScriptTemplate.replaceAll("__TABLENAME__", tableName).replaceAll("__ROWHTML__",
 				getFormattedRow(fieldsList));

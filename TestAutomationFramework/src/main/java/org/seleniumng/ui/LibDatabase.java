@@ -13,17 +13,20 @@ import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
 import org.jooq.SQLDialect;
+//import org.jooq.Table;
+//import org.jooq.TableField;
 import org.jooq.TableLike;
+//import org.jooq.TableRecord;
 import org.jooq.impl.DSL;
 
 
-import static db.jooq.generated.automationDb.Tables.*;
-import static org.jooq.impl.DSL.*;
+//import static db.jooq.generated.automationDb.Tables.*;
+//import static org.jooq.impl.DSL.*;
 
 public class LibDatabase {
     private static String userName = "manfriday";
     private static String password = "umsqa";
-    private static String url = "jdbc:mysql://localhost:3306/automation";
+    private static String url = "jdbc:mysql://192.168.3.141:3306/automation";
     public static void main (String[] args){
         
         LinkedHashMap<String,String[]> parammap = new LinkedHashMap<String,String[]>();
@@ -41,20 +44,6 @@ public class LibDatabase {
     
 	public static List<String> getTableData (String tableName){
 	    
-//        Field f = null;
-//        try {
-//            f = db.jooq.generated.automationDb.Tables.class.getDeclaredField(tableName.toUpperCase());
-//        } catch (Exception e){
-//            
-//        }
-//        TableLike table = null;
-//        if (TableLike.class.isAssignableFrom(f.getType())) 
-//            try {
-//                table = TableLike.class.cast(f.get(null));
-//            } catch (Exception e){
-//                
-//            }
-
         // Connection is the only JDBC resource that we need
         // PreparedStatement and ResultSet are handled by jOOQ, internally
         Result<Record> result  = null;
@@ -69,9 +58,9 @@ public class LibDatabase {
          }
         
         org.jooq.Field<?>[] fieldList = result.fields();
-        org.jooq.Field<?> x = fieldList[0];
+       
         List<String> returnList = new ArrayList<String>();
-        for (org.jooq.Field tf:fieldList){
+        for (org.jooq.Field<?> tf:fieldList){
             returnList.add(tf.getName());
         }
         
@@ -84,9 +73,26 @@ public class LibDatabase {
         try (Connection conn = DriverManager.getConnection(url, userName, password)) {
             DSLContext create = DSL.using(conn, SQLDialect.MYSQL);
             //https://www.jooq.org/doc/3.8/manual/sql-building/sql-statements/insert-statement/insert-on-duplicate-key/
-            create.ins
-            result = create.select().from(tableName).fetch();
-            
+           
+          Field f = null;
+          try {
+              f = db.jooq.generated.automationDb.Tables.class.getDeclaredField(tableName.toUpperCase());
+          } catch (Exception e){
+              
+          }
+          TableLike<?> table = null;
+          if (TableLike.class.isAssignableFrom(f.getType())){ 
+              try {
+                  table = TableLike.class.cast(f.get(null));
+              } catch (Exception e){
+                  
+              }
+          }
+
+          org.jooq.Field[] fields = table.fields(); 
+          
+//           create.insertInto(table.asTable(), fields[0]).values((Object)"PAGEnamenew1", (Object)"ParentPagenew1", (Object)"Newpagedesc").execute();
+           create.insertInto(table.asTable()).set(fields[0], "Pagenamenew1").set(fields[1], "parentid2").set(fields[2], "Pagedescnew").execute();
             System.out.println("done");
 
         }

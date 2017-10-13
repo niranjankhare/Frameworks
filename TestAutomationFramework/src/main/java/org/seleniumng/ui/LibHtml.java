@@ -116,7 +116,7 @@ public class LibHtml {
 
 	public static Element getTextArea(String columnName) {
 
-		String idNameStr = columnName + "'+rowCount+'";
+		String idNameStr =   "Row"+ "'+rowCount+'"+"." +columnName ;
 		Element textArea = new Element("textarea");
 		textArea.attr("name", idNameStr).attr("placeholder", columnName).attr("id", idNameStr).attr("style",
 				"resize: none; width:100%;");

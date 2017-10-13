@@ -43,21 +43,23 @@ public class ManagementServer extends HttpServlet {
 
 	protected void processPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getParameterMap();
-		getParameter(req, "Question");
 		processBoth(req, resp);
 	}
 
 	protected void processBoth(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String sPath = req.getPathInfo().toLowerCase();
-		String responseStr = "";
+        String tableName = getParameter(req, "name");
+        String responseStr = "";
 		switch (sPath) {
 		case "/test":
-			responseStr = req.getParameterMap().toString();
+//		    LibDatabase.updateTable (tableName,req.getParameterMap().remove("name"));
+		    responseStr = req.getParameterMap().toString();
+		    
 			break;
 		case "":
 		case "/":
 		default:
-			responseStr = LibHtml.getTableEntryForm("PAGES");
+			responseStr = LibHtml.getTableEntryForm("sample");
 
 		}
 		writeResponse(resp, responseStr, null);

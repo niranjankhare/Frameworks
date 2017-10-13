@@ -45,6 +45,13 @@ public class LibHtml {
 		table.appendChild(tbody);
 		tbody.appendChild(headerRow);
 		// tbody.appendChild(dataRow);
+		
+		// Form Submit elements:
+		Element name = new Element("input");
+		name.attr("type", "hidden");
+		name.attr("id", "tableName");
+		name.attr("value", tableName);
+        
 		Element addMore = new Element("input");
 		addMore.attr("type", "button");
 		addMore.attr("id", "addRow");
@@ -59,6 +66,7 @@ public class LibHtml {
 		Element form = new Element("form").attr("id", "guimap").attr("method", "post").attr("action", "/test");
 		form.appendChild(table);
 		form.appendChild(addMore);
+		form.appendChild(name);
 		form.appendChild(submit);
 		html.body().before(scriptElement);
 		html.body().appendChild(form);

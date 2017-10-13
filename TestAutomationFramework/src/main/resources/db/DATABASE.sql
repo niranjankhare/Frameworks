@@ -54,5 +54,13 @@ INSERT INTO PROPERTIES  VALUES (new.idemployee.40);
 delimiter ;
 */
 
+INSERT INTO SAMPLE
+SET
+`PAGENAME`= "Login",
+`PARENTID`= null,
+`PAGEDESCRIPTION`= "Heimdall Login";
+
+
+SELECT * FROM PAGES;
 
 

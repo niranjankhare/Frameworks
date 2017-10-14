@@ -11,12 +11,12 @@ jar {
 }
 ext {
 	typesafeConfigVersion = '1.3.1'
-	slf4jsimpleVersion = '1.7.22'
+	log4jCoreVersion = '2.6.1'
+	log4jApiVersion = '2.6.1'
 	testngVersion = '6.9.12'
 	seleniumJavaVersion = '3.0.0'
 	jooqVersion = '3.10.0'
 	codeModelVersion = '2.3.0'
-	h2databaseVersion = '1.4.196'
 	jsoupVersion = '1.10.3'
 	javaxServletApiVersion = '3.1.0'
 	eclipseJettyAggregateVersion = '9.3.6.v20151106'
@@ -28,7 +28,8 @@ repositories {
 
 dependencies {
    compile group: 'com.typesafe', name: 'config', version: "$typesafeConfigVersion"
-   compile group: 'org.slf4j', name: 'slf4j-simple', version: "$slf4jsimpleVersion"
+   compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: "$log4jCoreVersion"
+   compile group: 'org.apache.logging.log4j', name: 'log4j-api', version:  "$log4jApiVersion"
    // https://mvnrepository.com/artifact/org.glassfish.jaxb/codemodel
    compile group: 'org.glassfish.jaxb', name: 'codemodel', version: "$codeModelVersion"
    // https://mvnrepository.com/artifact/org.jooq/jooq
@@ -41,8 +42,6 @@ dependencies {
    compile group: 'org.jsoup', name: 'jsoup', version: "$jsoupVersion"
    compile group: 'javax.servlet', name: 'javax.servlet-api', version: "$javaxServletApiVersion"
    compile group: 'org.eclipse.jetty.aggregate', name: 'jetty-all', version: "$eclipseJettyAggregateVersion"
-   compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.6.1'
-   compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.6.1' 
 }
 
 test {

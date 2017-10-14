@@ -50,6 +50,7 @@ public class LibHtml {
 		Element name = new Element("input");
 		name.attr("type", "hidden");
 		name.attr("id", "tableName");
+		name.attr("name", "tableName");
 		name.attr("value", tableName);
         
 		Element addMore = new Element("input");

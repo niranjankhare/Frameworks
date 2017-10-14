@@ -5,89 +5,88 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-
+import java.util.Map;
+import java.util.Map.Entry;
 import java.lang.reflect.Field;
 import java.sql.*;
 
 import org.jooq.DSLContext;
+import org.jooq.InsertSetStep;
+import org.jooq.Query;
 import org.jooq.Record;
 import org.jooq.Result;
 import org.jooq.SQLDialect;
-//import org.jooq.Table;
-//import org.jooq.TableField;
 import org.jooq.TableLike;
-//import org.jooq.TableRecord;
 import org.jooq.impl.DSL;
 
 //import static db.jooq.generated.automationDb.Tables.*;
 //import static org.jooq.impl.DSL.*;
 
 public class LibDatabase {
-	private static String userName = "manfriday";
-	private static String password = "umsqa";
-	private static String url = "jdbc:mysql://192.168.3.141:3306/automation";
+    private static String userName = "manfriday";
+    private static String password = "umsqa";
+    private static String url      = "jdbc:mysql://localhost:3306/automation";
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		LinkedHashMap<String, String[]> parammap = new LinkedHashMap<String, String[]>();
-		parammap.put("PARENTID1", new String[] { "id1" });
-		parammap.put("PAGENAME1", new String[] { "name1" });
-		parammap.put("PAGEDESCRIPTION1", new String[] { "desc1" });
+        LinkedHashMap<String, LinkedHashMap<String, String>> parammap = new LinkedHashMap<String, LinkedHashMap<String, String>>();
+        updateTable("Sample", parammap);
+    }
 
-		parammap.put("PARENTID2", new String[] { "id2" });
-		parammap.put("PAGENAME2", new String[] { "name2" });
-		parammap.put("PAGEDESCRIPTION2", new String[] { "desc2" });
+    public static List<String> getTableData(String tableName) {
 
-		updateTable("Sample", parammap);
-	}
+        // Connection is the only JDBC resource that we need
+        // PreparedStatement and ResultSet are handled by jOOQ, internally
+        Result<Record> result = null;
+        try (Connection conn = DriverManager.getConnection(url, userName, password)) {
+            DSLContext create = DSL.using(conn, SQLDialect.MYSQL);
+            result = create.select().from(tableName).fetch();
+            System.out.println("done");
 
-	public static List<String> getTableData(String tableName) {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		// Connection is the only JDBC resource that we need
-		// PreparedStatement and ResultSet are handled by jOOQ, internally
-		Result<Record> result = null;
-		try (Connection conn = DriverManager.getConnection(url, userName, password)) {
-			DSLContext create = DSL.using(conn, SQLDialect.MYSQL);
-			result = create.select().from(tableName).fetch();
-			System.out.println("done");
+        org.jooq.Field<?>[] fieldList = result.fields();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        List<String> returnList = new ArrayList<String>();
+        for (org.jooq.Field<?> tf : fieldList) {
+            returnList.add(tf.getName());
+        }
 
-		org.jooq.Field<?>[] fieldList = result.fields();
+        return returnList;
+    }
 
-		List<String> returnList = new ArrayList<String>();
-		for (org.jooq.Field<?> tf : fieldList) {
-			returnList.add(tf.getName());
-		}
+    public static void updateTable(String tableName,
+            LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap) {
+        try (Connection conn = DriverManager.getConnection(url, userName, password)) {
+            DSLContext create = DSL.using(conn, SQLDialect.MYSQL);
+            // https://www.jooq.org/doc/3.8/manual/sql-building/sql-statements/insert-statement/insert-on-duplicate-key/
 
-		return returnList;
-	}
+            TableLike<?> table = null;
 
-	public static void updateTable(String tableName, LinkedHashMap<String, String[]> parammap) {
-		Result<Record> result = null;
-		try (Connection conn = DriverManager.getConnection(url, userName, password)) {
-			DSLContext create = DSL.using(conn, SQLDialect.MYSQL);
-			// https://www.jooq.org/doc/3.8/manual/sql-building/sql-statements/insert-statement/insert-on-duplicate-key/
+            Field f = db.jooq.generated.automationDb.Tables.class.getDeclaredField(tableName.toUpperCase());
+            if (TableLike.class.isAssignableFrom(f.getType())) {
+                table = TableLike.class.cast(f.get(null));
+            }
 
-			TableLike<?> table = null;
+            org.jooq.Field[] fields = table.fields();
 
-			Field f = db.jooq.generated.automationDb.Tables.class.getDeclaredField(tableName.toUpperCase());
-			if (TableLike.class.isAssignableFrom(f.getType())) {
-				table = TableLike.class.cast(f.get(null));
-			}
+            for (Entry<String, LinkedHashMap<String, String>> row : cleanParamMap.entrySet()) {
+                InsertSetStep<?> insertSetStep = create.insertInto(table.asTable());
+                for (org.jooq.Field column : fields) {
+                    insertSetStep.set(column, row.getValue().get(column.getName()));
+                }
+                int x = ((Query) insertSetStep).execute();
+                System.out.println("Key:" + x);
+            }
 
-			org.jooq.Field[] fields = table.fields();
+            System.out.println("done");
 
-			create.insertInto(table.asTable()).set(fields[0], "Pagenamenew1").set(fields[1], "parentid2")
-					.set(fields[2], "Pagedescnew").execute();
-			System.out.println("done");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
+    }
 
 }

@@ -3,6 +3,9 @@ package org.seleniumng.ui;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -48,11 +51,13 @@ public class ManagementServer extends HttpServlet {
 
 	protected void processBoth(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String sPath = req.getPathInfo().toLowerCase();
-        String tableName = getParameter(req, "name");
+		
+        String tableName = getParameter(req, "tableName");
         String responseStr = "";
 		switch (sPath) {
 		case "/test":
-//		    LibDatabase.updateTable (tableName,req.getParameterMap().remove("name"));
+		    LinkedHashMap<String, LinkedHashMap<String,String>> cleanParamMap = processRequestInput (req.getParameterMap());
+		    LibDatabase.updateTable (tableName,cleanParamMap);
 		    responseStr = req.getParameterMap().toString();
 		    
 			break;
@@ -66,7 +71,30 @@ public class ManagementServer extends HttpServlet {
 
 	}
 
-	protected void writeResponse(HttpServletResponse response, String respStr, Exception e) throws IOException {
+	private LinkedHashMap<String, LinkedHashMap<String, String>> processRequestInput(Map<String, String[]> parameterMap) {
+	    LinkedHashMap<String, LinkedHashMap<String, String>> toReturn = new LinkedHashMap<String, LinkedHashMap<String, String>>();
+	    for (Entry<String, String[]> e:parameterMap.entrySet()){
+	       String[] keys = e.getKey().split("\\.");
+	       String rowKey = keys[0];
+	       if (rowKey.equals("tableName"))continue;
+	       String columnKey = keys[1];
+	       if (toReturn.containsKey(rowKey)){
+	           LinkedHashMap<String, String> oldValue = toReturn.get(rowKey);
+	           oldValue.put(columnKey, e.getValue()[0]);
+	           toReturn.put(rowKey, oldValue);
+	       } else {
+	           LinkedHashMap<String,String> columnValues = new LinkedHashMap<String, String>();
+	           columnValues.put(columnKey, e.getValue()[0]);
+	           toReturn.put(rowKey, columnValues);
+	       }
+	      System.out.println(e.getKey()+":"+ e.getValue());  
+	    }
+	    
+        
+        return toReturn;
+    }
+
+    protected void writeResponse(HttpServletResponse response, String respStr, Exception e) throws IOException {
 		if (e != null) {
 			StringWriter writer = new StringWriter();
 			PrintWriter printWriter = new PrintWriter(writer);

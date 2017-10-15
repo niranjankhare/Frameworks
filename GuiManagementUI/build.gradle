@@ -20,6 +20,7 @@ ext {
 	jsoupVersion = '1.10.3'
 	javaxServletApiVersion = '3.1.0'
 	eclipseJettyAggregateVersion = '9.3.6.v20151106'
+	mysqlDriverVersion = '5.1.6'
 }
 repositories {
     mavenCentral()
@@ -42,6 +43,7 @@ dependencies {
    compile group: 'org.jsoup', name: 'jsoup', version: "$jsoupVersion"
    compile group: 'javax.servlet', name: 'javax.servlet-api', version: "$javaxServletApiVersion"
    compile group: 'org.eclipse.jetty.aggregate', name: 'jetty-all', version: "$eclipseJettyAggregateVersion"
+   compile group: 'mysql', name: 'mysql-connector-java', version: "$mysqlDriverVersion"
 }
 
 test {

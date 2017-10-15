@@ -10,22 +10,28 @@ import java.util.Map.Entry;
 import java.lang.reflect.Field;
 import java.sql.*;
 
+import org.jooq.Configuration;
 import org.jooq.DSLContext;
 import org.jooq.InsertSetStep;
 import org.jooq.Query;
 import org.jooq.Record;
 import org.jooq.Result;
 import org.jooq.SQLDialect;
+import org.jooq.Table;
 import org.jooq.TableLike;
 import org.jooq.impl.DSL;
 
-//import static db.jooq.generated.automationDb.Tables.*;
+import db.jooq.generated.automationDb.*;
 //import static org.jooq.impl.DSL.*;
 
 public class LibDatabase {
-    private static String userName = "manfriday";
-    private static String password = "umsqa";
-    private static String url      = "jdbc:mysql://localhost:3306/automation";
+    private static String       userName   = "manfriday";
+    private static String       password   = "umsqa";
+    private static String       url        = "jdbc:mysql://localhost:3306/automation";
+
+    private static DSLContext   dslContext = initDbConnection();
+
+    private static List<String> allTables  = getTableList();
 
     public static void main(String[] args) {
 
@@ -37,16 +43,17 @@ public class LibDatabase {
 
         // Connection is the only JDBC resource that we need
         // PreparedStatement and ResultSet are handled by jOOQ, internally
-        Result<Record> result = null;
-        try (Connection conn = DriverManager.getConnection(url, userName, password)) {
-            DSLContext create = DSL.using(conn, SQLDialect.MYSQL);
-            result = create.select().from(tableName).fetch();
-            System.out.println("done");
+        Table result = null;
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        List<Table<?>> tables = Automation.AUTOMATION.getTables();
+        
+        for (Table t:tables){
+            if (t.getName().toUpperCase().equals(tableName.toUpperCase())){
+                result = t;
+                break;
+            }
         }
-
+        
         org.jooq.Field<?>[] fieldList = result.fields();
 
         List<String> returnList = new ArrayList<String>();
@@ -88,5 +95,27 @@ public class LibDatabase {
         }
 
     }
+    private static List<String> getTableList() {
+        List<String> tables = new ArrayList<String>();
+        for (TableLike<?> t : Automation.AUTOMATION.getTables()) {
+            tables.add(((Table) t).getName());
+        }
+        return tables;
+    }
+
+    private static DSLContext initDbConnection() {
+        try (Connection conn = DriverManager.getConnection(url, userName, password)) {
+            DSLContext create = DSL.using(conn);
+            return create;
+        } catch (Exception e) {
+            System.out.println("Unable to connect to database, Exiting!!:");
+            e.printStackTrace();
+            System.exit(-1);
+            ;
+            return null;
+        }
+
+    }
+
 
 }

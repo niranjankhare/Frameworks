@@ -15,39 +15,42 @@ import org.jooq.DSLContext;
 import org.jooq.InsertSetStep;
 import org.jooq.Query;
 import org.jooq.Record;
+import org.jooq.Record2;
 import org.jooq.Result;
 import org.jooq.SQLDialect;
+import org.jooq.SelectJoinStep;
+import org.jooq.SelectSelectStep;
 import org.jooq.Table;
 import org.jooq.TableLike;
 import org.jooq.impl.DSL;
 
 import db.jooq.generated.automationDb.*;
 //import static org.jooq.impl.DSL.*;
+import static db.jooq.generated.automationDb.tables.Pages.PAGES;
 
 public class LibDatabase {
     private static String       userName   = "manfriday";
     private static String       password   = "umsqa";
     private static String       url        = "jdbc:mysql://localhost:3306/automation";
-
-    private static DSLContext   dslContext = initDbConnection();
+    private static Connection conn  = initDbConnection();
+    private static DSLContext   dslContext = DSL.using(conn);
 
     private static List<String> allTables  = getTableList();
 
     public static void main(String[] args) {
 
         LinkedHashMap<String, LinkedHashMap<String, String>> parammap = new LinkedHashMap<String, LinkedHashMap<String, String>>();
-        updateTable("Sample", parammap);
+        getAvailablePages();
     }
 
-    public static List<String> getTableData(String tableName) {
+    public static List<String> getTableFields(String tableName) {
 
         // Connection is the only JDBC resource that we need
         // PreparedStatement and ResultSet are handled by jOOQ, internally
-        Table result = null;
-
+        Table<?> result = null;
         List<Table<?>> tables = Automation.AUTOMATION.getTables();
         
-        for (Table t:tables){
+        for (Table<?> t:tables){
             if (t.getName().toUpperCase().equals(tableName.toUpperCase())){
                 result = t;
                 break;
@@ -103,10 +106,10 @@ public class LibDatabase {
         return tables;
     }
 
-    private static DSLContext initDbConnection() {
-        try (Connection conn = DriverManager.getConnection(url, userName, password)) {
-            DSLContext create = DSL.using(conn);
-            return create;
+    private static Connection initDbConnection() {
+        try  {
+            conn = DriverManager.getConnection(url, userName, password);
+            return conn;
         } catch (Exception e) {
             System.out.println("Unable to connect to database, Exiting!!:");
             e.printStackTrace();
@@ -115,6 +118,18 @@ public class LibDatabase {
             return null;
         }
 
+    }
+
+    public static LinkedHashMap getAvailablePages() {
+        LinkedHashMap<String, String> list = new LinkedHashMap<String,String>();
+          SelectJoinStep<Record2<String, String>> x = dslContext.select(PAGES.PAGENAME,PAGES.PAGEDESCRIPTION ).from(PAGES);
+//        Result<Record2<String, String>> r = x.fetch();
+        for (Record rec: x.fetch()){
+            
+            list.put(rec.get(PAGES.PAGENAME),rec.get(PAGES.PAGEDESCRIPTION));
+        }
+         
+        return list;
     }
 
 

@@ -15,7 +15,6 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
-import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
@@ -40,10 +39,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Properties extends TableImpl<PropertiesRecord> {
 
-    private static final long serialVersionUID = 1200749677;
+    private static final long serialVersionUID = 1828557671;
 
     /**
-     * The reference instance of <code>automation.PROPERTIES</code>
+     * The reference instance of <code>automation.properties</code>
      */
     public static final Properties PROPERTIES = new Properties();
 
@@ -56,66 +55,66 @@ public class Properties extends TableImpl<PropertiesRecord> {
     }
 
     /**
-     * The column <code>automation.PROPERTIES.PROPERTYID</code>.
+     * The column <code>automation.properties.PROPERTYID</code>.
      */
     public final TableField<PropertiesRecord, Integer> PROPERTYID = createField("PROPERTYID", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>automation.PROPERTIES.GUIMAPID</code>.
+     * The column <code>automation.properties.GUIMAPID</code>.
      */
     public final TableField<PropertiesRecord, Integer> GUIMAPID = createField("GUIMAPID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>automation.PROPERTIES.STANDARDCLASS</code>.
+     * The column <code>automation.properties.STANDARDCLASS</code>.
      */
     public final TableField<PropertiesRecord, String> STANDARDCLASS = createField("STANDARDCLASS", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>automation.PROPERTIES.MAPPEDCLASS</code>.
+     * The column <code>automation.properties.MAPPEDCLASS</code>.
      */
     public final TableField<PropertiesRecord, String> MAPPEDCLASS = createField("MAPPEDCLASS", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>automation.PROPERTIES.LOCATORSTRATEGY</code>.
+     * The column <code>automation.properties.LOCATORSTRATEGY</code>.
      */
     public final TableField<PropertiesRecord, Integer> LOCATORSTRATEGY = createField("LOCATORSTRATEGY", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>automation.PROPERTIES.TAGNAME</code>.
+     * The column <code>automation.properties.TAGNAME</code>.
      */
     public final TableField<PropertiesRecord, String> TAGNAME = createField("TAGNAME", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>automation.PROPERTIES.ATTRNAME</code>.
+     * The column <code>automation.properties.ATTRNAME</code>.
      */
     public final TableField<PropertiesRecord, String> ATTRNAME = createField("ATTRNAME", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>automation.PROPERTIES.ATRRVALUE</code>.
+     * The column <code>automation.properties.ATRRVALUE</code>.
      */
     public final TableField<PropertiesRecord, String> ATRRVALUE = createField("ATRRVALUE", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>automation.PROPERTIES.CUSTOMVALUE</code>.
+     * The column <code>automation.properties.CUSTOMVALUE</code>.
      */
     public final TableField<PropertiesRecord, String> CUSTOMVALUE = createField("CUSTOMVALUE", org.jooq.impl.SQLDataType.VARCHAR(150), this, "");
 
     /**
-     * Create a <code>automation.PROPERTIES</code> table reference
+     * Create a <code>automation.properties</code> table reference
      */
     public Properties() {
-        this(DSL.name("PROPERTIES"), null);
+        this(DSL.name("properties"), null);
     }
 
     /**
-     * Create an aliased <code>automation.PROPERTIES</code> table reference
+     * Create an aliased <code>automation.properties</code> table reference
      */
     public Properties(String alias) {
         this(DSL.name(alias), PROPERTIES);
     }
 
     /**
-     * Create an aliased <code>automation.PROPERTIES</code> table reference
+     * Create an aliased <code>automation.properties</code> table reference
      */
     public Properties(Name alias) {
         this(alias, PROPERTIES);
@@ -167,14 +166,6 @@ public class Properties extends TableImpl<PropertiesRecord> {
     @Override
     public List<UniqueKey<PropertiesRecord>> getKeys() {
         return Arrays.<UniqueKey<PropertiesRecord>>asList(Keys.KEY_PROPERTIES_PRIMARY);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<ForeignKey<PropertiesRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<PropertiesRecord, ?>>asList(Keys.FK_GUIMAP);
     }
 
     /**

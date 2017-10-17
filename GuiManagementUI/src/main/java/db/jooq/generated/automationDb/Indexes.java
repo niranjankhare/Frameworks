@@ -43,9 +43,9 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     private static class Indexes0 extends AbstractKeys {
-        public static Index GUIMAP_FK_PAGE = createIndex("fk_page", Guimap.GUIMAP, new OrderField[] { Guimap.GUIMAP.PAGEID }, false);
+        public static Index GUIMAP_FK_PAGE = createIndex("fk_page", Guimap.GUIMAP, new OrderField[] { Guimap.GUIMAP.PAGENAME }, false);
         public static Index GUIMAP_PRIMARY = createIndex("PRIMARY", Guimap.GUIMAP, new OrderField[] { Guimap.GUIMAP.GUIMAPID }, true);
-        public static Index PAGES_PRIMARY = createIndex("PRIMARY", Pages.PAGES, new OrderField[] { Pages.PAGES.PAGEID }, true);
+        public static Index PAGES_PRIMARY = createIndex("PRIMARY", Pages.PAGES, new OrderField[] { Pages.PAGES.PAGENAME }, true);
         public static Index PROPERTIES_FK_GUIMAP = createIndex("fk_guimap", Properties.PROPERTIES, new OrderField[] { Properties.PROPERTIES.GUIMAPID }, false);
         public static Index PROPERTIES_PRIMARY = createIndex("PRIMARY", Properties.PROPERTIES, new OrderField[] { Properties.PROPERTIES.PROPERTYID }, true);
     }

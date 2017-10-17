@@ -4,10 +4,10 @@
 package db.jooq.generated.automationDb;
 
 
+import db.jooq.generated.automationDb.tables.Entryform;
 import db.jooq.generated.automationDb.tables.Guimap;
 import db.jooq.generated.automationDb.tables.Pages;
 import db.jooq.generated.automationDb.tables.Properties;
-import db.jooq.generated.automationDb.tables.Sample;
 
 import javax.annotation.Generated;
 
@@ -26,22 +26,22 @@ import javax.annotation.Generated;
 public class Tables {
 
     /**
-     * The table <code>automation.GUIMAP</code>.
+     * VIEW
+     */
+    public static final Entryform ENTRYFORM = db.jooq.generated.automationDb.tables.Entryform.ENTRYFORM;
+
+    /**
+     * The table <code>automation.guimap</code>.
      */
     public static final Guimap GUIMAP = db.jooq.generated.automationDb.tables.Guimap.GUIMAP;
 
     /**
-     * The table <code>automation.PAGES</code>.
+     * The table <code>automation.pages</code>.
      */
     public static final Pages PAGES = db.jooq.generated.automationDb.tables.Pages.PAGES;
 
     /**
-     * The table <code>automation.PROPERTIES</code>.
+     * The table <code>automation.properties</code>.
      */
     public static final Properties PROPERTIES = db.jooq.generated.automationDb.tables.Properties.PROPERTIES;
-
-    /**
-     * VIEW
-     */
-    public static final Sample SAMPLE = db.jooq.generated.automationDb.tables.Sample.SAMPLE;
 }

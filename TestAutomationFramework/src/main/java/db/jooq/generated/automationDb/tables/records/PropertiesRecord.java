@@ -28,129 +28,129 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PropertiesRecord extends UpdatableRecordImpl<PropertiesRecord> implements Record9<Integer, Integer, String, String, Integer, String, String, String, String> {
 
-    private static final long serialVersionUID = 2006127117;
+    private static final long serialVersionUID = -1205433843;
 
     /**
-     * Setter for <code>automation.PROPERTIES.PROPERTYID</code>.
+     * Setter for <code>automation.properties.PROPERTYID</code>.
      */
     public void setPropertyid(Integer value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>automation.PROPERTIES.PROPERTYID</code>.
+     * Getter for <code>automation.properties.PROPERTYID</code>.
      */
     public Integer getPropertyid() {
         return (Integer) get(0);
     }
 
     /**
-     * Setter for <code>automation.PROPERTIES.GUIMAPID</code>.
+     * Setter for <code>automation.properties.GUIMAPID</code>.
      */
     public void setGuimapid(Integer value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>automation.PROPERTIES.GUIMAPID</code>.
+     * Getter for <code>automation.properties.GUIMAPID</code>.
      */
     public Integer getGuimapid() {
         return (Integer) get(1);
     }
 
     /**
-     * Setter for <code>automation.PROPERTIES.STANDARDCLASS</code>.
+     * Setter for <code>automation.properties.STANDARDCLASS</code>.
      */
     public void setStandardclass(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>automation.PROPERTIES.STANDARDCLASS</code>.
+     * Getter for <code>automation.properties.STANDARDCLASS</code>.
      */
     public String getStandardclass() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>automation.PROPERTIES.MAPPEDCLASS</code>.
+     * Setter for <code>automation.properties.MAPPEDCLASS</code>.
      */
     public void setMappedclass(String value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>automation.PROPERTIES.MAPPEDCLASS</code>.
+     * Getter for <code>automation.properties.MAPPEDCLASS</code>.
      */
     public String getMappedclass() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>automation.PROPERTIES.LOCATORSTRATEGY</code>.
+     * Setter for <code>automation.properties.LOCATORSTRATEGY</code>.
      */
     public void setLocatorstrategy(Integer value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>automation.PROPERTIES.LOCATORSTRATEGY</code>.
+     * Getter for <code>automation.properties.LOCATORSTRATEGY</code>.
      */
     public Integer getLocatorstrategy() {
         return (Integer) get(4);
     }
 
     /**
-     * Setter for <code>automation.PROPERTIES.TAGNAME</code>.
+     * Setter for <code>automation.properties.TAGNAME</code>.
      */
     public void setTagname(String value) {
         set(5, value);
     }
 
     /**
-     * Getter for <code>automation.PROPERTIES.TAGNAME</code>.
+     * Getter for <code>automation.properties.TAGNAME</code>.
      */
     public String getTagname() {
         return (String) get(5);
     }
 
     /**
-     * Setter for <code>automation.PROPERTIES.ATTRNAME</code>.
+     * Setter for <code>automation.properties.ATTRNAME</code>.
      */
     public void setAttrname(String value) {
         set(6, value);
     }
 
     /**
-     * Getter for <code>automation.PROPERTIES.ATTRNAME</code>.
+     * Getter for <code>automation.properties.ATTRNAME</code>.
      */
     public String getAttrname() {
         return (String) get(6);
     }
 
     /**
-     * Setter for <code>automation.PROPERTIES.ATRRVALUE</code>.
+     * Setter for <code>automation.properties.ATRRVALUE</code>.
      */
     public void setAtrrvalue(String value) {
         set(7, value);
     }
 
     /**
-     * Getter for <code>automation.PROPERTIES.ATRRVALUE</code>.
+     * Getter for <code>automation.properties.ATRRVALUE</code>.
      */
     public String getAtrrvalue() {
         return (String) get(7);
     }
 
     /**
-     * Setter for <code>automation.PROPERTIES.CUSTOMVALUE</code>.
+     * Setter for <code>automation.properties.CUSTOMVALUE</code>.
      */
     public void setCustomvalue(String value) {
         set(8, value);
     }
 
     /**
-     * Getter for <code>automation.PROPERTIES.CUSTOMVALUE</code>.
+     * Getter for <code>automation.properties.CUSTOMVALUE</code>.
      */
     public String getCustomvalue() {
         return (String) get(8);

@@ -15,7 +15,6 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
-import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
@@ -40,10 +39,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Guimap extends TableImpl<GuimapRecord> {
 
-    private static final long serialVersionUID = 243810658;
+    private static final long serialVersionUID = 1474051270;
 
     /**
-     * The reference instance of <code>automation.GUIMAP</code>
+     * The reference instance of <code>automation.guimap</code>
      */
     public static final Guimap GUIMAP = new Guimap();
 
@@ -56,51 +55,51 @@ public class Guimap extends TableImpl<GuimapRecord> {
     }
 
     /**
-     * The column <code>automation.GUIMAP.GUIMAPID</code>.
+     * The column <code>automation.guimap.GUIMAPID</code>.
      */
     public final TableField<GuimapRecord, Integer> GUIMAPID = createField("GUIMAPID", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>automation.GUIMAP.PAGEID</code>.
+     * The column <code>automation.guimap.PAGENAME</code>.
      */
-    public final TableField<GuimapRecord, Integer> PAGEID = createField("PAGEID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<GuimapRecord, String> PAGENAME = createField("PAGENAME", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
 
     /**
-     * The column <code>automation.GUIMAP.ELEMENTTYPE</code>.
+     * The column <code>automation.guimap.ELEMENTTYPE</code>.
      */
     public final TableField<GuimapRecord, String> ELEMENTTYPE = createField("ELEMENTTYPE", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>automation.GUIMAP.CONTROLNAME</code>.
+     * The column <code>automation.guimap.CONTROLNAME</code>.
      */
     public final TableField<GuimapRecord, String> CONTROLNAME = createField("CONTROLNAME", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>automation.GUIMAP.CONTROLDESCRIPTION</code>.
+     * The column <code>automation.guimap.CONTROLDESCRIPTION</code>.
      */
     public final TableField<GuimapRecord, String> CONTROLDESCRIPTION = createField("CONTROLDESCRIPTION", org.jooq.impl.SQLDataType.VARCHAR(150), this, "");
 
     /**
-     * The column <code>automation.GUIMAP.FIELDNAME</code>.
+     * The column <code>automation.guimap.FIELDNAME</code>.
      */
     public final TableField<GuimapRecord, String> FIELDNAME = createField("FIELDNAME", org.jooq.impl.SQLDataType.VARCHAR(150), this, "");
 
     /**
-     * Create a <code>automation.GUIMAP</code> table reference
+     * Create a <code>automation.guimap</code> table reference
      */
     public Guimap() {
-        this(DSL.name("GUIMAP"), null);
+        this(DSL.name("guimap"), null);
     }
 
     /**
-     * Create an aliased <code>automation.GUIMAP</code> table reference
+     * Create an aliased <code>automation.guimap</code> table reference
      */
     public Guimap(String alias) {
         this(DSL.name(alias), GUIMAP);
     }
 
     /**
-     * Create an aliased <code>automation.GUIMAP</code> table reference
+     * Create an aliased <code>automation.guimap</code> table reference
      */
     public Guimap(Name alias) {
         this(alias, GUIMAP);
@@ -152,14 +151,6 @@ public class Guimap extends TableImpl<GuimapRecord> {
     @Override
     public List<UniqueKey<GuimapRecord>> getKeys() {
         return Arrays.<UniqueKey<GuimapRecord>>asList(Keys.KEY_GUIMAP_PRIMARY);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<ForeignKey<GuimapRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<GuimapRecord, ?>>asList(Keys.FK_PAGE);
     }
 
     /**

@@ -4,10 +4,10 @@
 package db.jooq.generated.automationDb;
 
 
+import db.jooq.generated.automationDb.tables.Entryform;
 import db.jooq.generated.automationDb.tables.Guimap;
 import db.jooq.generated.automationDb.tables.Pages;
 import db.jooq.generated.automationDb.tables.Properties;
-import db.jooq.generated.automationDb.tables.Sample;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +33,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Automation extends SchemaImpl {
 
-    private static final long serialVersionUID = 1937678021;
+    private static final long serialVersionUID = 1259949857;
 
     /**
      * The reference instance of <code>automation</code>
@@ -41,24 +41,24 @@ public class Automation extends SchemaImpl {
     public static final Automation AUTOMATION = new Automation();
 
     /**
-     * The table <code>automation.GUIMAP</code>.
+     * VIEW
+     */
+    public final Entryform ENTRYFORM = db.jooq.generated.automationDb.tables.Entryform.ENTRYFORM;
+
+    /**
+     * The table <code>automation.guimap</code>.
      */
     public final Guimap GUIMAP = db.jooq.generated.automationDb.tables.Guimap.GUIMAP;
 
     /**
-     * The table <code>automation.PAGES</code>.
+     * The table <code>automation.pages</code>.
      */
     public final Pages PAGES = db.jooq.generated.automationDb.tables.Pages.PAGES;
 
     /**
-     * The table <code>automation.PROPERTIES</code>.
+     * The table <code>automation.properties</code>.
      */
     public final Properties PROPERTIES = db.jooq.generated.automationDb.tables.Properties.PROPERTIES;
-
-    /**
-     * VIEW
-     */
-    public final Sample SAMPLE = db.jooq.generated.automationDb.tables.Sample.SAMPLE;
 
     /**
      * No further instances allowed
@@ -85,9 +85,9 @@ public class Automation extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
+            Entryform.ENTRYFORM,
             Guimap.GUIMAP,
             Pages.PAGES,
-            Properties.PROPERTIES,
-            Sample.SAMPLE);
+            Properties.PROPERTIES);
     }
 }

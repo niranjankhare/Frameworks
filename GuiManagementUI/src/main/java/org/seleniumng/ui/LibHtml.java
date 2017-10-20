@@ -22,11 +22,11 @@ public class LibHtml {
     }
 
     // REQUIRED
-    public static String getTableEntryForm(String tableName) {
+    public static String getTableEntryForm(String tableName, String whereColumn, String hasValue) {
         // TODO: Get list of columns for the view/table
         tableName.replaceAll(tableName, tableName.toLowerCase());
         List<String> fieldsList = LibDatabase.getTableFields(tableName);
-
+        if (whereColumn != null)fieldsList.remove(whereColumn);
         String scriptBlock = addRowScriptTemplate.replaceAll("__TABLENAME__", tableName).replaceAll("__ROWHTML__",
                 getFormattedRow(fieldsList));
 
@@ -49,12 +49,18 @@ public class LibHtml {
         // tbody.appendChild(dataRow);
 
         // Form Submit elements:
-        Element name = new Element("input");
-        name.attr("type", "hidden");
-        name.attr("id", "tableName");
-        name.attr("name", "tableName");
-        name.attr("value", tableName);
+        Element elTableName = new Element("input");
+        elTableName.attr("type", "hidden");
+        elTableName.attr("id", "tableName");
+        elTableName.attr("name", "tableName");
+        elTableName.attr("value", tableName);
 
+        Element elPageName = new Element("input");
+        elPageName.attr("type", "hidden");
+        elPageName.attr("id", "pageName");
+        elPageName.attr("name", "pageName");
+        elPageName.attr("value", hasValue);
+        
         Element addMore = new Element("input");
         addMore.attr("type", "button");
         addMore.attr("id", "addRow");
@@ -66,10 +72,12 @@ public class LibHtml {
         submit.attr("id", "submit");
         submit.attr("value", "Go!");
 
-        Element form = new Element("form").attr("id", "guimap").attr("method", "post").attr("action", "/test");
+        Element form = new Element("form").attr("id", "guimap").attr("method", "post").attr("action", "/updateTable");
         form.appendChild(table);
         form.appendChild(addMore);
-        form.appendChild(name);
+        form.appendChild(elTableName);
+        if (whereColumn!=null)
+            form.appendChild(elPageName);
         form.appendChild(submit);
         html.body().before(scriptElement);
         html.body().appendChild(form);
@@ -79,59 +87,62 @@ public class LibHtml {
     }
 
     public static String getPageEntryForm(String pageName) {
-        // TODO: Get list of columns for the view/table
-        pageName.replaceAll(pageName, pageName.toLowerCase());
-        List<String> fieldsList = LibDatabase.getTableFields(pageName);
-        fieldsList.remove(pageName);// ????
-        String scriptBlock = addRowScriptTemplate.replaceAll("__TABLENAME__", pageName).replaceAll("__ROWHTML__",
-                getFormattedRow(fieldsList));
-
-        Document html = Jsoup.parse("<html></html>");
-
-        Element scriptElement = new Element("script").text(scriptBlock);
-
-        Element table = new Element("table").attr("id", pageName);
-        Element headerRow = new Element("tr");
-
-        // Add columns to the displayed table as header row
-        for (String field : fieldsList) {
-            headerRow.appendElement("th").text(field);
-        }
-
-        Element tbody = new Element("tbody");
-
-        table.appendChild(tbody);
-        tbody.appendChild(headerRow);
-        // tbody.appendChild(dataRow);
-
-        // Form Submit elements:
-        Element name = new Element("input");
-        name.attr("type", "hidden");
-        name.attr("id", "tableName");
-        name.attr("name", "tableName");
-        name.attr("value", pageName);
-
-        Element addMore = new Element("input");
-        addMore.attr("type", "button");
-        addMore.attr("id", "addRow");
-        addMore.attr("onclick", "add_fields();");
-        addMore.attr("value", "Add row");
-
-        Element submit = new Element("input");
-        submit.attr("type", "submit");
-        submit.attr("id", "submit");
-        submit.attr("value", "Go!");
-
-        Element form = new Element("form").attr("id", "guimap").attr("method", "post").attr("action", "/test");
-        form.appendChild(table);
-        form.appendChild(addMore);
-        form.appendChild(name);
-        form.appendChild(submit);
-        html.body().before(scriptElement);
-        html.body().appendChild(form);
-        html.body().attr("onload", "add_fields()");
-
-        return Parser.unescapeEntities(html.toString(), false);
+        return getTableEntryForm ("entryform","PAGENAME",pageName);
+//        // TODO: Get list of columns for the view/table
+//        
+//        //pageName.replaceAll(pageName, pageName.toLowerCase());
+//        List<String> fieldsList = LibDatabase.getTableFields("entryform");
+//        fieldsList.remove("PAGENAME");
+//        String scriptBlock = addRowScriptTemplate.replaceAll("__TABLENAME__", "entryform").replaceAll("__ROWHTML__",
+//                getFormattedRow(fieldsList));
+//
+//        Document html = Jsoup.parse("<html></html>");
+//        // hidden input for reflecting pageNmae for update tables:
+//        
+//        Element scriptElement = new Element("script").text(scriptBlock);
+//
+//        Element table = new Element("table").attr("id", "entryform");
+//        Element headerRow = new Element("tr");
+//
+//        // Add columns to the displayed table as header row
+//        for (String field : fieldsList) {
+//            headerRow.appendElement("th").text(field);
+//        }
+//
+//        Element tbody = new Element("tbody");
+//
+//        table.appendChild(tbody);
+//        tbody.appendChild(headerRow);
+//        // tbody.appendChild(dataRow);
+//
+//        // Form Submit elements:
+//        Element name = new Element("input");
+//        name.attr("type", "hidden");
+//        name.attr("id", "pageName");
+//        name.attr("name", "pageName");
+//        name.attr("value", pageName);
+//
+//        Element addMore = new Element("input");
+//        addMore.attr("type", "button");
+//        addMore.attr("id", "addRow");
+//        addMore.attr("onclick", "add_fields();");
+//        addMore.attr("value", "Add row");
+//
+//        Element submit = new Element("input");
+//        submit.attr("type", "submit");
+//        submit.attr("id", "submit");
+//        submit.attr("value", "Go!");
+//
+//        Element form = new Element("form").attr("id", "guimap").attr("method", "post").attr("action", "/updateTable");
+//        form.appendChild(table);
+//        form.appendChild(addMore);
+//        form.appendChild(name);
+//        form.appendChild(submit);
+//        html.body().before(scriptElement);
+//        html.body().appendChild(form);
+//        html.body().attr("onload", "add_fields()");
+//
+//        return Parser.unescapeEntities(html.toString(), false);
     }
 
     private static void WriteFile(String fileName, String content) {
@@ -187,10 +198,10 @@ public class LibHtml {
         Document html = Jsoup.parse("<html></html>");
         html.body().appendElement("h2").text("Welcome to automation GUI map maintenance portal!");
 
-        Element selectPage = new Element("select");
+        Element selectPage = new Element("select").attr("name","pageName");
         selectPage = addAvailablePages(selectPage);
         
-        Element form = new Element("form").attr("id", "guimap").attr("method", "post").attr("action", "/");
+        Element form = new Element("form").attr("id", "guimap").attr("method", "post").attr("action", "/fetchPage");
         form.appendChild(selectPage);
         form.appendChild(new Element ("input").attr("type", "submit").attr("value", "Fetch Entry Form"));
         html.body().appendChild(form);

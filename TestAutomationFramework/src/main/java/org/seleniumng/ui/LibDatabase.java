@@ -10,43 +10,53 @@ import java.util.Map.Entry;
 import java.lang.reflect.Field;
 import java.sql.*;
 
+import org.jooq.Configuration;
 import org.jooq.DSLContext;
 import org.jooq.InsertSetStep;
 import org.jooq.Query;
 import org.jooq.Record;
+import org.jooq.Record2;
 import org.jooq.Result;
 import org.jooq.SQLDialect;
+import org.jooq.SelectJoinStep;
+import org.jooq.SelectSelectStep;
+import org.jooq.Table;
 import org.jooq.TableLike;
 import org.jooq.impl.DSL;
 
-//import static db.jooq.generated.automationDb.Tables.*;
+import db.jooq.generated.automationDb.*;
 //import static org.jooq.impl.DSL.*;
+import static db.jooq.generated.automationDb.tables.Pages.PAGES;
 
 public class LibDatabase {
-    private static String userName = "manfriday";
-    private static String password = "umsqa";
-    private static String url      = "jdbc:mysql://localhost:3306/automation";
+    private static String       userName   = "manfriday";
+    private static String       password   = "umsqa";
+    private static String       url        = "jdbc:mysql://localhost:3306/automation";
+    private static Connection conn  = initDbConnection();
+    private static DSLContext   dslContext = DSL.using(conn);
+
+    private static List<String> allTables  = getTableList();
 
     public static void main(String[] args) {
 
         LinkedHashMap<String, LinkedHashMap<String, String>> parammap = new LinkedHashMap<String, LinkedHashMap<String, String>>();
-        updateTable("Sample", parammap);
+        getAvailablePages();
     }
 
-    public static List<String> getTableData(String tableName) {
+    public static List<String> getTableFields(String tableName) {
 
         // Connection is the only JDBC resource that we need
         // PreparedStatement and ResultSet are handled by jOOQ, internally
-        Result<Record> result = null;
-        try (Connection conn = DriverManager.getConnection(url, userName, password)) {
-            DSLContext create = DSL.using(conn, SQLDialect.MYSQL);
-            result = create.select().from(tableName).fetch();
-            System.out.println("done");
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        Table<?> result = null;
+        List<Table<?>> tables = Automation.AUTOMATION.getTables();
+        
+        for (Table<?> t:tables){
+            if (t.getName().toUpperCase().equals(tableName.toUpperCase())){
+                result = t;
+                break;
+            }
         }
-
+        
         org.jooq.Field<?>[] fieldList = result.fields();
 
         List<String> returnList = new ArrayList<String>();
@@ -88,5 +98,39 @@ public class LibDatabase {
         }
 
     }
+    private static List<String> getTableList() {
+        List<String> tables = new ArrayList<String>();
+        for (TableLike<?> t : Automation.AUTOMATION.getTables()) {
+            tables.add(((Table) t).getName());
+        }
+        return tables;
+    }
+
+    private static Connection initDbConnection() {
+        try  {
+            conn = DriverManager.getConnection(url, userName, password);
+            return conn;
+        } catch (Exception e) {
+            System.out.println("Unable to connect to database, Exiting!!:");
+            e.printStackTrace();
+            System.exit(-1);
+            ;
+            return null;
+        }
+
+    }
+
+    public static LinkedHashMap getAvailablePages() {
+        LinkedHashMap<String, String> list = new LinkedHashMap<String,String>();
+          SelectJoinStep<Record2<String, String>> x = dslContext.select(PAGES.PAGENAME,PAGES.PAGEDESCRIPTION ).from(PAGES);
+//        Result<Record2<String, String>> r = x.fetch();
+        for (Record rec: x.fetch()){
+            
+            list.put(rec.get(PAGES.PAGENAME),rec.get(PAGES.PAGEDESCRIPTION));
+        }
+         
+        return list;
+    }
+
 
 }

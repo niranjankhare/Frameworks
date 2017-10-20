@@ -46,6 +46,8 @@ public class ManagementServer extends HttpServlet {
         String tableName = getParameter(req, "tableName");
         String responseStr = "";
         switch (sPath) {
+            case "/favicon.ico":
+                break;
             case "/test":
                 LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap = processRequestInput(
                         req.getParameterMap());
@@ -54,7 +56,7 @@ public class ManagementServer extends HttpServlet {
 
                 break;
             case "/freeform":
-                responseStr = LibHtml.getTableEntryForm("entryform");
+                responseStr = LibHtml.getTableEntryForm("entryform", null, null);
                 break;
             case "":
             case "/":
@@ -68,21 +70,23 @@ public class ManagementServer extends HttpServlet {
     protected void processPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String sPath = req.getPathInfo().toLowerCase();
 
-        String tableName = getParameter(req, "tableName");
+        String pageName = getParameter(req, "pageName");
         String responseStr = "";
-        switch (sPath) {
-            case "/test":
+        switch (sPath.toLowerCase()) {
+            case "/updatetable":
                 LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap = processRequestInput(
                         req.getParameterMap());
-                LibDatabase.updateTable(tableName, cleanParamMap);
+                LibDatabase.updateTable(pageName, cleanParamMap);
                 responseStr = req.getParameterMap().toString();
 
                 break;
-            case "":
+            case "/fetchpage":
+                responseStr = LibHtml.getPageEntryForm(pageName);
+                break;
             case "/":
+                break;
             default:
-                responseStr = LibHtml.getPageEntryForm("entryform");
-
+                responseStr = LibHtml.getPageEntryForm(pageName);
         }
         writeResponse(resp, responseStr, null);
     }
@@ -96,9 +100,9 @@ public class ManagementServer extends HttpServlet {
         LinkedHashMap<String, LinkedHashMap<String, String>> toReturn = new LinkedHashMap<String, LinkedHashMap<String, String>>();
         for (Entry<String, String[]> e : parameterMap.entrySet()) {
             String[] keys = e.getKey().split("\\.");
-            String rowKey = keys[0];
-            if (rowKey.equals("tableName"))
+            if (keys.length == 1)
                 continue;
+            String rowKey = keys[0];
             String columnKey = keys[1];
             if (toReturn.containsKey(rowKey)) {
                 LinkedHashMap<String, String> oldValue = toReturn.get(rowKey);

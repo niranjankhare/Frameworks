@@ -22,11 +22,13 @@ import org.jooq.SelectJoinStep;
 import org.jooq.SelectSelectStep;
 import org.jooq.Table;
 import org.jooq.TableLike;
+import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 
 import db.jooq.generated.automationDb.*;
+import static db.jooq.generated.automationDb.tables.Guimap.*;
+import static db.jooq.generated.automationDb.tables.Pages.*;
 //import static org.jooq.impl.DSL.*;
-import static db.jooq.generated.automationDb.tables.Pages.PAGES;
 
 public class LibDatabase {
     private static String       userName   = "manfriday";
@@ -67,26 +69,36 @@ public class LibDatabase {
         return returnList;
     }
 
-    public static void updateTable(String tableName,
+    public static void updateTable(String pageName,
             LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap) {
-        try (Connection conn = DriverManager.getConnection(url, userName, password)) {
+        try  {
             DSLContext create = DSL.using(conn, SQLDialect.MYSQL);
             // https://www.jooq.org/doc/3.8/manual/sql-building/sql-statements/insert-statement/insert-on-duplicate-key/
 
-            TableLike<?> table = null;
-
-            Field f = db.jooq.generated.automationDb.Tables.class.getDeclaredField(tableName.toUpperCase());
-            if (TableLike.class.isAssignableFrom(f.getType())) {
-                table = TableLike.class.cast(f.get(null));
-            }
-
+            Table<?> table = null;
+//
+//            Field f = db.jooq.generated.automationDb.Tables.class.getDeclaredField(tableName.toUpperCase());
+//            if (TableLike.class.isAssignableFrom(f.getType())) {
+//                table = TableLike.class.cast(f.get(null));
+//            }
+               
+            table =GUIMAP;
+            UniqueKey<?> pk = table.getPrimaryKey();
+//            System.out.println(pk.g)
             org.jooq.Field[] fields = table.fields();
-
+            InsertSetStep<?> insertSetStep = create.insertInto(table.asTable());
+            insertSetStep.set(GUIMAP.PAGENAME, pageName);
+            
             for (Entry<String, LinkedHashMap<String, String>> row : cleanParamMap.entrySet()) {
-                InsertSetStep<?> insertSetStep = create.insertInto(table.asTable());
-                for (org.jooq.Field column : fields) {
-                    insertSetStep.set(column, row.getValue().get(column.getName()));
-                }
+//                InsertSetStep<?> insertSetStep = create.insertInto(table.asTable());
+                String elementType = row.getValue().get("ELEMENTYPE");
+                String controlName = row.getValue().get("CONTROLNAME");
+                String controlDescription = row.getValue().get("CONTROLDESCRIPTION");
+                insertSetStep.set (GUIMAP.ELEMENTTYPE , elementType);
+                insertSetStep.set(GUIMAP.CONTROLNAME, controlName);
+                insertSetStep.set(GUIMAP.CONTROLDESCRIPTION, controlDescription);
+                insertSetStep.set(GUIMAP.FIELDNAME, elementType+controlName);
+                
                 int x = ((Query) insertSetStep).execute();
                 System.out.println("Key:" + x);
             }

@@ -88,12 +88,16 @@ public class LibDatabase {
             org.jooq.Field[] fields = table.fields();
             InsertSetStep<?> insertSetStep = create.insertInto(table.asTable());
             insertSetStep.set(GUIMAP.PAGENAME, pageName);
+            
             for (Entry<String, LinkedHashMap<String, String>> row : cleanParamMap.entrySet()) {
 //                InsertSetStep<?> insertSetStep = create.insertInto(table.asTable());
-                for (org.jooq.Field column : fields) {
-                     if (!column.getName().equalsIgnoreCase(pk.getFields().get(0).getName()))
-                         insertSetStep.set(column, row.getValue().get(column.getName()));
-                }
+                String elementType = row.getValue().get("ELEMENTYPE");
+                String controlName = row.getValue().get("CONTROLNAME");
+                String controlDescription = row.getValue().get("CONTROLDESCRIPTION");
+                insertSetStep.set (GUIMAP.ELEMENTTYPE , elementType);
+                insertSetStep.set(GUIMAP.CONTROLNAME, controlName);
+                insertSetStep.set(GUIMAP.CONTROLDESCRIPTION, controlDescription);
+                insertSetStep.set(GUIMAP.FIELDNAME, elementType+controlName);
                 
                 int x = ((Query) insertSetStep).execute();
                 System.out.println("Key:" + x);

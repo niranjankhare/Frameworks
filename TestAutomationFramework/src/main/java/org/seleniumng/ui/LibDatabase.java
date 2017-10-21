@@ -12,7 +12,9 @@ import java.sql.*;
 
 import org.jooq.Configuration;
 import org.jooq.DSLContext;
+import org.jooq.InsertResultStep;
 import org.jooq.InsertSetStep;
+import org.jooq.InsertValuesStep5;
 import org.jooq.Query;
 import org.jooq.Record;
 import org.jooq.Record2;
@@ -86,21 +88,18 @@ public class LibDatabase {
             UniqueKey<?> pk = table.getPrimaryKey();
 //            System.out.println(pk.g)
             org.jooq.Field[] fields = table.fields();
-            InsertSetStep<?> insertSetStep = create.insertInto(table.asTable());
-            insertSetStep.set(GUIMAP.PAGENAME, pageName);
+            
             
             for (Entry<String, LinkedHashMap<String, String>> row : cleanParamMap.entrySet()) {
-//                InsertSetStep<?> insertSetStep = create.insertInto(table.asTable());
-                String elementType = row.getValue().get("ELEMENTYPE");
+                String elementType = row.getValue().get("ELEMENTTYPE");
                 String controlName = row.getValue().get("CONTROLNAME");
                 String controlDescription = row.getValue().get("CONTROLDESCRIPTION");
-                insertSetStep.set (GUIMAP.ELEMENTTYPE , elementType);
-                insertSetStep.set(GUIMAP.CONTROLNAME, controlName);
-                insertSetStep.set(GUIMAP.CONTROLDESCRIPTION, controlDescription);
-                insertSetStep.set(GUIMAP.FIELDNAME, elementType+controlName);
+                InsertValuesStep5<?, String, String, String, String, String> insertSetStep = create.insertInto(table.asTable(),GUIMAP.PAGENAME,GUIMAP.ELEMENTTYPE ,
+                        GUIMAP.CONTROLNAME, GUIMAP.CONTROLDESCRIPTION,GUIMAP.FIELDNAME);
+                insertSetStep.values(pageName, elementType,controlName, controlDescription, elementType+controlName);
+                insertSetStep.returning(GUIMAP.GUIMAPID, GUIMAP.ELEMENTTYPE);
+                Result<?> x = ((InsertResultStep<?>) insertSetStep).fetch();
                 
-                int x = ((Query) insertSetStep).execute();
-                System.out.println("Key:" + x);
             }
 
             System.out.println("done");

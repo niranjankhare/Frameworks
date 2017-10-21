@@ -39,11 +39,18 @@ CONSTRAINT fk_guimap FOREIGN KEY (GUIMAPID)
 
 create table TYPES (
 `CLASSID` int (10) NOT NULL AUTO_INCREMENT,
-`CLASS` int (10) NOT NULL, 
-`TYPE` int (10) NOT NULL, 
+`CLASS` VARCHAR (20) NOT NULL,
+`TYPE` VARCHAR (20) NOT NULL, 
+`ABRV` VARCHAR (10) NOT NULL, 
 `TABLEREF`  VARCHAR (50), -- same as element type from guimap
 PRIMARY KEY (`CLASSID`)
 );
+
+
+
+
+insert into TYPES (`CLASS`, `TYPE`, `ABRV`)
+values ('InputText','STANDARD','iTxt'),('Select','STANDARD','sel');
 
 
 CREATE VIEW automation.entryform AS

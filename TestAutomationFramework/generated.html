@@ -1,0 +1,18 @@
+<html>
+ <head></head>
+ <script>function add_fields() {var rowCount = document.getElementById('myTable').getElementsByTagName("tbody")[0].rows.length;document.getElementById("myTable").insertRow(-1).innerHTML = '<tr> <td><textarea name="PAGENAME'+rowCount+'" placeholder="PAGENAME" id="PAGENAME'+rowCount+'" style="resize: none; width:100%;"></textarea></td> <td><textarea name="PARENTID'+rowCount+'" placeholder="PARENTID" id="PARENTID'+rowCount+'" style="resize: none; width:100%;"></textarea></td> </tr>';} </script>
+ <body onload="add_fields()">
+  <form id="guimap" method="post" action="/test">
+   <table id="myTable">
+    <tbody>
+     <tr>
+      <th>PAGENAME</th>
+      <th>PARENTID</th>
+     </tr>
+    </tbody>
+   </table>
+   <input type="button" id="addRow" onclick="add_fields();" value="Add row">
+   <input type="submit" id="submit" value="Go!">
+  </form>
+ </body>
+</html>

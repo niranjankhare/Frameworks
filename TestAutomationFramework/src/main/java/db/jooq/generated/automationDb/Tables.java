@@ -8,6 +8,7 @@ import db.jooq.generated.automationDb.tables.Entryform;
 import db.jooq.generated.automationDb.tables.Guimap;
 import db.jooq.generated.automationDb.tables.Pages;
 import db.jooq.generated.automationDb.tables.Properties;
+import db.jooq.generated.automationDb.tables.Types;
 
 import javax.annotation.Generated;
 
@@ -44,4 +45,9 @@ public class Tables {
      * The table <code>automation.properties</code>.
      */
     public static final Properties PROPERTIES = db.jooq.generated.automationDb.tables.Properties.PROPERTIES;
+
+    /**
+     * The table <code>automation.types</code>.
+     */
+    public static final Types TYPES = db.jooq.generated.automationDb.tables.Types.TYPES;
 }

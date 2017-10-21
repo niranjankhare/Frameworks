@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Entryform extends TableImpl<EntryformRecord> {
 
-    private static final long serialVersionUID = 948622123;
+    private static final long serialVersionUID = -748331735;
 
     /**
      * The reference instance of <code>automation.entryform</code>
@@ -45,11 +45,6 @@ public class Entryform extends TableImpl<EntryformRecord> {
     public Class<EntryformRecord> getRecordType() {
         return EntryformRecord.class;
     }
-
-    /**
-     * The column <code>automation.entryform.PAGENAME</code>.
-     */
-    public final TableField<EntryformRecord, String> PAGENAME = createField("PAGENAME", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
 
     /**
      * The column <code>automation.entryform.ELEMENTTYPE</code>.
@@ -67,29 +62,9 @@ public class Entryform extends TableImpl<EntryformRecord> {
     public final TableField<EntryformRecord, String> CONTROLDESCRIPTION = createField("CONTROLDESCRIPTION", org.jooq.impl.SQLDataType.VARCHAR(150), this, "");
 
     /**
-     * The column <code>automation.entryform.LOCATORSTRATEGY</code>.
+     * The column <code>automation.entryform.LOCATORVALUE</code>.
      */
-    public final TableField<EntryformRecord, Integer> LOCATORSTRATEGY = createField("LOCATORSTRATEGY", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
-
-    /**
-     * The column <code>automation.entryform.TAGNAME</code>.
-     */
-    public final TableField<EntryformRecord, String> TAGNAME = createField("TAGNAME", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>automation.entryform.ATTRNAME</code>.
-     */
-    public final TableField<EntryformRecord, String> ATTRNAME = createField("ATTRNAME", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>automation.entryform.ATRRVALUE</code>.
-     */
-    public final TableField<EntryformRecord, String> ATRRVALUE = createField("ATRRVALUE", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>automation.entryform.CUSTOMVALUE</code>.
-     */
-    public final TableField<EntryformRecord, String> CUSTOMVALUE = createField("CUSTOMVALUE", org.jooq.impl.SQLDataType.VARCHAR(150), this, "");
+    public final TableField<EntryformRecord, Integer> LOCATORVALUE = createField("LOCATORVALUE", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * Create a <code>automation.entryform</code> table reference

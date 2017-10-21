@@ -7,6 +7,7 @@ package db.jooq.generated.automationDb;
 import db.jooq.generated.automationDb.tables.Guimap;
 import db.jooq.generated.automationDb.tables.Pages;
 import db.jooq.generated.automationDb.tables.Properties;
+import db.jooq.generated.automationDb.tables.Types;
 
 import javax.annotation.Generated;
 
@@ -37,6 +38,7 @@ public class Indexes {
     public static final Index PAGES_PRIMARY = Indexes0.PAGES_PRIMARY;
     public static final Index PROPERTIES_FK_GUIMAP = Indexes0.PROPERTIES_FK_GUIMAP;
     public static final Index PROPERTIES_PRIMARY = Indexes0.PROPERTIES_PRIMARY;
+    public static final Index TYPES_PRIMARY = Indexes0.TYPES_PRIMARY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -48,5 +50,6 @@ public class Indexes {
         public static Index PAGES_PRIMARY = createIndex("PRIMARY", Pages.PAGES, new OrderField[] { Pages.PAGES.PAGENAME }, true);
         public static Index PROPERTIES_FK_GUIMAP = createIndex("fk_guimap", Properties.PROPERTIES, new OrderField[] { Properties.PROPERTIES.GUIMAPID }, false);
         public static Index PROPERTIES_PRIMARY = createIndex("PRIMARY", Properties.PROPERTIES, new OrderField[] { Properties.PROPERTIES.PROPERTYID }, true);
+        public static Index TYPES_PRIMARY = createIndex("PRIMARY", Types.TYPES, new OrderField[] { Types.TYPES.CLASSID }, true);
     }
 }

@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Properties extends TableImpl<PropertiesRecord> {
 
-    private static final long serialVersionUID = 1828557671;
+    private static final long serialVersionUID = -1757863347;
 
     /**
      * The reference instance of <code>automation.properties</code>
@@ -75,29 +75,14 @@ public class Properties extends TableImpl<PropertiesRecord> {
     public final TableField<PropertiesRecord, String> MAPPEDCLASS = createField("MAPPEDCLASS", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>automation.properties.LOCATORSTRATEGY</code>.
+     * The column <code>automation.properties.LOCATORVALUE</code>.
      */
-    public final TableField<PropertiesRecord, Integer> LOCATORSTRATEGY = createField("LOCATORSTRATEGY", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<PropertiesRecord, Integer> LOCATORVALUE = createField("LOCATORVALUE", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>automation.properties.TAGNAME</code>.
+     * The column <code>automation.properties.LOCATORTYPE</code>.
      */
-    public final TableField<PropertiesRecord, String> TAGNAME = createField("TAGNAME", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>automation.properties.ATTRNAME</code>.
-     */
-    public final TableField<PropertiesRecord, String> ATTRNAME = createField("ATTRNAME", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>automation.properties.ATRRVALUE</code>.
-     */
-    public final TableField<PropertiesRecord, String> ATRRVALUE = createField("ATRRVALUE", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>automation.properties.CUSTOMVALUE</code>.
-     */
-    public final TableField<PropertiesRecord, String> CUSTOMVALUE = createField("CUSTOMVALUE", org.jooq.impl.SQLDataType.VARCHAR(150), this, "");
+    public final TableField<PropertiesRecord, Integer> LOCATORTYPE = createField("LOCATORTYPE", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * Create a <code>automation.properties</code> table reference

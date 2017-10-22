@@ -1,4 +1,3 @@
-lang {
 userName {
 description = "User Name : en"
 locatorType = "ID"
@@ -14,5 +13,3 @@ locatorValue = "password"
 footerStuff.Description = "Login Page footer"
 footerStuff.identifier = "id=lpid"
 menuConfig.identifier = "menuconfig id set in Login page"
-
-}

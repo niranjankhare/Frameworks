@@ -90,14 +90,12 @@ public class PageObjectBaseClass {
 		String langPath = tafConfig.getString("language");
 		String langDefault = tafConfig.hasPath("language.fallback")?tafConfig.getString("language.fallback"): "en_us"; 
 		String propFile = class1.getSimpleName()+ ".p";
-		URL u = class1.getResource(propFile);
 		URL u_lang = class1.getResource(langPath + "/"+propFile);
 		URL u_en_us = class1.getResource(langDefault + "/"+propFile);
 		Config c_lang = ConfigFactory.parseURL(u_lang);
 		Config c_fallback = ConfigFactory.parseURL(u_en_us );
 		Config cf = c_lang.withFallback(c_fallback);
-		Config c = ConfigFactory.parseURL(u);
-		return c.resolveWith(cf);
+		return cf;
 	}
 	
 }

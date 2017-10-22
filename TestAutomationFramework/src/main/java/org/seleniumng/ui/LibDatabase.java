@@ -35,7 +35,6 @@ import static db.jooq.generated.automationDb.tables.Guimap.*;
 import static db.jooq.generated.automationDb.tables.Pages.*;
 import static db.jooq.generated.automationDb.tables.Types.*;
 
-
 public class LibDatabase {
     private static String       userName   = "manfriday";
     private static String       password   = "umsqa";
@@ -150,21 +149,21 @@ public class LibDatabase {
         //
         return getKeyValues(PAGES.PAGENAME, PAGES.PAGEDESCRIPTION, PAGES);
     }
-    
+
     public static LinkedHashMap getAvailableTypes() {
         return getKeyValues(TYPES.ABRV, TYPES.CLASS, TYPES);
     }
-    
+
     public static LinkedHashMap getStandardTypes() {
         LinkedHashMap<String, String> list = new LinkedHashMap<String, String>();
-        SelectConditionStep<Record2<String, String>> x =  dslContext.select(TYPES.ABRV, TYPES.CLASS).from(TYPES).where(TYPES.CLASS.eq("STANDARD"));
+        SelectConditionStep<Record2<String, String>> x = dslContext.select(TYPES.ABRV, TYPES.CLASS).from(TYPES)
+                .where(TYPES.TYPE.eq("STANDARD"));
         for (Record rec : x.fetch()) {
             list.put(rec.get(TYPES.ABRV), rec.get(TYPES.CLASS));
         }
         return list;
     }
-    
-    
+
     private static LinkedHashMap getKeyValues(SelectField keyField, SelectField valueField, Table table) {
         LinkedHashMap<String, String> list = new LinkedHashMap<String, String>();
         SelectJoinStep<Record2<String, String>> x = dslContext.select(keyField, valueField).from(table);

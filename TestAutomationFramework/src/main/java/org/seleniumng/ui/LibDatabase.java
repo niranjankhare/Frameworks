@@ -14,6 +14,7 @@ import org.jooq.Configuration;
 import org.jooq.DSLContext;
 import org.jooq.InsertResultStep;
 import org.jooq.InsertSetStep;
+import org.jooq.InsertValuesStep4;
 import org.jooq.InsertValuesStep5;
 import org.jooq.Query;
 import org.jooq.Record;
@@ -31,9 +32,12 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 
 import db.jooq.generated.automationDb.*;
+import db.jooq.generated.automationDb.tables.records.PropertiesRecord;
+
 import static db.jooq.generated.automationDb.tables.Guimap.*;
 import static db.jooq.generated.automationDb.tables.Pages.*;
 import static db.jooq.generated.automationDb.tables.Types.*;
+import static db.jooq.generated.automationDb.tables.Properties.*;
 
 public class LibDatabase {
     private static String       userName   = "manfriday";
@@ -103,6 +107,18 @@ public class LibDatabase {
                 insertSetStep.values(pageName, elementType, controlName, controlDescription, elementType + controlName);
                 insertSetStep.returning(GUIMAP.GUIMAPID, GUIMAP.ELEMENTTYPE);
                 Result<?> x = ((InsertResultStep<?>) insertSetStep).fetch();
+                
+                Integer guiMapId = x.getValue(0, GUIMAP.GUIMAPID);
+                String standardClass = x.getValue(0, GUIMAP.ELEMENTTYPE);
+                String locatorValue = row.getValue().get("LOCATORVALUE");
+                String locatorType = "ID";
+                if (locatorValue.startsWith("/")){
+                    locatorType = "XPATH";
+                }
+                
+                 InsertValuesStep4<PropertiesRecord, Integer, String, String, String> insertProperties = create.insertInto(PROPERTIES.asTable(),PROPERTIES.GUIMAPID, PROPERTIES.STANDARDCLASS,PROPERTIES.LOCATORVALUE, PROPERTIES.LOCATORTYPE);
+                 insertProperties.values(guiMapId, standardClass, locatorValue, locatorType);
+                 insertProperties.execute();
 
             }
 

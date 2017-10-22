@@ -15,6 +15,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
@@ -39,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Guimap extends TableImpl<GuimapRecord> {
 
-    private static final long serialVersionUID = 1474051270;
+    private static final long serialVersionUID = -939492950;
 
     /**
      * The reference instance of <code>automation.guimap</code>
@@ -151,6 +152,14 @@ public class Guimap extends TableImpl<GuimapRecord> {
     @Override
     public List<UniqueKey<GuimapRecord>> getKeys() {
         return Arrays.<UniqueKey<GuimapRecord>>asList(Keys.KEY_GUIMAP_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<GuimapRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<GuimapRecord, ?>>asList(Keys.FK_PAGE);
     }
 
     /**

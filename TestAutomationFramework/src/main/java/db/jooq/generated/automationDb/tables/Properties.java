@@ -15,6 +15,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
@@ -39,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Properties extends TableImpl<PropertiesRecord> {
 
-    private static final long serialVersionUID = -1757863347;
+    private static final long serialVersionUID = 1689977495;
 
     /**
      * The reference instance of <code>automation.properties</code>
@@ -77,12 +78,12 @@ public class Properties extends TableImpl<PropertiesRecord> {
     /**
      * The column <code>automation.properties.LOCATORVALUE</code>.
      */
-    public final TableField<PropertiesRecord, Integer> LOCATORVALUE = createField("LOCATORVALUE", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<PropertiesRecord, String> LOCATORVALUE = createField("LOCATORVALUE", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
      * The column <code>automation.properties.LOCATORTYPE</code>.
      */
-    public final TableField<PropertiesRecord, Integer> LOCATORTYPE = createField("LOCATORTYPE", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<PropertiesRecord, String> LOCATORTYPE = createField("LOCATORTYPE", org.jooq.impl.SQLDataType.VARCHAR(10).nullable(false), this, "");
 
     /**
      * Create a <code>automation.properties</code> table reference
@@ -151,6 +152,14 @@ public class Properties extends TableImpl<PropertiesRecord> {
     @Override
     public List<UniqueKey<PropertiesRecord>> getKeys() {
         return Arrays.<UniqueKey<PropertiesRecord>>asList(Keys.KEY_PROPERTIES_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<PropertiesRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<PropertiesRecord, ?>>asList(Keys.FK_GUIMAP);
     }
 
     /**

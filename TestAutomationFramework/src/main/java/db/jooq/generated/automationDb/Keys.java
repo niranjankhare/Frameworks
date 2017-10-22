@@ -15,6 +15,7 @@ import db.jooq.generated.automationDb.tables.records.TypesRecord;
 
 import javax.annotation.Generated;
 
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.UniqueKey;
 import org.jooq.impl.AbstractKeys;
@@ -55,6 +56,8 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<GuimapRecord, PagesRecord> FK_PAGE = ForeignKeys0.FK_PAGE;
+    public static final ForeignKey<PropertiesRecord, GuimapRecord> FK_GUIMAP = ForeignKeys0.FK_GUIMAP;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -71,5 +74,10 @@ public class Keys {
         public static final UniqueKey<PagesRecord> KEY_PAGES_PRIMARY = createUniqueKey(Pages.PAGES, "KEY_pages_PRIMARY", Pages.PAGES.PAGENAME);
         public static final UniqueKey<PropertiesRecord> KEY_PROPERTIES_PRIMARY = createUniqueKey(Properties.PROPERTIES, "KEY_properties_PRIMARY", Properties.PROPERTIES.PROPERTYID);
         public static final UniqueKey<TypesRecord> KEY_TYPES_PRIMARY = createUniqueKey(Types.TYPES, "KEY_types_PRIMARY", Types.TYPES.CLASSID);
+    }
+
+    private static class ForeignKeys0 extends AbstractKeys {
+        public static final ForeignKey<GuimapRecord, PagesRecord> FK_PAGE = createForeignKey(db.jooq.generated.automationDb.Keys.KEY_PAGES_PRIMARY, Guimap.GUIMAP, "fk_page", Guimap.GUIMAP.PAGENAME);
+        public static final ForeignKey<PropertiesRecord, GuimapRecord> FK_GUIMAP = createForeignKey(db.jooq.generated.automationDb.Keys.KEY_GUIMAP_PRIMARY, Properties.PROPERTIES, "fk_guimap", Properties.PROPERTIES.GUIMAPID);
     }
 }

@@ -28,8 +28,8 @@ create table PROPERTIES (
 `GUIMAPID` int (10) NOT NULL, 
 `STANDARDCLASS`  VARCHAR (50), -- same as element type from guimap
 `MAPPEDCLASS`  VARCHAR (50), 
-`LOCATORVALUE` int (10) NOT NULL, -- Select
-`LOCATORTYPE` int (10) NOT NULL, -- Calculate based on value (xpath or id?)
+`LOCATORVALUE` VARCHAR  (100) NOT NULL, -- Select
+`LOCATORTYPE` VARCHAR (10) NOT NULL, -- Calculate based on value (xpath or id?)
 PRIMARY KEY (`PROPERTYID`),
 CONSTRAINT fk_guimap FOREIGN KEY (GUIMAPID)
   REFERENCES GUIMAP(`GUIMAPID`)
@@ -50,7 +50,7 @@ PRIMARY KEY (`CLASSID`)
 
 
 insert into TYPES (`CLASS`, `TYPE`, `ABRV`)
-values ('InputText','STANDARD','iTxt'),('Select','STANDARD','sel');
+values ('InputText','','iTxt'),('Select','sel');
 
 
 CREATE VIEW automation.entryform AS

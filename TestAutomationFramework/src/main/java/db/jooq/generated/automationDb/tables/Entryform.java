@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Entryform extends TableImpl<EntryformRecord> {
 
-    private static final long serialVersionUID = -748331735;
+    private static final long serialVersionUID = 115849355;
 
     /**
      * The reference instance of <code>automation.entryform</code>
@@ -64,7 +64,7 @@ public class Entryform extends TableImpl<EntryformRecord> {
     /**
      * The column <code>automation.entryform.LOCATORVALUE</code>.
      */
-    public final TableField<EntryformRecord, Integer> LOCATORVALUE = createField("LOCATORVALUE", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<EntryformRecord, String> LOCATORVALUE = createField("LOCATORVALUE", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
      * Create a <code>automation.entryform</code> table reference

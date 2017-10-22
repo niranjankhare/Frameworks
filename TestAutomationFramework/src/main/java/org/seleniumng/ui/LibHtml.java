@@ -210,8 +210,17 @@ public class LibHtml {
 
     private static Element addAvailablePages(Element selectElement) {
         LinkedHashMap<String, String> availablePages = LibDatabase.getAvailablePages();
-        for (Entry<String, String> page : availablePages.entrySet()) {
-            selectElement.appendChild(new Element("option").val(page.getKey()).text(page.getValue()));
+        return addOptionsToSelect(selectElement, availablePages);
+    }
+    
+    private static Element addAvailableTypes(Element selectElement) {
+        LinkedHashMap<String, String> availableTypes = LibDatabase.getStandardTypes();
+        return addOptionsToSelect (selectElement,availableTypes);
+    }
+    
+    private static Element addOptionsToSelect (Element selectElement,LinkedHashMap<String, String> map ){
+        for (Entry<String, String> entry : map.entrySet()) {
+            selectElement.appendChild(new Element("option").val(entry.getKey()).text(entry.getValue()));
         }
         return selectElement;
     }

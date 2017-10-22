@@ -20,8 +20,11 @@ import org.jooq.Record;
 import org.jooq.Record2;
 import org.jooq.Result;
 import org.jooq.SQLDialect;
+import org.jooq.SelectConditionStep;
+import org.jooq.SelectField;
 import org.jooq.SelectJoinStep;
 import org.jooq.SelectSelectStep;
+import org.jooq.SelectWhereStep;
 import org.jooq.Table;
 import org.jooq.TableLike;
 import org.jooq.UniqueKey;
@@ -30,13 +33,14 @@ import org.jooq.impl.DSL;
 import db.jooq.generated.automationDb.*;
 import static db.jooq.generated.automationDb.tables.Guimap.*;
 import static db.jooq.generated.automationDb.tables.Pages.*;
-//import static org.jooq.impl.DSL.*;
+import static db.jooq.generated.automationDb.tables.Types.*;
+
 
 public class LibDatabase {
     private static String       userName   = "manfriday";
     private static String       password   = "umsqa";
     private static String       url        = "jdbc:mysql://localhost:3306/automation";
-    private static Connection conn  = initDbConnection();
+    private static Connection   conn       = initDbConnection();
     private static DSLContext   dslContext = DSL.using(conn);
 
     private static List<String> allTables  = getTableList();
@@ -53,14 +57,14 @@ public class LibDatabase {
         // PreparedStatement and ResultSet are handled by jOOQ, internally
         Table<?> result = null;
         List<Table<?>> tables = Automation.AUTOMATION.getTables();
-        
-        for (Table<?> t:tables){
-            if (t.getName().toUpperCase().equals(tableName.toUpperCase())){
+
+        for (Table<?> t : tables) {
+            if (t.getName().toUpperCase().equals(tableName.toUpperCase())) {
                 result = t;
                 break;
             }
         }
-        
+
         org.jooq.Field<?>[] fieldList = result.fields();
 
         List<String> returnList = new ArrayList<String>();
@@ -73,33 +77,34 @@ public class LibDatabase {
 
     public static void updateTable(String pageName,
             LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap) {
-        try  {
+        try {
             DSLContext create = DSL.using(conn, SQLDialect.MYSQL);
             // https://www.jooq.org/doc/3.8/manual/sql-building/sql-statements/insert-statement/insert-on-duplicate-key/
 
             Table<?> table = null;
-//
-//            Field f = db.jooq.generated.automationDb.Tables.class.getDeclaredField(tableName.toUpperCase());
-//            if (TableLike.class.isAssignableFrom(f.getType())) {
-//                table = TableLike.class.cast(f.get(null));
-//            }
-               
-            table =GUIMAP;
+            //
+            // Field f =
+            // db.jooq.generated.automationDb.Tables.class.getDeclaredField(tableName.toUpperCase());
+            // if (TableLike.class.isAssignableFrom(f.getType())) {
+            // table = TableLike.class.cast(f.get(null));
+            // }
+
+            table = GUIMAP;
             UniqueKey<?> pk = table.getPrimaryKey();
-//            System.out.println(pk.g)
+            // System.out.println(pk.g)
             org.jooq.Field[] fields = table.fields();
-            
-            
+
             for (Entry<String, LinkedHashMap<String, String>> row : cleanParamMap.entrySet()) {
                 String elementType = row.getValue().get("ELEMENTTYPE");
                 String controlName = row.getValue().get("CONTROLNAME");
                 String controlDescription = row.getValue().get("CONTROLDESCRIPTION");
-                InsertValuesStep5<?, String, String, String, String, String> insertSetStep = create.insertInto(table.asTable(),GUIMAP.PAGENAME,GUIMAP.ELEMENTTYPE ,
-                        GUIMAP.CONTROLNAME, GUIMAP.CONTROLDESCRIPTION,GUIMAP.FIELDNAME);
-                insertSetStep.values(pageName, elementType,controlName, controlDescription, elementType+controlName);
+                InsertValuesStep5<?, String, String, String, String, String> insertSetStep = create.insertInto(
+                        table.asTable(), GUIMAP.PAGENAME, GUIMAP.ELEMENTTYPE, GUIMAP.CONTROLNAME,
+                        GUIMAP.CONTROLDESCRIPTION, GUIMAP.FIELDNAME);
+                insertSetStep.values(pageName, elementType, controlName, controlDescription, elementType + controlName);
                 insertSetStep.returning(GUIMAP.GUIMAPID, GUIMAP.ELEMENTTYPE);
                 Result<?> x = ((InsertResultStep<?>) insertSetStep).fetch();
-                
+
             }
 
             System.out.println("done");
@@ -109,6 +114,7 @@ public class LibDatabase {
         }
 
     }
+
     private static List<String> getTableList() {
         List<String> tables = new ArrayList<String>();
         for (TableLike<?> t : Automation.AUTOMATION.getTables()) {
@@ -118,7 +124,7 @@ public class LibDatabase {
     }
 
     private static Connection initDbConnection() {
-        try  {
+        try {
             conn = DriverManager.getConnection(url, userName, password);
             return conn;
         } catch (Exception e) {
@@ -132,16 +138,42 @@ public class LibDatabase {
     }
 
     public static LinkedHashMap getAvailablePages() {
-        LinkedHashMap<String, String> list = new LinkedHashMap<String,String>();
-          SelectJoinStep<Record2<String, String>> x = dslContext.select(PAGES.PAGENAME,PAGES.PAGEDESCRIPTION ).from(PAGES);
-//        Result<Record2<String, String>> r = x.fetch();
-        for (Record rec: x.fetch()){
-            
-            list.put(rec.get(PAGES.PAGENAME),rec.get(PAGES.PAGEDESCRIPTION));
+        // LinkedHashMap<String, String> list = new
+        // LinkedHashMap<String,String>();
+        // SelectJoinStep<Record2<String, String>> x =
+        // dslContext.select(PAGES.PAGENAME,PAGES.PAGEDESCRIPTION ).from(PAGES);
+        //// Result<Record2<String, String>> r = x.fetch();
+        // for (Record rec: x.fetch()){
+        //
+        // list.put(rec.get(PAGES.PAGENAME),rec.get(PAGES.PAGEDESCRIPTION));
+        // }
+        //
+        return getKeyValues(PAGES.PAGENAME, PAGES.PAGEDESCRIPTION, PAGES);
+    }
+    
+    public static LinkedHashMap getAvailableTypes() {
+        return getKeyValues(TYPES.ABRV, TYPES.CLASS, TYPES);
+    }
+    
+    public static LinkedHashMap getStandardTypes() {
+        LinkedHashMap<String, String> list = new LinkedHashMap<String, String>();
+        SelectConditionStep<Record2<String, String>> x =  dslContext.select(TYPES.ABRV, TYPES.CLASS).from(TYPES).where(TYPES.CLASS.eq("STANDARD"));
+        for (Record rec : x.fetch()) {
+            list.put(rec.get(TYPES.ABRV), rec.get(TYPES.CLASS));
         }
-         
         return list;
     }
+    
+    
+    private static LinkedHashMap getKeyValues(SelectField keyField, SelectField valueField, Table table) {
+        LinkedHashMap<String, String> list = new LinkedHashMap<String, String>();
+        SelectJoinStep<Record2<String, String>> x = dslContext.select(keyField, valueField).from(table);
+        for (Record rec : x.fetch()) {
 
+            list.put(rec.get(PAGES.PAGENAME), rec.get(PAGES.PAGEDESCRIPTION));
+        }
+        return list;
+
+    }
 
 }

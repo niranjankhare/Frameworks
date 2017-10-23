@@ -110,7 +110,7 @@ public class EntryformRecord extends TableRecordImpl<EntryformRecord> implements
      */
     @Override
     public Field<String> field1() {
-        return Entryform.ENTRYFORM.ELEMENTTYPE;
+        return Entryform.ENTRYFORM.CONTROLTYPE;
     }
 
     /**

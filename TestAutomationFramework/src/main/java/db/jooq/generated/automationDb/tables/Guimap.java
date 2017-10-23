@@ -68,7 +68,7 @@ public class Guimap extends TableImpl<GuimapRecord> {
     /**
      * The column <code>automation.guimap.ELEMENTTYPE</code>.
      */
-    public final TableField<GuimapRecord, String> ELEMENTTYPE = createField("ELEMENTTYPE", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
+    public final TableField<GuimapRecord, String> CONTROLTYPE = createField("CONTROLTYPE", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
      * The column <code>automation.guimap.CONTROLNAME</code>.

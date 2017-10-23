@@ -167,7 +167,7 @@ public class GuimapRecord extends UpdatableRecordImpl<GuimapRecord> implements R
      */
     @Override
     public Field<String> field3() {
-        return Guimap.GUIMAP.ELEMENTTYPE;
+        return Guimap.GUIMAP.CONTROLTYPE;
     }
 
     /**

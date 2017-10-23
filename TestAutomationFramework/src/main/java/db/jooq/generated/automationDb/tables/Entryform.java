@@ -49,7 +49,7 @@ public class Entryform extends TableImpl<EntryformRecord> {
     /**
      * The column <code>automation.entryform.ELEMENTTYPE</code>.
      */
-    public final TableField<EntryformRecord, String> ELEMENTTYPE = createField("ELEMENTTYPE", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
+    public final TableField<EntryformRecord, String> CONTROLTYPE = createField("CONTROLTYPE", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
      * The column <code>automation.entryform.CONTROLNAME</code>.

@@ -98,18 +98,17 @@ public class LibDatabase {
             org.jooq.Field[] fields = table.fields();
 
             for (Entry<String, LinkedHashMap<String, String>> row : cleanParamMap.entrySet()) {
-                String elementType = row.getValue().get("ELEMENTTYPE");
+                String controlType = row.getValue().get("CONTROLTYPE");
                 String controlName = row.getValue().get("CONTROLNAME");
                 String controlDescription = row.getValue().get("CONTROLDESCRIPTION");
                 InsertValuesStep5<?, String, String, String, String, String> insertSetStep = create.insertInto(
-                        table.asTable(), GUIMAP.PAGENAME, GUIMAP.ELEMENTTYPE, GUIMAP.CONTROLNAME,
+                        table.asTable(), GUIMAP.PAGENAME, GUIMAP.CONTROLTYPE, GUIMAP.CONTROLNAME,
                         GUIMAP.CONTROLDESCRIPTION, GUIMAP.FIELDNAME);
-                insertSetStep.values(pageName, elementType, controlName, controlDescription, elementType + controlName);
-                insertSetStep.returning(GUIMAP.GUIMAPID, GUIMAP.ELEMENTTYPE);
+                insertSetStep.values(pageName, controlType, controlName, controlDescription, controlType + controlName);
+                insertSetStep.returning(GUIMAP.GUIMAPID);
                 Result<?> x = ((InsertResultStep<?>) insertSetStep).fetch();
                 
                 Integer guiMapId = x.getValue(0, GUIMAP.GUIMAPID);
-                String standardClass = x.getValue(0, GUIMAP.ELEMENTTYPE);
                 String locatorValue = row.getValue().get("LOCATORVALUE");
                 String locatorType = "ID";
                 if (locatorValue.startsWith("/")){
@@ -117,7 +116,7 @@ public class LibDatabase {
                 }
                 
                  InsertValuesStep4<PropertiesRecord, Integer, String, String, String> insertProperties = create.insertInto(PROPERTIES.asTable(),PROPERTIES.GUIMAPID, PROPERTIES.STANDARDCLASS,PROPERTIES.LOCATORVALUE, PROPERTIES.LOCATORTYPE);
-                 insertProperties.values(guiMapId, standardClass, locatorValue, locatorType);
+                 insertProperties.values(guiMapId, controlType, locatorValue, locatorType);
                  insertProperties.execute();
 
             }

@@ -28,7 +28,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class GuimapRecord extends UpdatableRecordImpl<GuimapRecord> implements Record6<Integer, String, String, String, String, String> {
 
-    private static final long serialVersionUID = -2073114553;
+    private static final long serialVersionUID = 523408679;
 
     /**
      * Setter for <code>automation.guimap.GUIMAPID</code>.
@@ -59,16 +59,16 @@ public class GuimapRecord extends UpdatableRecordImpl<GuimapRecord> implements R
     }
 
     /**
-     * Setter for <code>automation.guimap.ELEMENTTYPE</code>.
+     * Setter for <code>automation.guimap.CONTROLTYPE</code>.
      */
-    public void setElementtype(String value) {
+    public void setControltype(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>automation.guimap.ELEMENTTYPE</code>.
+     * Getter for <code>automation.guimap.CONTROLTYPE</code>.
      */
-    public String getElementtype() {
+    public String getControltype() {
         return (String) get(2);
     }
 
@@ -215,7 +215,7 @@ public class GuimapRecord extends UpdatableRecordImpl<GuimapRecord> implements R
      */
     @Override
     public String component3() {
-        return getElementtype();
+        return getControltype();
     }
 
     /**
@@ -263,7 +263,7 @@ public class GuimapRecord extends UpdatableRecordImpl<GuimapRecord> implements R
      */
     @Override
     public String value3() {
-        return getElementtype();
+        return getControltype();
     }
 
     /**
@@ -313,7 +313,7 @@ public class GuimapRecord extends UpdatableRecordImpl<GuimapRecord> implements R
      */
     @Override
     public GuimapRecord value3(String value) {
-        setElementtype(value);
+        setControltype(value);
         return this;
     }
 
@@ -372,12 +372,12 @@ public class GuimapRecord extends UpdatableRecordImpl<GuimapRecord> implements R
     /**
      * Create a detached, initialised GuimapRecord
      */
-    public GuimapRecord(Integer guimapid, String pagename, String elementtype, String controlname, String controldescription, String fieldname) {
+    public GuimapRecord(Integer guimapid, String pagename, String controltype, String controlname, String controldescription, String fieldname) {
         super(Guimap.GUIMAP);
 
         set(0, guimapid);
         set(1, pagename);
-        set(2, elementtype);
+        set(2, controltype);
         set(3, controlname);
         set(4, controldescription);
         set(5, fieldname);

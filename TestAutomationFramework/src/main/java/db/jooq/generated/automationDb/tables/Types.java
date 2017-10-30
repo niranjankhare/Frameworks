@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Types extends TableImpl<TypesRecord> {
 
-    private static final long serialVersionUID = -552274815;
+    private static final long serialVersionUID = -913724173;
 
     /**
      * The reference instance of <code>automation.types</code>
@@ -75,9 +75,9 @@ public class Types extends TableImpl<TypesRecord> {
     public final TableField<TypesRecord, String> ABRV = createField("ABRV", org.jooq.impl.SQLDataType.VARCHAR(10).nullable(false), this, "");
 
     /**
-     * The column <code>automation.types.TABLEREF</code>.
+     * The column <code>automation.types.PROPERTYMAP</code>.
      */
-    public final TableField<TypesRecord, String> TABLEREF = createField("TABLEREF", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
+    public final TableField<TypesRecord, String> PROPERTYMAP = createField("PROPERTYMAP", org.jooq.impl.SQLDataType.VARCHAR(1000), this, "");
 
     /**
      * Create a <code>automation.types</code> table reference

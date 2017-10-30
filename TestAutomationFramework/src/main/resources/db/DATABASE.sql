@@ -30,7 +30,6 @@ create table PROPERTIES (
 `MAPPEDCLASS`  VARCHAR (50), 
 `LOCATORVALUE` VARCHAR  (100) NOT NULL, -- Select
 `LOCATORTYPE` VARCHAR (10) NOT NULL, -- Calculate based on value (xpath or id?)
-`PROPERTYMAP` VARCHAR  (1000),
 `EXPROP1` VARCHAR  (100),
 `EXPROP2` VARCHAR  (100),
 `EXPROP3` VARCHAR  (100),
@@ -52,7 +51,7 @@ create table TYPES (
 `CLASS` VARCHAR (20) NOT NULL,
 `TYPE` VARCHAR (20) NOT NULL, 
 `ABRV` VARCHAR (10) NOT NULL, 
-`TABLEREF`  VARCHAR (50), -- same as element type from guimap
+`PROPERTYMAP` VARCHAR  (1000),
 PRIMARY KEY (`CLASSID`)
 );
 
@@ -96,9 +95,9 @@ delimiter ;
 INSERT INTO PAGES
 SET `pagename` = 'logon',
 `parentid` = null,
-`pagedescription` = "login page";
-
+`pagedescription` = "Login page";
 */
+
 
 
 

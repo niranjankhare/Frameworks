@@ -28,7 +28,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TypesRecord extends UpdatableRecordImpl<TypesRecord> implements Record5<Integer, String, String, String, String> {
 
-    private static final long serialVersionUID = 739234090;
+    private static final long serialVersionUID = 1151462274;
 
     /**
      * Setter for <code>automation.types.CLASSID</code>.
@@ -87,16 +87,16 @@ public class TypesRecord extends UpdatableRecordImpl<TypesRecord> implements Rec
     }
 
     /**
-     * Setter for <code>automation.types.TABLEREF</code>.
+     * Setter for <code>automation.types.PROPERTYMAP</code>.
      */
-    public void setTableref(String value) {
+    public void setPropertymap(String value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>automation.types.TABLEREF</code>.
+     * Getter for <code>automation.types.PROPERTYMAP</code>.
      */
-    public String getTableref() {
+    public String getPropertymap() {
         return (String) get(4);
     }
 
@@ -169,7 +169,7 @@ public class TypesRecord extends UpdatableRecordImpl<TypesRecord> implements Rec
      */
     @Override
     public Field<String> field5() {
-        return Types.TYPES.TABLEREF;
+        return Types.TYPES.PROPERTYMAP;
     }
 
     /**
@@ -209,7 +209,7 @@ public class TypesRecord extends UpdatableRecordImpl<TypesRecord> implements Rec
      */
     @Override
     public String component5() {
-        return getTableref();
+        return getPropertymap();
     }
 
     /**
@@ -249,7 +249,7 @@ public class TypesRecord extends UpdatableRecordImpl<TypesRecord> implements Rec
      */
     @Override
     public String value5() {
-        return getTableref();
+        return getPropertymap();
     }
 
     /**
@@ -293,7 +293,7 @@ public class TypesRecord extends UpdatableRecordImpl<TypesRecord> implements Rec
      */
     @Override
     public TypesRecord value5(String value) {
-        setTableref(value);
+        setPropertymap(value);
         return this;
     }
 
@@ -324,13 +324,13 @@ public class TypesRecord extends UpdatableRecordImpl<TypesRecord> implements Rec
     /**
      * Create a detached, initialised TypesRecord
      */
-    public TypesRecord(Integer classid, String class_, String type, String abrv, String tableref) {
+    public TypesRecord(Integer classid, String class_, String type, String abrv, String propertymap) {
         super(Types.TYPES);
 
         set(0, classid);
         set(1, class_);
         set(2, type);
         set(3, abrv);
-        set(4, tableref);
+        set(4, propertymap);
     }
 }

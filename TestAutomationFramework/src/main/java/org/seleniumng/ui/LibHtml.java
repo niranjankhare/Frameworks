@@ -190,12 +190,20 @@ public class LibHtml {
         selectType = addAvailableTypes(selectType);
         Element row = new Element("tr");
         row.appendChild(new Element("td").appendChild(selectType));
-        for (String column : columns) {
+        // ones that need to be on main page: 4
+//        for (String column : columns) {
+        int i=0;
+        for (i=0; i<=3;i++) {
+            String column =columns.get(i);
             Element e = getTextArea(column);
             Element cell = new Element("td").appendChild(e);
             row.appendChild(cell);
         }
-
+        // now i i propertymap 
+        // Move property map to Types
+        String propertyMap = columns.get(i);
+        // move extra props to different table .. all of it goes into
+        // the inline popup!!
         String strElement = Parser.unescapeEntities(row.toString(), false);
         return strElement;
     }

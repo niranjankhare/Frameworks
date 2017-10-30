@@ -13,7 +13,6 @@ import org.jooq.Field;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
-import org.jooq.TableField;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
 
@@ -31,7 +30,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Entryform extends TableImpl<EntryformRecord> {
 
-    private static final long serialVersionUID = 1801020672;
+    private static final long serialVersionUID = -1361487484;
 
     /**
      * The reference instance of <code>automation.entryform</code>
@@ -45,81 +44,6 @@ public class Entryform extends TableImpl<EntryformRecord> {
     public Class<EntryformRecord> getRecordType() {
         return EntryformRecord.class;
     }
-
-    /**
-     * The column <code>automation.entryform.CONTROLTYPE</code>.
-     */
-    public final TableField<EntryformRecord, String> CONTROLTYPE = createField("CONTROLTYPE", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>automation.entryform.CONTROLNAME</code>.
-     */
-    public final TableField<EntryformRecord, String> CONTROLNAME = createField("CONTROLNAME", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>automation.entryform.CONTROLDESCRIPTION</code>.
-     */
-    public final TableField<EntryformRecord, String> CONTROLDESCRIPTION = createField("CONTROLDESCRIPTION", org.jooq.impl.SQLDataType.VARCHAR(150), this, "");
-
-    /**
-     * The column <code>automation.entryform.LOCATORVALUE</code>.
-     */
-    public final TableField<EntryformRecord, String> LOCATORVALUE = createField("LOCATORVALUE", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
-
-    /**
-     * The column <code>automation.entryform.LOCATORTYPE</code>.
-     */
-    public final TableField<EntryformRecord, String> LOCATORTYPE = createField("LOCATORTYPE", org.jooq.impl.SQLDataType.VARCHAR(10).nullable(false), this, "");
-
-    /**
-     * The column <code>automation.entryform.PROPERTYMAP</code>.
-     */
-    public final TableField<EntryformRecord, String> PROPERTYMAP = createField("PROPERTYMAP", org.jooq.impl.SQLDataType.VARCHAR(1000), this, "");
-
-    /**
-     * The column <code>automation.entryform.EXPROP1</code>.
-     */
-    public final TableField<EntryformRecord, String> EXPROP1 = createField("EXPROP1", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>automation.entryform.EXPROP2</code>.
-     */
-    public final TableField<EntryformRecord, String> EXPROP2 = createField("EXPROP2", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>automation.entryform.EXPROP3</code>.
-     */
-    public final TableField<EntryformRecord, String> EXPROP3 = createField("EXPROP3", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>automation.entryform.EXPROP4</code>.
-     */
-    public final TableField<EntryformRecord, String> EXPROP4 = createField("EXPROP4", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>automation.entryform.EXPROP5</code>.
-     */
-    public final TableField<EntryformRecord, String> EXPROP5 = createField("EXPROP5", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>automation.entryform.EXPROP6</code>.
-     */
-    public final TableField<EntryformRecord, String> EXPROP6 = createField("EXPROP6", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>automation.entryform.EXPROP7</code>.
-     */
-    public final TableField<EntryformRecord, String> EXPROP7 = createField("EXPROP7", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>automation.entryform.EXPROP8</code>.
-     */
-    public final TableField<EntryformRecord, String> EXPROP8 = createField("EXPROP8", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>automation.entryform.EXPROP9</code>.
-     */
-    public final TableField<EntryformRecord, String> EXPROP9 = createField("EXPROP9", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
      * Create a <code>automation.entryform</code> table reference

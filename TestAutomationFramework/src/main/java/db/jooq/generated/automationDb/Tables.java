@@ -4,11 +4,12 @@
 package db.jooq.generated.automationDb;
 
 
-import db.jooq.generated.automationDb.tables.Entryform;
 import db.jooq.generated.automationDb.tables.Extendedprops;
+import db.jooq.generated.automationDb.tables.Extendedpropsview;
 import db.jooq.generated.automationDb.tables.Guimap;
 import db.jooq.generated.automationDb.tables.Pages;
 import db.jooq.generated.automationDb.tables.Properties;
+import db.jooq.generated.automationDb.tables.Propsview;
 import db.jooq.generated.automationDb.tables.Showtable;
 import db.jooq.generated.automationDb.tables.Types;
 
@@ -29,14 +30,14 @@ import javax.annotation.Generated;
 public class Tables {
 
     /**
-     * VIEW
-     */
-    public static final Entryform ENTRYFORM = db.jooq.generated.automationDb.tables.Entryform.ENTRYFORM;
-
-    /**
      * The table <code>automation.extendedprops</code>.
      */
     public static final Extendedprops EXTENDEDPROPS = db.jooq.generated.automationDb.tables.Extendedprops.EXTENDEDPROPS;
+
+    /**
+     * VIEW
+     */
+    public static final Extendedpropsview EXTENDEDPROPSVIEW = db.jooq.generated.automationDb.tables.Extendedpropsview.EXTENDEDPROPSVIEW;
 
     /**
      * The table <code>automation.guimap</code>.
@@ -52,6 +53,11 @@ public class Tables {
      * The table <code>automation.properties</code>.
      */
     public static final Properties PROPERTIES = db.jooq.generated.automationDb.tables.Properties.PROPERTIES;
+
+    /**
+     * VIEW
+     */
+    public static final Propsview PROPSVIEW = db.jooq.generated.automationDb.tables.Propsview.PROPSVIEW;
 
     /**
      * VIEW

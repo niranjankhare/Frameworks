@@ -91,18 +91,18 @@ public class LibHtml {
         String whereColumn = "PAGENAME";
 
         tableName.replaceAll(tableName, tableName.toLowerCase());
-        List<String> fieldsList = LibDatabase.getTableFields(tableName);
-        fieldsList.remove(whereColumn);
+        List<String> mainFieldsList = LibDatabase.getTableFields(tableName);
+        mainFieldsList.remove(whereColumn);
 
         Element table = new Element("table").attr("id", tableName);
         Element headerRow = new Element("tr");
 
         // Add columns to the displayed table as header row
-        for (String field : fieldsList) {
+        for (String field : mainFieldsList) {
             headerRow.appendElement("th").text(field);
         }
-        fieldsList.remove("ELEMENTTYPE");
-        String innerHtml = getFormattedRow(fieldsList);
+        mainFieldsList.remove("ELEMENTTYPE");
+        String innerHtml = getFormattedRow(mainFieldsList);
 
         String scriptBlock = addRowScriptTemplate.replaceAll("__TABLENAME__", tableName).replaceAll("__ROWHTML__",
                 innerHtml);

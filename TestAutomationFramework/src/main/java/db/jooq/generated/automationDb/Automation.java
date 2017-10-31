@@ -4,11 +4,12 @@
 package db.jooq.generated.automationDb;
 
 
-import db.jooq.generated.automationDb.tables.Entryform;
 import db.jooq.generated.automationDb.tables.Extendedprops;
+import db.jooq.generated.automationDb.tables.Extendedpropsview;
 import db.jooq.generated.automationDb.tables.Guimap;
 import db.jooq.generated.automationDb.tables.Pages;
 import db.jooq.generated.automationDb.tables.Properties;
+import db.jooq.generated.automationDb.tables.Propsview;
 import db.jooq.generated.automationDb.tables.Showtable;
 import db.jooq.generated.automationDb.tables.Types;
 
@@ -36,7 +37,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Automation extends SchemaImpl {
 
-    private static final long serialVersionUID = -1745827128;
+    private static final long serialVersionUID = -284335321;
 
     /**
      * The reference instance of <code>automation</code>
@@ -44,14 +45,14 @@ public class Automation extends SchemaImpl {
     public static final Automation AUTOMATION = new Automation();
 
     /**
-     * VIEW
-     */
-    public final Entryform ENTRYFORM = db.jooq.generated.automationDb.tables.Entryform.ENTRYFORM;
-
-    /**
      * The table <code>automation.extendedprops</code>.
      */
     public final Extendedprops EXTENDEDPROPS = db.jooq.generated.automationDb.tables.Extendedprops.EXTENDEDPROPS;
+
+    /**
+     * VIEW
+     */
+    public final Extendedpropsview EXTENDEDPROPSVIEW = db.jooq.generated.automationDb.tables.Extendedpropsview.EXTENDEDPROPSVIEW;
 
     /**
      * The table <code>automation.guimap</code>.
@@ -67,6 +68,11 @@ public class Automation extends SchemaImpl {
      * The table <code>automation.properties</code>.
      */
     public final Properties PROPERTIES = db.jooq.generated.automationDb.tables.Properties.PROPERTIES;
+
+    /**
+     * VIEW
+     */
+    public final Propsview PROPSVIEW = db.jooq.generated.automationDb.tables.Propsview.PROPSVIEW;
 
     /**
      * VIEW
@@ -103,11 +109,12 @@ public class Automation extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
-            Entryform.ENTRYFORM,
             Extendedprops.EXTENDEDPROPS,
+            Extendedpropsview.EXTENDEDPROPSVIEW,
             Guimap.GUIMAP,
             Pages.PAGES,
             Properties.PROPERTIES,
+            Propsview.PROPSVIEW,
             Showtable.SHOWTABLE,
             Types.TYPES);
     }

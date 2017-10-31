@@ -87,14 +87,16 @@ public class LibHtml {
     }
 
     public static String getPageEntryForm(String pageName) {
-        String tableName = "entryform";
+        String mainPropertiesView = "propsview";
+        String extendedPropertiesView = "extendedpropsview";
         String whereColumn = "PAGENAME";
 
-        tableName.replaceAll(tableName, tableName.toLowerCase());
-        List<String> mainFieldsList = LibDatabase.getTableFields(tableName);
+        mainPropertiesView.replaceAll(mainPropertiesView, mainPropertiesView.toLowerCase());
+        List<String> mainFieldsList = LibDatabase.getTableFields(mainPropertiesView);
+        List<String> extendedFieldsList = LibDatabase.getTableFields(extendedPropertiesView);
         mainFieldsList.remove(whereColumn);
 
-        Element table = new Element("table").attr("id", tableName);
+        Element table = new Element("table").attr("id", mainPropertiesView);
         Element headerRow = new Element("tr");
 
         // Add columns to the displayed table as header row
@@ -102,9 +104,9 @@ public class LibHtml {
             headerRow.appendElement("th").text(field);
         }
         mainFieldsList.remove("ELEMENTTYPE");
-        String innerHtml = getFormattedRow(mainFieldsList);
+        String innerHtml = getFormattedRow(mainFieldsList, extendedFieldsList);
 
-        String scriptBlock = addRowScriptTemplate.replaceAll("__TABLENAME__", tableName).replaceAll("__ROWHTML__",
+        String scriptBlock = addRowScriptTemplate.replaceAll("__TABLENAME__", mainPropertiesView).replaceAll("__ROWHTML__",
                 innerHtml);
 
         Document html = Jsoup.parse("<html></html>");
@@ -122,7 +124,7 @@ public class LibHtml {
         elTableName.attr("type", "hidden");
         elTableName.attr("id", "tableName");
         elTableName.attr("name", "tableName");
-        elTableName.attr("value", tableName);
+        elTableName.attr("value", mainPropertiesView);
 
         Element elPageName = new Element("input");
         elPageName.attr("type", "hidden");
@@ -183,7 +185,7 @@ public class LibHtml {
     }
 
     // REQUIRED
-    private static String getFormattedRow(List<String> columns) {
+    private static String getFormattedRow(List<String> columns, List<String> inLinePopupList) {
 
         Element selectType = getTextArea("ELEMENTTYPE");
         selectType.tagName("select");
@@ -250,4 +252,29 @@ public class LibHtml {
         return selectElement;
     }
 
+    
+    private static String getFormattedRow(List<String> columns) {
+
+        Element selectType = getTextArea("ELEMENTTYPE");
+        selectType.tagName("select");
+        selectType = addAvailableTypes(selectType);
+        Element row = new Element("tr");
+        row.appendChild(new Element("td").appendChild(selectType));
+        // ones that need to be on main page: 4
+//        for (String column : columns) {
+        int i=0;
+        for (i=0; i<=3;i++) {
+            String column =columns.get(i);
+            Element e = getTextArea(column);
+            Element cell = new Element("td").appendChild(e);
+            row.appendChild(cell);
+        }
+        // now i i propertymap 
+        // Move property map to Types
+        String propertyMap = columns.get(i);
+        // move extra props to different table .. all of it goes into
+        // the inline popup!!
+        String strElement = Parser.unescapeEntities(row.toString(), false);
+        return strElement;
+    }
 }

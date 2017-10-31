@@ -5,6 +5,7 @@ package db.jooq.generated.automationDb;
 
 
 import db.jooq.generated.automationDb.tables.Entryform;
+import db.jooq.generated.automationDb.tables.Extendedprops;
 import db.jooq.generated.automationDb.tables.Guimap;
 import db.jooq.generated.automationDb.tables.Pages;
 import db.jooq.generated.automationDb.tables.Properties;
@@ -31,6 +32,11 @@ public class Tables {
      * VIEW
      */
     public static final Entryform ENTRYFORM = db.jooq.generated.automationDb.tables.Entryform.ENTRYFORM;
+
+    /**
+     * The table <code>automation.extendedprops</code>.
+     */
+    public static final Extendedprops EXTENDEDPROPS = db.jooq.generated.automationDb.tables.Extendedprops.EXTENDEDPROPS;
 
     /**
      * The table <code>automation.guimap</code>.

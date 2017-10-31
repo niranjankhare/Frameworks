@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Properties extends TableImpl<PropertiesRecord> {
 
-    private static final long serialVersionUID = -1642446013;
+    private static final long serialVersionUID = -352354945;
 
     /**
      * The reference instance of <code>automation.properties</code>
@@ -86,51 +86,6 @@ public class Properties extends TableImpl<PropertiesRecord> {
     public final TableField<PropertiesRecord, String> LOCATORTYPE = createField("LOCATORTYPE", org.jooq.impl.SQLDataType.VARCHAR(10).nullable(false), this, "");
 
     /**
-     * The column <code>automation.properties.EXPROP1</code>.
-     */
-    public final TableField<PropertiesRecord, String> EXPROP1 = createField("EXPROP1", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>automation.properties.EXPROP2</code>.
-     */
-    public final TableField<PropertiesRecord, String> EXPROP2 = createField("EXPROP2", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>automation.properties.EXPROP3</code>.
-     */
-    public final TableField<PropertiesRecord, String> EXPROP3 = createField("EXPROP3", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>automation.properties.EXPROP4</code>.
-     */
-    public final TableField<PropertiesRecord, String> EXPROP4 = createField("EXPROP4", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>automation.properties.EXPROP5</code>.
-     */
-    public final TableField<PropertiesRecord, String> EXPROP5 = createField("EXPROP5", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>automation.properties.EXPROP6</code>.
-     */
-    public final TableField<PropertiesRecord, String> EXPROP6 = createField("EXPROP6", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>automation.properties.EXPROP7</code>.
-     */
-    public final TableField<PropertiesRecord, String> EXPROP7 = createField("EXPROP7", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>automation.properties.EXPROP8</code>.
-     */
-    public final TableField<PropertiesRecord, String> EXPROP8 = createField("EXPROP8", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>automation.properties.EXPROP9</code>.
-     */
-    public final TableField<PropertiesRecord, String> EXPROP9 = createField("EXPROP9", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
      * Create a <code>automation.properties</code> table reference
      */
     public Properties() {
@@ -172,7 +127,7 @@ public class Properties extends TableImpl<PropertiesRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.PROPERTIES_FK_GUIMAP, Indexes.PROPERTIES_PRIMARY);
+        return Arrays.<Index>asList(Indexes.PROPERTIES_FK_GUIMAP_PROPERTIES, Indexes.PROPERTIES_PRIMARY);
     }
 
     /**
@@ -204,7 +159,7 @@ public class Properties extends TableImpl<PropertiesRecord> {
      */
     @Override
     public List<ForeignKey<PropertiesRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<PropertiesRecord, ?>>asList(Keys.FK_GUIMAP);
+        return Arrays.<ForeignKey<PropertiesRecord, ?>>asList(Keys.FK_GUIMAP_PROPERTIES);
     }
 
     /**

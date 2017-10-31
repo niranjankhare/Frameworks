@@ -5,6 +5,7 @@ package db.jooq.generated.automationDb;
 
 
 import db.jooq.generated.automationDb.tables.Entryform;
+import db.jooq.generated.automationDb.tables.Extendedprops;
 import db.jooq.generated.automationDb.tables.Guimap;
 import db.jooq.generated.automationDb.tables.Pages;
 import db.jooq.generated.automationDb.tables.Properties;
@@ -35,7 +36,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Automation extends SchemaImpl {
 
-    private static final long serialVersionUID = 1815592250;
+    private static final long serialVersionUID = -1745827128;
 
     /**
      * The reference instance of <code>automation</code>
@@ -46,6 +47,11 @@ public class Automation extends SchemaImpl {
      * VIEW
      */
     public final Entryform ENTRYFORM = db.jooq.generated.automationDb.tables.Entryform.ENTRYFORM;
+
+    /**
+     * The table <code>automation.extendedprops</code>.
+     */
+    public final Extendedprops EXTENDEDPROPS = db.jooq.generated.automationDb.tables.Extendedprops.EXTENDEDPROPS;
 
     /**
      * The table <code>automation.guimap</code>.
@@ -98,6 +104,7 @@ public class Automation extends SchemaImpl {
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
             Entryform.ENTRYFORM,
+            Extendedprops.EXTENDEDPROPS,
             Guimap.GUIMAP,
             Pages.PAGES,
             Properties.PROPERTIES,

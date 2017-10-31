@@ -4,6 +4,7 @@
 package db.jooq.generated.automationDb;
 
 
+import db.jooq.generated.automationDb.tables.Extendedprops;
 import db.jooq.generated.automationDb.tables.Guimap;
 import db.jooq.generated.automationDb.tables.Pages;
 import db.jooq.generated.automationDb.tables.Properties;
@@ -33,10 +34,12 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
+    public static final Index EXTENDEDPROPS_FK_GUIMAP_EXTENDEDPROPS = Indexes0.EXTENDEDPROPS_FK_GUIMAP_EXTENDEDPROPS;
+    public static final Index EXTENDEDPROPS_PRIMARY = Indexes0.EXTENDEDPROPS_PRIMARY;
     public static final Index GUIMAP_FK_PAGE = Indexes0.GUIMAP_FK_PAGE;
     public static final Index GUIMAP_PRIMARY = Indexes0.GUIMAP_PRIMARY;
     public static final Index PAGES_PRIMARY = Indexes0.PAGES_PRIMARY;
-    public static final Index PROPERTIES_FK_GUIMAP = Indexes0.PROPERTIES_FK_GUIMAP;
+    public static final Index PROPERTIES_FK_GUIMAP_PROPERTIES = Indexes0.PROPERTIES_FK_GUIMAP_PROPERTIES;
     public static final Index PROPERTIES_PRIMARY = Indexes0.PROPERTIES_PRIMARY;
     public static final Index TYPES_PRIMARY = Indexes0.TYPES_PRIMARY;
 
@@ -45,10 +48,12 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     private static class Indexes0 extends AbstractKeys {
+        public static Index EXTENDEDPROPS_FK_GUIMAP_EXTENDEDPROPS = createIndex("fk_guimap_extendedprops", Extendedprops.EXTENDEDPROPS, new OrderField[] { Extendedprops.EXTENDEDPROPS.GUIMAPID }, false);
+        public static Index EXTENDEDPROPS_PRIMARY = createIndex("PRIMARY", Extendedprops.EXTENDEDPROPS, new OrderField[] { Extendedprops.EXTENDEDPROPS.EXPROPID }, true);
         public static Index GUIMAP_FK_PAGE = createIndex("fk_page", Guimap.GUIMAP, new OrderField[] { Guimap.GUIMAP.PAGENAME }, false);
         public static Index GUIMAP_PRIMARY = createIndex("PRIMARY", Guimap.GUIMAP, new OrderField[] { Guimap.GUIMAP.GUIMAPID }, true);
         public static Index PAGES_PRIMARY = createIndex("PRIMARY", Pages.PAGES, new OrderField[] { Pages.PAGES.PAGENAME }, true);
-        public static Index PROPERTIES_FK_GUIMAP = createIndex("fk_guimap", Properties.PROPERTIES, new OrderField[] { Properties.PROPERTIES.GUIMAPID }, false);
+        public static Index PROPERTIES_FK_GUIMAP_PROPERTIES = createIndex("fk_guimap_properties", Properties.PROPERTIES, new OrderField[] { Properties.PROPERTIES.GUIMAPID }, false);
         public static Index PROPERTIES_PRIMARY = createIndex("PRIMARY", Properties.PROPERTIES, new OrderField[] { Properties.PROPERTIES.PROPERTYID }, true);
         public static Index TYPES_PRIMARY = createIndex("PRIMARY", Types.TYPES, new OrderField[] { Types.TYPES.CLASSID }, true);
     }

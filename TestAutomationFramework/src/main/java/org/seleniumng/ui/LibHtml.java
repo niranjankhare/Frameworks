@@ -26,7 +26,8 @@ public class LibHtml {
         // TODO: Get list of columns for the view/table
         tableName.replaceAll(tableName, tableName.toLowerCase());
         List<String> fieldsList = LibDatabase.getTableFields(tableName);
-        if (whereColumn != null)fieldsList.remove(whereColumn);
+        if (whereColumn != null)
+            fieldsList.remove(whereColumn);
         String scriptBlock = addRowScriptTemplate.replaceAll("__TABLENAME__", tableName).replaceAll("__ROWHTML__",
                 getFormattedRow(fieldsList));
 
@@ -103,11 +104,11 @@ public class LibHtml {
         for (String field : mainFieldsList) {
             headerRow.appendElement("th").text(field);
         }
-        mainFieldsList.remove("ELEMENTTYPE");
+        mainFieldsList.remove("CONTROLTYPE");
         String innerHtml = getFormattedRow(mainFieldsList, extendedFieldsList);
 
-        String scriptBlock = addRowScriptTemplate.replaceAll("__TABLENAME__", mainPropertiesView).replaceAll("__ROWHTML__",
-                innerHtml);
+        String scriptBlock = addRowScriptTemplate.replaceAll("__TABLENAME__", mainPropertiesView)
+                .replaceAll("__ROWHTML__", innerHtml);
 
         Document html = Jsoup.parse("<html></html>");
 
@@ -142,9 +143,10 @@ public class LibHtml {
         submit.attr("type", "submit");
         submit.attr("id", "submit");
         submit.attr("value", "Go!");
-
+        Element parentPageDiv = new Element("div").attr("id", "formMainDiv");
+        parentPageDiv.appendChild(table);
         Element form = new Element("form").attr("id", "guimap").attr("method", "post").attr("action", "/updateTable");
-        form.appendChild(table);
+        form.appendChild(parentPageDiv);
         form.appendChild(addMore);
         form.appendChild(elTableName);
         if (whereColumn != null)
@@ -193,21 +195,29 @@ public class LibHtml {
         Element row = new Element("tr");
         row.appendChild(new Element("td").appendChild(selectType));
         // ones that need to be on main page: 4
-//        for (String column : columns) {
-        int i=0;
-        for (i=0; i<=3;i++) {
-            String column =columns.get(i);
-            Element e = getTextArea(column);
-            Element cell = new Element("td").appendChild(e);
-            row.appendChild(cell);
-        }
-        // now i i propertymap 
+
+        row = addColumnsToRow(row, columns);
+        
+        // create a cell that has teh divPopup for the row
+    
+        // now create div for inline popup
+
+        // now i i propertymap
         // Move property map to Types
-        String propertyMap = columns.get(i);
         // move extra props to different table .. all of it goes into
         // the inline popup!!
         String strElement = Parser.unescapeEntities(row.toString(), false);
         return strElement;
+    }
+
+    private static Element addColumnsToRow(Element row, List<String> columns) {
+        for (String column : columns) {
+            Element e = getTextArea(column);
+            Element cell = new Element("td").appendChild(e);
+            row.appendChild(cell);
+        }
+
+        return row;
     }
 
     public static Element getTextArea(String columnName) {
@@ -252,7 +262,6 @@ public class LibHtml {
         return selectElement;
     }
 
-    
     private static String getFormattedRow(List<String> columns) {
 
         Element selectType = getTextArea("ELEMENTTYPE");
@@ -261,15 +270,15 @@ public class LibHtml {
         Element row = new Element("tr");
         row.appendChild(new Element("td").appendChild(selectType));
         // ones that need to be on main page: 4
-//        for (String column : columns) {
-        int i=0;
-        for (i=0; i<=3;i++) {
-            String column =columns.get(i);
+        // for (String column : columns) {
+        int i = 0;
+        for (i = 0; i <= 3; i++) {
+            String column = columns.get(i);
             Element e = getTextArea(column);
             Element cell = new Element("td").appendChild(e);
             row.appendChild(cell);
         }
-        // now i i propertymap 
+        // now i i propertymap
         // Move property map to Types
         String propertyMap = columns.get(i);
         // move extra props to different table .. all of it goes into

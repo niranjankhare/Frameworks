@@ -104,6 +104,10 @@ public class LibHtml {
         for (String field : mainFieldsList) {
             headerRow.appendElement("th").text(field);
         }
+        
+        headerRow.appendElement("th").text("More properties");
+        
+        
         mainFieldsList.remove("CONTROLTYPE");
         String innerHtml = getFormattedRow(mainFieldsList, extendedFieldsList);
 
@@ -192,12 +196,20 @@ public class LibHtml {
         Element selectType = getTextArea("ELEMENTTYPE");
         selectType.tagName("select");
         selectType = addAvailableTypes(selectType);
-        Element row = new Element("tr");
+        String idRow = "Row" ;
+        Element row = new Element("tr")
+                .attr("id",idRow);
         row.appendChild(new Element("td").appendChild(selectType));
         // ones that need to be on main page: 4
 
         row = addColumnsToRow(row, columns);
         
+        Element moreProps = new Element("button")
+                .attr("type","button")
+                .attr("value","...")
+//                .attr() for onclick
+                ;
+        row.appendChild(moreProps);
         // create a cell that has teh divPopup for the row
     
         // now create div for inline popup

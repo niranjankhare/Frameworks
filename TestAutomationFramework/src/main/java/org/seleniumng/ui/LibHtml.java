@@ -1,8 +1,10 @@
 package org.seleniumng.ui;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,10 +17,42 @@ import org.jsoup.parser.Parser;
 
 public class LibHtml {
 
-    private static String addRowScriptTemplate = "function add_fields() {var rowCount = document.getElementById('__TABLENAME__').getElementsByTagName(\"tbody\")[0].rows.length;document.getElementById(\"__TABLENAME__\").insertRow(-1).innerHTML = '__ROWHTML__';} ";
+    private static String addRowScriptTemplate  = "function add_fields() {var rowCount = document.getElementById('__TABLENAME__').getElementsByTagName(\"tbody\")[0].rows.length;document.getElementById(\"__TABLENAME__\").insertRow(-1).innerHTML = '__ROWHTML__';} ";
+
+    private static String addRowScriptTemplateN = getScriptResource("addRows.js");                                                                                                                                                                                      // LibHtml.class.getResourceAsStream("");
 
     public static void main(String[] args) {
-        // Test block only
+        LinkedHashMap<String, String> availableTypes = LibDatabase.getStandardTypes();
+        String replaceText = "";
+        for (Entry<String,String> e:availableTypes.entrySet()){
+            replaceText = replaceText+"["+sq(e.getKey())+ "," + sq(e.getValue())+"]";
+            replaceText = replaceText +",";
+        }
+        addRowScriptTemplateN = addRowScriptTemplateN.replaceAll("__OPTIONS__",replaceText.replaceAll(",$",""));
+        System.out.println(addRowScriptTemplateN);
+    }
+
+    private static String sq(String str) {
+        // TODO Auto-generated method stub
+        return "'"+ str+"'";
+    }
+
+    private static String getScriptResource(String resouceName) {
+        ByteArrayOutputStream result = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int length;
+        InputStream inputStream = LibHtml.class.getResourceAsStream(resouceName);
+        try {
+            while ((length = inputStream.read(buffer)) != -1) {
+                result.write(buffer, 0, length);
+            }
+            // StandardCharsets.UTF_8.name() > JDK 7
+            return result.toString("UTF-8");
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return null;
+        }
     }
 
     // REQUIRED
@@ -30,7 +64,7 @@ public class LibHtml {
             fieldsList.remove(whereColumn);
         String scriptBlock = addRowScriptTemplate.replaceAll("__TABLENAME__", tableName).replaceAll("__ROWHTML__",
                 getFormattedRow(fieldsList));
-
+        scriptBlock = addRowScriptTemplateN.replaceAll("__OPTIONS__",getOptionsArray());
         Document html = Jsoup.parse("<html></html>");
 
         Element scriptElement = new Element("script").text(scriptBlock);
@@ -104,16 +138,15 @@ public class LibHtml {
         for (String field : mainFieldsList) {
             headerRow.appendElement("th").text(field);
         }
-        
+
         headerRow.appendElement("th").text("More properties");
-        
-        
-        mainFieldsList.remove("CONTROLTYPE");
+
+       // mainFieldsList.remove("CONTROLTYPE");
         String innerHtml = getFormattedRow(mainFieldsList, extendedFieldsList);
 
         String scriptBlock = addRowScriptTemplate.replaceAll("__TABLENAME__", mainPropertiesView)
-                .replaceAll("__ROWHTML__", innerHtml);
-
+                .replaceAll("__FIELDS__", getFieldsArray(mainFieldsList));
+        scriptBlock = addRowScriptTemplateN.replaceAll("__OPTIONS__",getOptionsArray()).replaceAll("__FIELDS__", getFieldsArray(mainFieldsList));;
         Document html = Jsoup.parse("<html></html>");
 
         Element scriptElement = new Element("script").text(scriptBlock);
@@ -164,6 +197,15 @@ public class LibHtml {
 
     }
 
+    private static String getFieldsArray(List<String> fieldList) {
+        String replaceText = "";
+        for (String field:fieldList){
+            replaceText = replaceText+ sq(field)+ ",";
+        }
+        replaceText = replaceText.replaceAll(",$","");
+        return replaceText;
+    }
+
     private static void WriteFile(String fileName, String content) {
         File f = new File(fileName);
 
@@ -196,22 +238,19 @@ public class LibHtml {
         Element selectType = getTextArea("ELEMENTTYPE");
         selectType.tagName("select");
         selectType = addAvailableTypes(selectType);
-        String idRow = "Row" ;
-        Element row = new Element("tr")
-                .attr("id",idRow);
+        String idRow = "Row";
+        Element row = new Element("tr").attr("id", idRow);
         row.appendChild(new Element("td").appendChild(selectType));
         // ones that need to be on main page: 4
 
         row = addColumnsToRow(row, columns);
-        
-        Element moreProps = new Element("button")
-                .attr("type","button")
-                .attr("value","...")
-//                .attr() for onclick
-                ;
+
+        Element moreProps = new Element("button").attr("type", "button").attr("value", "...")
+        // .attr() for onclick
+        ;
         row.appendChild(moreProps);
         // create a cell that has teh divPopup for the row
-    
+
         // now create div for inline popup
 
         // now i i propertymap
@@ -266,7 +305,16 @@ public class LibHtml {
         System.out.println(availableTypes.size());
         return addOptionsToSelect(selectElement, availableTypes);
     }
-
+    
+    private static String getOptionsArray() {
+        LinkedHashMap<String, String> availableTypes = LibDatabase.getStandardTypes();
+        String replaceText = "";
+        for (Entry<String,String> e:availableTypes.entrySet()){
+            replaceText = replaceText+"["+sq(e.getKey())+ "," + sq(e.getValue())+"]";
+            replaceText = replaceText +",";
+        }
+        return replaceText.replaceAll(",$","");
+    }
     private static Element addOptionsToSelect(Element selectElement, LinkedHashMap<String, String> map) {
         for (Entry<String, String> entry : map.entrySet()) {
             selectElement.appendChild(new Element("option").val(entry.getKey()).text(entry.getValue()));

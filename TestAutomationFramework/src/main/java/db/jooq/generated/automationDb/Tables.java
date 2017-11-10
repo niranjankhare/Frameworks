@@ -30,7 +30,7 @@ import javax.annotation.Generated;
 public class Tables {
 
     /**
-     * The table <code>automation.extendedprops</code>.
+     * The table <code>automation.EXTENDEDPROPS</code>.
      */
     public static final Extendedprops EXTENDEDPROPS = db.jooq.generated.automationDb.tables.Extendedprops.EXTENDEDPROPS;
 
@@ -40,17 +40,17 @@ public class Tables {
     public static final Extendedpropsview EXTENDEDPROPSVIEW = db.jooq.generated.automationDb.tables.Extendedpropsview.EXTENDEDPROPSVIEW;
 
     /**
-     * The table <code>automation.guimap</code>.
+     * The table <code>automation.GUIMAP</code>.
      */
     public static final Guimap GUIMAP = db.jooq.generated.automationDb.tables.Guimap.GUIMAP;
 
     /**
-     * The table <code>automation.pages</code>.
+     * The table <code>automation.PAGES</code>.
      */
     public static final Pages PAGES = db.jooq.generated.automationDb.tables.Pages.PAGES;
 
     /**
-     * The table <code>automation.properties</code>.
+     * The table <code>automation.PROPERTIES</code>.
      */
     public static final Properties PROPERTIES = db.jooq.generated.automationDb.tables.Properties.PROPERTIES;
 
@@ -65,7 +65,7 @@ public class Tables {
     public static final Showtable SHOWTABLE = db.jooq.generated.automationDb.tables.Showtable.SHOWTABLE;
 
     /**
-     * The table <code>automation.types</code>.
+     * The table <code>automation.TYPES</code>.
      */
     public static final Types TYPES = db.jooq.generated.automationDb.tables.Types.TYPES;
 }

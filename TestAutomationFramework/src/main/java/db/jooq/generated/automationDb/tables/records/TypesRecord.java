@@ -28,73 +28,73 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TypesRecord extends UpdatableRecordImpl<TypesRecord> implements Record5<Integer, String, String, String, String> {
 
-    private static final long serialVersionUID = 1151462274;
+    private static final long serialVersionUID = -1781224510;
 
     /**
-     * Setter for <code>automation.types.CLASSID</code>.
+     * Setter for <code>automation.TYPES.CLASSID</code>.
      */
     public void setClassid(Integer value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>automation.types.CLASSID</code>.
+     * Getter for <code>automation.TYPES.CLASSID</code>.
      */
     public Integer getClassid() {
         return (Integer) get(0);
     }
 
     /**
-     * Setter for <code>automation.types.CLASS</code>.
+     * Setter for <code>automation.TYPES.CLASS</code>.
      */
     public void setClass_(String value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>automation.types.CLASS</code>.
+     * Getter for <code>automation.TYPES.CLASS</code>.
      */
     public String getClass_() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>automation.types.TYPE</code>.
+     * Setter for <code>automation.TYPES.TYPE</code>.
      */
     public void setType(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>automation.types.TYPE</code>.
+     * Getter for <code>automation.TYPES.TYPE</code>.
      */
     public String getType() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>automation.types.ABRV</code>.
+     * Setter for <code>automation.TYPES.ABRV</code>.
      */
     public void setAbrv(String value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>automation.types.ABRV</code>.
+     * Getter for <code>automation.TYPES.ABRV</code>.
      */
     public String getAbrv() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>automation.types.PROPERTYMAP</code>.
+     * Setter for <code>automation.TYPES.PROPERTYMAP</code>.
      */
     public void setPropertymap(String value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>automation.types.PROPERTYMAP</code>.
+     * Getter for <code>automation.TYPES.PROPERTYMAP</code>.
      */
     public String getPropertymap() {
         return (String) get(4);

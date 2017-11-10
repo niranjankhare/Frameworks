@@ -28,87 +28,87 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PropertiesRecord extends UpdatableRecordImpl<PropertiesRecord> implements Record6<Integer, Integer, String, String, String, String> {
 
-    private static final long serialVersionUID = -224330503;
+    private static final long serialVersionUID = 753683705;
 
     /**
-     * Setter for <code>automation.properties.PROPERTYID</code>.
+     * Setter for <code>automation.PROPERTIES.PROPERTYID</code>.
      */
     public void setPropertyid(Integer value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>automation.properties.PROPERTYID</code>.
+     * Getter for <code>automation.PROPERTIES.PROPERTYID</code>.
      */
     public Integer getPropertyid() {
         return (Integer) get(0);
     }
 
     /**
-     * Setter for <code>automation.properties.GUIMAPID</code>.
+     * Setter for <code>automation.PROPERTIES.GUIMAPID</code>.
      */
     public void setGuimapid(Integer value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>automation.properties.GUIMAPID</code>.
+     * Getter for <code>automation.PROPERTIES.GUIMAPID</code>.
      */
     public Integer getGuimapid() {
         return (Integer) get(1);
     }
 
     /**
-     * Setter for <code>automation.properties.STANDARDCLASS</code>.
+     * Setter for <code>automation.PROPERTIES.STANDARDCLASS</code>.
      */
     public void setStandardclass(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>automation.properties.STANDARDCLASS</code>.
+     * Getter for <code>automation.PROPERTIES.STANDARDCLASS</code>.
      */
     public String getStandardclass() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>automation.properties.MAPPEDCLASS</code>.
+     * Setter for <code>automation.PROPERTIES.MAPPEDCLASS</code>.
      */
     public void setMappedclass(String value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>automation.properties.MAPPEDCLASS</code>.
+     * Getter for <code>automation.PROPERTIES.MAPPEDCLASS</code>.
      */
     public String getMappedclass() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>automation.properties.LOCATORVALUE</code>.
+     * Setter for <code>automation.PROPERTIES.LOCATORVALUE</code>.
      */
     public void setLocatorvalue(String value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>automation.properties.LOCATORVALUE</code>.
+     * Getter for <code>automation.PROPERTIES.LOCATORVALUE</code>.
      */
     public String getLocatorvalue() {
         return (String) get(4);
     }
 
     /**
-     * Setter for <code>automation.properties.LOCATORTYPE</code>.
+     * Setter for <code>automation.PROPERTIES.LOCATORTYPE</code>.
      */
     public void setLocatortype(String value) {
         set(5, value);
     }
 
     /**
-     * Getter for <code>automation.properties.LOCATORTYPE</code>.
+     * Getter for <code>automation.PROPERTIES.LOCATORTYPE</code>.
      */
     public String getLocatortype() {
         return (String) get(5);

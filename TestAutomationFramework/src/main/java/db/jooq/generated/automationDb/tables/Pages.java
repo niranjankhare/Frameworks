@@ -38,10 +38,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Pages extends TableImpl<PagesRecord> {
 
-    private static final long serialVersionUID = 1824321912;
+    private static final long serialVersionUID = -807129800;
 
     /**
-     * The reference instance of <code>automation.pages</code>
+     * The reference instance of <code>automation.PAGES</code>
      */
     public static final Pages PAGES = new Pages();
 
@@ -54,36 +54,36 @@ public class Pages extends TableImpl<PagesRecord> {
     }
 
     /**
-     * The column <code>automation.pages.PAGENAME</code>.
+     * The column <code>automation.PAGES.PAGENAME</code>.
      */
     public final TableField<PagesRecord, String> PAGENAME = createField("PAGENAME", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
 
     /**
-     * The column <code>automation.pages.PARENTID</code>.
+     * The column <code>automation.PAGES.PARENTID</code>.
      */
     public final TableField<PagesRecord, String> PARENTID = createField("PARENTID", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>automation.pages.PAGEDESCRIPTION</code>.
+     * The column <code>automation.PAGES.PAGEDESCRIPTION</code>.
      */
     public final TableField<PagesRecord, String> PAGEDESCRIPTION = createField("PAGEDESCRIPTION", org.jooq.impl.SQLDataType.VARCHAR(150), this, "");
 
     /**
-     * Create a <code>automation.pages</code> table reference
+     * Create a <code>automation.PAGES</code> table reference
      */
     public Pages() {
-        this(DSL.name("pages"), null);
+        this(DSL.name("PAGES"), null);
     }
 
     /**
-     * Create an aliased <code>automation.pages</code> table reference
+     * Create an aliased <code>automation.PAGES</code> table reference
      */
     public Pages(String alias) {
         this(DSL.name(alias), PAGES);
     }
 
     /**
-     * Create an aliased <code>automation.pages</code> table reference
+     * Create an aliased <code>automation.PAGES</code> table reference
      */
     public Pages(Name alias) {
         this(alias, PAGES);

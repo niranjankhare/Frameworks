@@ -40,10 +40,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Properties extends TableImpl<PropertiesRecord> {
 
-    private static final long serialVersionUID = -352354945;
+    private static final long serialVersionUID = -1831038593;
 
     /**
-     * The reference instance of <code>automation.properties</code>
+     * The reference instance of <code>automation.PROPERTIES</code>
      */
     public static final Properties PROPERTIES = new Properties();
 
@@ -56,51 +56,51 @@ public class Properties extends TableImpl<PropertiesRecord> {
     }
 
     /**
-     * The column <code>automation.properties.PROPERTYID</code>.
+     * The column <code>automation.PROPERTIES.PROPERTYID</code>.
      */
     public final TableField<PropertiesRecord, Integer> PROPERTYID = createField("PROPERTYID", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>automation.properties.GUIMAPID</code>.
+     * The column <code>automation.PROPERTIES.GUIMAPID</code>.
      */
     public final TableField<PropertiesRecord, Integer> GUIMAPID = createField("GUIMAPID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>automation.properties.STANDARDCLASS</code>.
+     * The column <code>automation.PROPERTIES.STANDARDCLASS</code>.
      */
     public final TableField<PropertiesRecord, String> STANDARDCLASS = createField("STANDARDCLASS", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>automation.properties.MAPPEDCLASS</code>.
+     * The column <code>automation.PROPERTIES.MAPPEDCLASS</code>.
      */
     public final TableField<PropertiesRecord, String> MAPPEDCLASS = createField("MAPPEDCLASS", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>automation.properties.LOCATORVALUE</code>.
+     * The column <code>automation.PROPERTIES.LOCATORVALUE</code>.
      */
     public final TableField<PropertiesRecord, String> LOCATORVALUE = createField("LOCATORVALUE", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
-     * The column <code>automation.properties.LOCATORTYPE</code>.
+     * The column <code>automation.PROPERTIES.LOCATORTYPE</code>.
      */
     public final TableField<PropertiesRecord, String> LOCATORTYPE = createField("LOCATORTYPE", org.jooq.impl.SQLDataType.VARCHAR(10).nullable(false), this, "");
 
     /**
-     * Create a <code>automation.properties</code> table reference
+     * Create a <code>automation.PROPERTIES</code> table reference
      */
     public Properties() {
-        this(DSL.name("properties"), null);
+        this(DSL.name("PROPERTIES"), null);
     }
 
     /**
-     * Create an aliased <code>automation.properties</code> table reference
+     * Create an aliased <code>automation.PROPERTIES</code> table reference
      */
     public Properties(String alias) {
         this(DSL.name(alias), PROPERTIES);
     }
 
     /**
-     * Create an aliased <code>automation.properties</code> table reference
+     * Create an aliased <code>automation.PROPERTIES</code> table reference
      */
     public Properties(Name alias) {
         this(alias, PROPERTIES);

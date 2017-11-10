@@ -40,10 +40,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Extendedprops extends TableImpl<ExtendedpropsRecord> {
 
-    private static final long serialVersionUID = -987600359;
+    private static final long serialVersionUID = 1446943257;
 
     /**
-     * The reference instance of <code>automation.extendedprops</code>
+     * The reference instance of <code>automation.EXTENDEDPROPS</code>
      */
     public static final Extendedprops EXTENDEDPROPS = new Extendedprops();
 
@@ -56,76 +56,76 @@ public class Extendedprops extends TableImpl<ExtendedpropsRecord> {
     }
 
     /**
-     * The column <code>automation.extendedprops.EXPROPID</code>.
+     * The column <code>automation.EXTENDEDPROPS.EXPROPID</code>.
      */
     public final TableField<ExtendedpropsRecord, Integer> EXPROPID = createField("EXPROPID", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>automation.extendedprops.GUIMAPID</code>.
+     * The column <code>automation.EXTENDEDPROPS.GUIMAPID</code>.
      */
     public final TableField<ExtendedpropsRecord, Integer> GUIMAPID = createField("GUIMAPID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>automation.extendedprops.EXPROP1</code>.
+     * The column <code>automation.EXTENDEDPROPS.EXPROP1</code>.
      */
     public final TableField<ExtendedpropsRecord, String> EXPROP1 = createField("EXPROP1", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
-     * The column <code>automation.extendedprops.EXPROP2</code>.
+     * The column <code>automation.EXTENDEDPROPS.EXPROP2</code>.
      */
     public final TableField<ExtendedpropsRecord, String> EXPROP2 = createField("EXPROP2", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
-     * The column <code>automation.extendedprops.EXPROP3</code>.
+     * The column <code>automation.EXTENDEDPROPS.EXPROP3</code>.
      */
     public final TableField<ExtendedpropsRecord, String> EXPROP3 = createField("EXPROP3", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
-     * The column <code>automation.extendedprops.EXPROP4</code>.
+     * The column <code>automation.EXTENDEDPROPS.EXPROP4</code>.
      */
     public final TableField<ExtendedpropsRecord, String> EXPROP4 = createField("EXPROP4", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
-     * The column <code>automation.extendedprops.EXPROP5</code>.
+     * The column <code>automation.EXTENDEDPROPS.EXPROP5</code>.
      */
     public final TableField<ExtendedpropsRecord, String> EXPROP5 = createField("EXPROP5", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
-     * The column <code>automation.extendedprops.EXPROP6</code>.
+     * The column <code>automation.EXTENDEDPROPS.EXPROP6</code>.
      */
     public final TableField<ExtendedpropsRecord, String> EXPROP6 = createField("EXPROP6", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
-     * The column <code>automation.extendedprops.EXPROP7</code>.
+     * The column <code>automation.EXTENDEDPROPS.EXPROP7</code>.
      */
     public final TableField<ExtendedpropsRecord, String> EXPROP7 = createField("EXPROP7", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
-     * The column <code>automation.extendedprops.EXPROP8</code>.
+     * The column <code>automation.EXTENDEDPROPS.EXPROP8</code>.
      */
     public final TableField<ExtendedpropsRecord, String> EXPROP8 = createField("EXPROP8", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
-     * The column <code>automation.extendedprops.EXPROP9</code>.
+     * The column <code>automation.EXTENDEDPROPS.EXPROP9</code>.
      */
     public final TableField<ExtendedpropsRecord, String> EXPROP9 = createField("EXPROP9", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
-     * Create a <code>automation.extendedprops</code> table reference
+     * Create a <code>automation.EXTENDEDPROPS</code> table reference
      */
     public Extendedprops() {
-        this(DSL.name("extendedprops"), null);
+        this(DSL.name("EXTENDEDPROPS"), null);
     }
 
     /**
-     * Create an aliased <code>automation.extendedprops</code> table reference
+     * Create an aliased <code>automation.EXTENDEDPROPS</code> table reference
      */
     public Extendedprops(String alias) {
         this(DSL.name(alias), EXTENDEDPROPS);
     }
 
     /**
-     * Create an aliased <code>automation.extendedprops</code> table reference
+     * Create an aliased <code>automation.EXTENDEDPROPS</code> table reference
      */
     public Extendedprops(Name alias) {
         this(alias, EXTENDEDPROPS);

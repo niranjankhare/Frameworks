@@ -28,45 +28,45 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PagesRecord extends UpdatableRecordImpl<PagesRecord> implements Record3<String, String, String> {
 
-    private static final long serialVersionUID = -764616765;
+    private static final long serialVersionUID = -2040567805;
 
     /**
-     * Setter for <code>automation.pages.PAGENAME</code>.
+     * Setter for <code>automation.PAGES.PAGENAME</code>.
      */
     public void setPagename(String value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>automation.pages.PAGENAME</code>.
+     * Getter for <code>automation.PAGES.PAGENAME</code>.
      */
     public String getPagename() {
         return (String) get(0);
     }
 
     /**
-     * Setter for <code>automation.pages.PARENTID</code>.
+     * Setter for <code>automation.PAGES.PARENTID</code>.
      */
     public void setParentid(String value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>automation.pages.PARENTID</code>.
+     * Getter for <code>automation.PAGES.PARENTID</code>.
      */
     public String getParentid() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>automation.pages.PAGEDESCRIPTION</code>.
+     * Setter for <code>automation.PAGES.PAGEDESCRIPTION</code>.
      */
     public void setPagedescription(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>automation.pages.PAGEDESCRIPTION</code>.
+     * Getter for <code>automation.PAGES.PAGEDESCRIPTION</code>.
      */
     public String getPagedescription() {
         return (String) get(2);

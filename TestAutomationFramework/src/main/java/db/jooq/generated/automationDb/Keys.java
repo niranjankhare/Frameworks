@@ -76,11 +76,11 @@ public class Keys {
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
-        public static final UniqueKey<ExtendedpropsRecord> KEY_EXTENDEDPROPS_PRIMARY = createUniqueKey(Extendedprops.EXTENDEDPROPS, "KEY_extendedprops_PRIMARY", Extendedprops.EXTENDEDPROPS.EXPROPID);
-        public static final UniqueKey<GuimapRecord> KEY_GUIMAP_PRIMARY = createUniqueKey(Guimap.GUIMAP, "KEY_guimap_PRIMARY", Guimap.GUIMAP.GUIMAPID);
-        public static final UniqueKey<PagesRecord> KEY_PAGES_PRIMARY = createUniqueKey(Pages.PAGES, "KEY_pages_PRIMARY", Pages.PAGES.PAGENAME);
-        public static final UniqueKey<PropertiesRecord> KEY_PROPERTIES_PRIMARY = createUniqueKey(Properties.PROPERTIES, "KEY_properties_PRIMARY", Properties.PROPERTIES.PROPERTYID);
-        public static final UniqueKey<TypesRecord> KEY_TYPES_PRIMARY = createUniqueKey(Types.TYPES, "KEY_types_PRIMARY", Types.TYPES.CLASSID);
+        public static final UniqueKey<ExtendedpropsRecord> KEY_EXTENDEDPROPS_PRIMARY = createUniqueKey(Extendedprops.EXTENDEDPROPS, "KEY_EXTENDEDPROPS_PRIMARY", Extendedprops.EXTENDEDPROPS.EXPROPID);
+        public static final UniqueKey<GuimapRecord> KEY_GUIMAP_PRIMARY = createUniqueKey(Guimap.GUIMAP, "KEY_GUIMAP_PRIMARY", Guimap.GUIMAP.GUIMAPID);
+        public static final UniqueKey<PagesRecord> KEY_PAGES_PRIMARY = createUniqueKey(Pages.PAGES, "KEY_PAGES_PRIMARY", Pages.PAGES.PAGENAME);
+        public static final UniqueKey<PropertiesRecord> KEY_PROPERTIES_PRIMARY = createUniqueKey(Properties.PROPERTIES, "KEY_PROPERTIES_PRIMARY", Properties.PROPERTIES.PROPERTYID);
+        public static final UniqueKey<TypesRecord> KEY_TYPES_PRIMARY = createUniqueKey(Types.TYPES, "KEY_TYPES_PRIMARY", Types.TYPES.CLASSID);
     }
 
     private static class ForeignKeys0 extends AbstractKeys {

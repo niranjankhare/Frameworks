@@ -39,10 +39,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Types extends TableImpl<TypesRecord> {
 
-    private static final long serialVersionUID = -913724173;
+    private static final long serialVersionUID = 1038295411;
 
     /**
-     * The reference instance of <code>automation.types</code>
+     * The reference instance of <code>automation.TYPES</code>
      */
     public static final Types TYPES = new Types();
 
@@ -55,46 +55,46 @@ public class Types extends TableImpl<TypesRecord> {
     }
 
     /**
-     * The column <code>automation.types.CLASSID</code>.
+     * The column <code>automation.TYPES.CLASSID</code>.
      */
     public final TableField<TypesRecord, Integer> CLASSID = createField("CLASSID", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>automation.types.CLASS</code>.
+     * The column <code>automation.TYPES.CLASS</code>.
      */
     public final TableField<TypesRecord, String> CLASS = createField("CLASS", org.jooq.impl.SQLDataType.VARCHAR(20).nullable(false), this, "");
 
     /**
-     * The column <code>automation.types.TYPE</code>.
+     * The column <code>automation.TYPES.TYPE</code>.
      */
     public final TableField<TypesRecord, String> TYPE = createField("TYPE", org.jooq.impl.SQLDataType.VARCHAR(20).nullable(false), this, "");
 
     /**
-     * The column <code>automation.types.ABRV</code>.
+     * The column <code>automation.TYPES.ABRV</code>.
      */
     public final TableField<TypesRecord, String> ABRV = createField("ABRV", org.jooq.impl.SQLDataType.VARCHAR(10).nullable(false), this, "");
 
     /**
-     * The column <code>automation.types.PROPERTYMAP</code>.
+     * The column <code>automation.TYPES.PROPERTYMAP</code>.
      */
     public final TableField<TypesRecord, String> PROPERTYMAP = createField("PROPERTYMAP", org.jooq.impl.SQLDataType.VARCHAR(1000), this, "");
 
     /**
-     * Create a <code>automation.types</code> table reference
+     * Create a <code>automation.TYPES</code> table reference
      */
     public Types() {
-        this(DSL.name("types"), null);
+        this(DSL.name("TYPES"), null);
     }
 
     /**
-     * Create an aliased <code>automation.types</code> table reference
+     * Create an aliased <code>automation.TYPES</code> table reference
      */
     public Types(String alias) {
         this(DSL.name(alias), TYPES);
     }
 
     /**
-     * Create an aliased <code>automation.types</code> table reference
+     * Create an aliased <code>automation.TYPES</code> table reference
      */
     public Types(Name alias) {
         this(alias, TYPES);

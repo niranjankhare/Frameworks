@@ -37,7 +37,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Automation extends SchemaImpl {
 
-    private static final long serialVersionUID = -284335321;
+    private static final long serialVersionUID = 902746951;
 
     /**
      * The reference instance of <code>automation</code>
@@ -45,7 +45,7 @@ public class Automation extends SchemaImpl {
     public static final Automation AUTOMATION = new Automation();
 
     /**
-     * The table <code>automation.extendedprops</code>.
+     * The table <code>automation.EXTENDEDPROPS</code>.
      */
     public final Extendedprops EXTENDEDPROPS = db.jooq.generated.automationDb.tables.Extendedprops.EXTENDEDPROPS;
 
@@ -55,17 +55,17 @@ public class Automation extends SchemaImpl {
     public final Extendedpropsview EXTENDEDPROPSVIEW = db.jooq.generated.automationDb.tables.Extendedpropsview.EXTENDEDPROPSVIEW;
 
     /**
-     * The table <code>automation.guimap</code>.
+     * The table <code>automation.GUIMAP</code>.
      */
     public final Guimap GUIMAP = db.jooq.generated.automationDb.tables.Guimap.GUIMAP;
 
     /**
-     * The table <code>automation.pages</code>.
+     * The table <code>automation.PAGES</code>.
      */
     public final Pages PAGES = db.jooq.generated.automationDb.tables.Pages.PAGES;
 
     /**
-     * The table <code>automation.properties</code>.
+     * The table <code>automation.PROPERTIES</code>.
      */
     public final Properties PROPERTIES = db.jooq.generated.automationDb.tables.Properties.PROPERTIES;
 
@@ -80,7 +80,7 @@ public class Automation extends SchemaImpl {
     public final Showtable SHOWTABLE = db.jooq.generated.automationDb.tables.Showtable.SHOWTABLE;
 
     /**
-     * The table <code>automation.types</code>.
+     * The table <code>automation.TYPES</code>.
      */
     public final Types TYPES = db.jooq.generated.automationDb.tables.Types.TYPES;
 

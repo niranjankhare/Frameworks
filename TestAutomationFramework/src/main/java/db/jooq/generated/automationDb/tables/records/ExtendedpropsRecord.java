@@ -28,157 +28,157 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ExtendedpropsRecord extends UpdatableRecordImpl<ExtendedpropsRecord> implements Record11<Integer, Integer, String, String, String, String, String, String, String, String, String> {
 
-    private static final long serialVersionUID = -173213988;
+    private static final long serialVersionUID = 1944693468;
 
     /**
-     * Setter for <code>automation.extendedprops.EXPROPID</code>.
+     * Setter for <code>automation.EXTENDEDPROPS.EXPROPID</code>.
      */
     public void setExpropid(Integer value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>automation.extendedprops.EXPROPID</code>.
+     * Getter for <code>automation.EXTENDEDPROPS.EXPROPID</code>.
      */
     public Integer getExpropid() {
         return (Integer) get(0);
     }
 
     /**
-     * Setter for <code>automation.extendedprops.GUIMAPID</code>.
+     * Setter for <code>automation.EXTENDEDPROPS.GUIMAPID</code>.
      */
     public void setGuimapid(Integer value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>automation.extendedprops.GUIMAPID</code>.
+     * Getter for <code>automation.EXTENDEDPROPS.GUIMAPID</code>.
      */
     public Integer getGuimapid() {
         return (Integer) get(1);
     }
 
     /**
-     * Setter for <code>automation.extendedprops.EXPROP1</code>.
+     * Setter for <code>automation.EXTENDEDPROPS.EXPROP1</code>.
      */
     public void setExprop1(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>automation.extendedprops.EXPROP1</code>.
+     * Getter for <code>automation.EXTENDEDPROPS.EXPROP1</code>.
      */
     public String getExprop1() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>automation.extendedprops.EXPROP2</code>.
+     * Setter for <code>automation.EXTENDEDPROPS.EXPROP2</code>.
      */
     public void setExprop2(String value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>automation.extendedprops.EXPROP2</code>.
+     * Getter for <code>automation.EXTENDEDPROPS.EXPROP2</code>.
      */
     public String getExprop2() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>automation.extendedprops.EXPROP3</code>.
+     * Setter for <code>automation.EXTENDEDPROPS.EXPROP3</code>.
      */
     public void setExprop3(String value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>automation.extendedprops.EXPROP3</code>.
+     * Getter for <code>automation.EXTENDEDPROPS.EXPROP3</code>.
      */
     public String getExprop3() {
         return (String) get(4);
     }
 
     /**
-     * Setter for <code>automation.extendedprops.EXPROP4</code>.
+     * Setter for <code>automation.EXTENDEDPROPS.EXPROP4</code>.
      */
     public void setExprop4(String value) {
         set(5, value);
     }
 
     /**
-     * Getter for <code>automation.extendedprops.EXPROP4</code>.
+     * Getter for <code>automation.EXTENDEDPROPS.EXPROP4</code>.
      */
     public String getExprop4() {
         return (String) get(5);
     }
 
     /**
-     * Setter for <code>automation.extendedprops.EXPROP5</code>.
+     * Setter for <code>automation.EXTENDEDPROPS.EXPROP5</code>.
      */
     public void setExprop5(String value) {
         set(6, value);
     }
 
     /**
-     * Getter for <code>automation.extendedprops.EXPROP5</code>.
+     * Getter for <code>automation.EXTENDEDPROPS.EXPROP5</code>.
      */
     public String getExprop5() {
         return (String) get(6);
     }
 
     /**
-     * Setter for <code>automation.extendedprops.EXPROP6</code>.
+     * Setter for <code>automation.EXTENDEDPROPS.EXPROP6</code>.
      */
     public void setExprop6(String value) {
         set(7, value);
     }
 
     /**
-     * Getter for <code>automation.extendedprops.EXPROP6</code>.
+     * Getter for <code>automation.EXTENDEDPROPS.EXPROP6</code>.
      */
     public String getExprop6() {
         return (String) get(7);
     }
 
     /**
-     * Setter for <code>automation.extendedprops.EXPROP7</code>.
+     * Setter for <code>automation.EXTENDEDPROPS.EXPROP7</code>.
      */
     public void setExprop7(String value) {
         set(8, value);
     }
 
     /**
-     * Getter for <code>automation.extendedprops.EXPROP7</code>.
+     * Getter for <code>automation.EXTENDEDPROPS.EXPROP7</code>.
      */
     public String getExprop7() {
         return (String) get(8);
     }
 
     /**
-     * Setter for <code>automation.extendedprops.EXPROP8</code>.
+     * Setter for <code>automation.EXTENDEDPROPS.EXPROP8</code>.
      */
     public void setExprop8(String value) {
         set(9, value);
     }
 
     /**
-     * Getter for <code>automation.extendedprops.EXPROP8</code>.
+     * Getter for <code>automation.EXTENDEDPROPS.EXPROP8</code>.
      */
     public String getExprop8() {
         return (String) get(9);
     }
 
     /**
-     * Setter for <code>automation.extendedprops.EXPROP9</code>.
+     * Setter for <code>automation.EXTENDEDPROPS.EXPROP9</code>.
      */
     public void setExprop9(String value) {
         set(10, value);
     }
 
     /**
-     * Getter for <code>automation.extendedprops.EXPROP9</code>.
+     * Getter for <code>automation.EXTENDEDPROPS.EXPROP9</code>.
      */
     public String getExprop9() {
         return (String) get(10);

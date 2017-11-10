@@ -28,87 +28,87 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class GuimapRecord extends UpdatableRecordImpl<GuimapRecord> implements Record6<Integer, String, String, String, String, String> {
 
-    private static final long serialVersionUID = 523408679;
+    private static final long serialVersionUID = 9960743;
 
     /**
-     * Setter for <code>automation.guimap.GUIMAPID</code>.
+     * Setter for <code>automation.GUIMAP.GUIMAPID</code>.
      */
     public void setGuimapid(Integer value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>automation.guimap.GUIMAPID</code>.
+     * Getter for <code>automation.GUIMAP.GUIMAPID</code>.
      */
     public Integer getGuimapid() {
         return (Integer) get(0);
     }
 
     /**
-     * Setter for <code>automation.guimap.PAGENAME</code>.
+     * Setter for <code>automation.GUIMAP.PAGENAME</code>.
      */
     public void setPagename(String value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>automation.guimap.PAGENAME</code>.
+     * Getter for <code>automation.GUIMAP.PAGENAME</code>.
      */
     public String getPagename() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>automation.guimap.CONTROLTYPE</code>.
+     * Setter for <code>automation.GUIMAP.CONTROLTYPE</code>.
      */
     public void setControltype(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>automation.guimap.CONTROLTYPE</code>.
+     * Getter for <code>automation.GUIMAP.CONTROLTYPE</code>.
      */
     public String getControltype() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>automation.guimap.CONTROLNAME</code>.
+     * Setter for <code>automation.GUIMAP.CONTROLNAME</code>.
      */
     public void setControlname(String value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>automation.guimap.CONTROLNAME</code>.
+     * Getter for <code>automation.GUIMAP.CONTROLNAME</code>.
      */
     public String getControlname() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>automation.guimap.CONTROLDESCRIPTION</code>.
+     * Setter for <code>automation.GUIMAP.CONTROLDESCRIPTION</code>.
      */
     public void setControldescription(String value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>automation.guimap.CONTROLDESCRIPTION</code>.
+     * Getter for <code>automation.GUIMAP.CONTROLDESCRIPTION</code>.
      */
     public String getControldescription() {
         return (String) get(4);
     }
 
     /**
-     * Setter for <code>automation.guimap.FIELDNAME</code>.
+     * Setter for <code>automation.GUIMAP.FIELDNAME</code>.
      */
     public void setFieldname(String value) {
         set(5, value);
     }
 
     /**
-     * Getter for <code>automation.guimap.FIELDNAME</code>.
+     * Getter for <code>automation.GUIMAP.FIELDNAME</code>.
      */
     public String getFieldname() {
         return (String) get(5);

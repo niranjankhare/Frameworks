@@ -180,7 +180,7 @@ public class LibHtml {
         submit.attr("type", "submit");
         submit.attr("id", "submit");
         submit.attr("value", "Go!");
-        Element parentPageDiv = new Element("div").attr("id", "formMainDiv");
+        Element parentPageDiv = new Element("div").attr("id", "formMainDiv").attr("style", "visibility=inherit;");
         parentPageDiv.appendChild(table);
         Element form = new Element("form").attr("id", "guimap").attr("method", "post").attr("action", "/updateTable");
         form.appendChild(parentPageDiv);

@@ -1,4 +1,4 @@
-create database automation;
+create database IF NOT EXISTS automation;
 
 use automation;
 

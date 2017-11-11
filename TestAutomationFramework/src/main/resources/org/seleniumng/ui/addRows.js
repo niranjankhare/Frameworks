@@ -46,8 +46,10 @@ function add_fields() {
 	var divCloseX = document.createElement('button');
 	divCloseX.type = 'button';
 	divCloseX.setAttribute ('rowid', rowId);
+	divCloseX.setAttribute ('style','background: none; border:none; color:red; cursor:pointer;');
+
 	divCloseX.setAttribute ('onclick','closeMoreProps(this)');
-	divCloseX.appendChild(document.createTextNode("CloseME"));
+	divCloseX.appendChild(document.createTextNode("X"));
 	popupDiv.appendChild (divCloseX);
 	cellPopupDiv.appendChild(popupDiv);
 	

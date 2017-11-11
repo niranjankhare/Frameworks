@@ -21,9 +21,6 @@ function add_fields() {
 		else {
 			cellContent = document.createElement('textarea');
 		} /* else */
-		/* <textarea name="Row'+rowCount+'.LOCATORTYPE"
-		// placeholder="LOCATORTYPE" id="Row'+rowCount+'.LOCATORTYPE"
-		// style="resize: none; width:100%;"></textarea> */
 		cellContent.placeholder = dbColumns[i];
 		cellContent.name = rowId + '.' + dbColumns[i];
 		cellContent.id = cellContent.name;
@@ -44,10 +41,14 @@ function add_fields() {
 	cellPopupDiv.setAttribute ('style', 'visibility:hidden;');
 	var popupDiv = document.createElement('div');
 	popupDiv.id = rowId +'.popupDiv';
-	popupDiv.setAttribute ('style', 'visibility:hidden;');
+	popupDiv.setAttribute ('style', 'visibility:hidden;display:block');
 	popupDiv.setAttribute ('rowid', rowId);
 	var divCloseX = document.createElement('button');
+	divCloseX.type = 'button';
+	divCloseX.setAttribute ('rowid', rowId);
+	divCloseX.setAttribute ('onclick','closeMoreProps(this)');
 	divCloseX.appendChild(document.createTextNode("CloseME"));
+	popupDiv.appendChild (divCloseX);
 	cellPopupDiv.appendChild(popupDiv);
 	
 }
@@ -55,20 +56,21 @@ function add_fields() {
 function showMoreProps(e){
 	var id = e.getAttribute('rowid');
 	var idPopup = id+'.popupDiv';
-	document.getElementById(id).style.visibility = 'visible';
-	document.getElementById(idPopup).style.visibility = 'visible';
-	document.getElementById('formMainDiv').style.visibility = 'hidden';
+	var form = document.getElementById('formMainDiv');
+	form.style.visibility = 'hidden';
+	var row = document.getElementById(id);
+	var popup = document.getElementById(idPopup);
+	row.style.visibility = 'visible';
+	popup.style.visibility = 'visible';
 }
 
-
-/*function show(target) {
-document.getElementById('parent').style.visibility = 'hidden';
-document.getElementById('modalParent').style.visibility = 'visible';
-document.getElementById(target).style.visibility = 'visible';
-document.getElementById('parent').style.zindex = -1; 
-}function hide(target) {
-document.getElementById('parent').style.visibility = 'visible';
-document.getElementById('modalParent').style.visibility = 'inherit';
-
-document.getElementById(target).style.visibility = 'hidden';
-}*/
+function closeMoreProps(e){
+	var id = e.getAttribute('rowid');
+	var idPopup = id+'.popupDiv';
+	var form = document.getElementById('formMainDiv');
+	form.style.visibility = 'inherit';
+	var row = document.getElementById(id);
+	var popup = document.getElementById(idPopup);
+	row.style.visibility = 'inherit';
+	popup.style.visibility = 'hidden';
+}

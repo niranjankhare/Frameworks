@@ -132,7 +132,7 @@ public class LibHtml {
         mainFieldsList.remove(whereColumn);
 
         Element table = new Element("table").attr("id", mainPropertiesView);
-        Element headerRow = new Element("tr");
+        Element headerRow = new Element("tr").attr("id", "headerRow").attr("style", "visibility:visible;");
 
         // Add columns to the displayed table as header row
         for (String field : mainFieldsList) {

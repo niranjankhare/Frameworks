@@ -26,8 +26,10 @@ public class ManagementSeviceMain {
    	        
 	    	Server server = new Server(config.getInt("port"));
 	    	handler = new ServletHandler();
-	    	if (config.getBoolean("enabled"))
-	    		handler.addServletWithMapping (ManagementServer.class, "/*" );
+	    	if (config.getBoolean("enabled")){
+	    		handler.addServletWithMapping (HTMLServerMain.class, "/*" );
+	    		handler.addServletWithMapping (JSONResourceServer.class, "/*" );
+	    	}
 	    	server.setHandler(handler);
 	   	 	server.start();
 	   	 	server.join();

@@ -107,17 +107,19 @@ public class LibDatabase {
                 insertSetStep.values(pageName, controlType, controlName, controlDescription, controlType + controlName);
                 insertSetStep.returning(GUIMAP.GUIMAPID);
                 Result<?> x = ((InsertResultStep<?>) insertSetStep).fetch();
-                
+
                 Integer guiMapId = x.getValue(0, GUIMAP.GUIMAPID);
                 String locatorValue = row.getValue().get("LOCATORVALUE");
                 String locatorType = "ID";
-                if (locatorValue.startsWith("/")){
+                if (locatorValue.startsWith("/")) {
                     locatorType = "XPATH";
                 }
-                
-                 InsertValuesStep4<PropertiesRecord, Integer, String, String, String> insertProperties = create.insertInto(PROPERTIES.asTable(),PROPERTIES.GUIMAPID, PROPERTIES.STANDARDCLASS,PROPERTIES.LOCATORVALUE, PROPERTIES.LOCATORTYPE);
-                 insertProperties.values(guiMapId, controlType, locatorValue, locatorType);
-                 insertProperties.execute();
+
+                InsertValuesStep4<PropertiesRecord, Integer, String, String, String> insertProperties = create
+                        .insertInto(PROPERTIES.asTable(), PROPERTIES.GUIMAPID, PROPERTIES.STANDARDCLASS,
+                                PROPERTIES.LOCATORVALUE, PROPERTIES.LOCATORTYPE);
+                insertProperties.values(guiMapId, controlType, locatorValue, locatorType);
+                insertProperties.execute();
 
             }
 
@@ -170,9 +172,31 @@ public class LibDatabase {
     }
 
     public static LinkedHashMap getStandardTypes() {
+//        LinkedHashMap<String, String> list = new LinkedHashMap<String, String>();
+//        SelectConditionStep<Record2<String, String>> x = dslContext.select(TYPES.ABRV, TYPES.CLASS).from(TYPES)
+//                .where(TYPES.TYPE.eq("STANDARD"));
+//        for (Record rec : x.fetch()) {
+//            list.put(rec.get(TYPES.ABRV), rec.get(TYPES.CLASS));
+//        }
+        return getTypes("STANDARD");
+    }
+
+    public static LinkedHashMap getCustomTypes() {
+        // LinkedHashMap<String, String> list = new LinkedHashMap<String,
+        // String>();
+        // SelectConditionStep<Record2<String, String>> x =
+        // dslContext.select(TYPES.ABRV, TYPES.CLASS).from(TYPES)
+        // .where(TYPES.TYPE.eq("STANDARD"));
+        // for (Record rec : x.fetch()) {
+        // list.put(rec.get(TYPES.ABRV), rec.get(TYPES.CLASS));
+        // }
+        return getTypes("CUSTOM");
+    }
+
+    public static LinkedHashMap getTypes(String classType) {
         LinkedHashMap<String, String> list = new LinkedHashMap<String, String>();
         SelectConditionStep<Record2<String, String>> x = dslContext.select(TYPES.ABRV, TYPES.CLASS).from(TYPES)
-                .where(TYPES.TYPE.eq("STANDARD"));
+                .where(TYPES.TYPE.eq(classType));
         for (Record rec : x.fetch()) {
             list.put(rec.get(TYPES.ABRV), rec.get(TYPES.CLASS));
         }

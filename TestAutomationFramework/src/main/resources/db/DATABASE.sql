@@ -49,7 +49,9 @@ PRIMARY KEY (`CLASSID`)
 );
 
 insert into TYPES (`CLASS`, `TYPE`, `ABRV`)
-values ('InputText','STANDARD','iTxt'),('Select','STANDARD','sel');
+values ('InputText','STANDARD','iTxt'),
+('Select','STANDARD','sel'),
+('EmaberSelect','CUSTOM','sel');
 
 create table EXTENDEDPROPS (
 `EXPROPID` int (10) NOT NULL AUTO_INCREMENT,
@@ -71,21 +73,21 @@ FOREIGN KEY (GUIMAPID)
   ON UPDATE CASCADE
 );
 
-CREATE VIEW automation.propsview AS
+CREATE VIEW automation.PROPSVIEW AS
 SELECT a.CONTROLTYPE,a.CONTROLNAME, a.CONTROLDESCRIPTION,
 b.LOCATORVALUE, b.LOCATORTYPE
 
 FROM
 automation.GUIMAP a, automation.PROPERTIES b;
 
-CREATE VIEW automation.extendedpropsview AS
+CREATE VIEW automation.EXTENDEDPROPSVIEW AS
 SELECT  
 c.EXPROP1, c.EXPROP2, c.EXPROP3, c.EXPROP4, c.EXPROP5,
 c.EXPROP6, c.EXPROP7, c.EXPROP8, c.EXPROP9
 FROM
 automation.EXTENDEDPROPS c;
 
-CREATE VIEW automation.showtable AS
+CREATE VIEW automation.`show` AS
 SELECT a.PAGENAME, a.CONTROLTYPE, a.CONTROLNAME, a.CONTROLDESCRIPTION, a.FIELDNAME,
 b.PROPERTYID, b.GUIMAPID, b.STANDARDCLASS, b.MAPPEDCLASS, b.LOCATORVALUE, b.LOCATORTYPE
 FROM
@@ -111,6 +113,8 @@ SET `pagename` = 'logon',
 `parentid` = null,
 `pagedescription` = "Login page";
 
+insert into TYPES (`CLASS`, `TYPE`, `ABRV`)
+values ('EmaberSelect','CUSTOM','sel');
 
 
 

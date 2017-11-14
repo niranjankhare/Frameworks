@@ -1,4 +1,4 @@
-function add_fields() {
+function add_row() {
 	var table = document.getElementById('propsview');
 	var rowCount = table.getElementsByTagName('tbody')[0].rows.length;
 	var row = table.insertRow(-1);
@@ -75,4 +75,7 @@ function closeMoreProps(e){
 	var popup = document.getElementById(idPopup);
 	row.style.visibility = 'inherit';
 	popup.style.visibility = 'hidden';
+}
+function fetchCustomClasses(){
+	
 }

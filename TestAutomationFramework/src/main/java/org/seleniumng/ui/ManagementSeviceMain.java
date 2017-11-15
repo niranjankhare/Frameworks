@@ -28,7 +28,7 @@ public class ManagementSeviceMain {
 	    	handler = new ServletHandler();
 	    	if (config.getBoolean("enabled")){
 	    		handler.addServletWithMapping (HTMLServerMain.class, "/*" );
-	    		handler.addServletWithMapping (JSONResourceServer.class, "/*" );
+	    		handler.addServletWithMapping (JSONResourceServer.class, "/fetch/*" );
 	    	}
 	    	server.setHandler(handler);
 	   	 	server.start();

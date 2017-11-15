@@ -116,7 +116,7 @@ public class LibHtml {
         form.appendChild(submit);
         html.body().before(scriptElement);
         html.body().appendChild(form);
-        html.body().attr("onload", "add_fields()");
+        html.body().attr("onload", "add_row()");
 
         return Parser.unescapeEntities(html.toString(), false);
     }
@@ -172,7 +172,7 @@ public class LibHtml {
         Element addMore = new Element("input");
         addMore.attr("type", "button");
         addMore.attr("id", "addRow");
-        addMore.attr("onclick", "add_fields();");
+        addMore.attr("onclick", "add_row();");
         addMore.attr("value", "Add row");
 
         Element submit = new Element("input");
@@ -190,7 +190,7 @@ public class LibHtml {
         form.appendChild(submit);
         html.body().before(scriptElement);
         html.body().appendChild(form);
-        html.body().attr("onload", "add_fields()");
+        html.body().attr("onload", "add_row()");
 
         return Parser.unescapeEntities(html.toString(), false);
 

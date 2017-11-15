@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 @SuppressWarnings("serial")
 public class JSONResourceServer extends HttpServlet {
 
@@ -46,6 +48,10 @@ public class JSONResourceServer extends HttpServlet {
         String tableName = getParameter(req, "tableName");
         String responseStr = "";
         switch (sPath) {
+            case "/stuff":
+                Object response = LibDatabase.getCustomTypes();
+                responseStr = new Gson().toJson(response);
+                break;
             case "/favicon.ico":
                 break;
             case "/test":
@@ -64,7 +70,7 @@ public class JSONResourceServer extends HttpServlet {
                 responseStr = LibHtml.getWelcomeForm();
 
         }
-        writeResponse(resp, responseStr,"text/html;charset=UTF-8", null);
+        writeResponse(resp, responseStr,"Content-type: application/json; charset=utf-8", null);
     }
 
     protected void processPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -91,7 +97,7 @@ public class JSONResourceServer extends HttpServlet {
             default:
                 responseStr = LibHtml.getPageEntryForm(pageName);
         }
-        writeResponse(resp, responseStr,"text/html;charset=UTF-8", null);
+        writeResponse(resp, responseStr,"Content-type: application/json; charset=utf-8", null);
     }
 
     protected void processBoth(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

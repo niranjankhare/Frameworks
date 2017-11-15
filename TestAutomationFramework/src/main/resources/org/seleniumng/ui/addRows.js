@@ -1,4 +1,4 @@
-function add_row() {
+function add_row(){
 	var table = document.getElementById('propsview');
 	var rowCount = table.getElementsByTagName('tbody')[0].rows.length;
 	var row = table.insertRow(-1);
@@ -31,6 +31,7 @@ function add_row() {
 	var popupBtn = document.createElement('button');
 	popupBtn.type = 'button';
 	popupBtn.setAttribute ('onclick','showMoreProps(this)');
+	popupBtn.setAttribute ('onclick','test()');/*Remove this*/
 	popupBtn.id = rowId + '.popupBtn';
 	popupBtn.appendChild(document.createTextNode("Define More\nProperties"));
 	popupBtn.style.resize = 'none';
@@ -79,3 +80,13 @@ function closeMoreProps(e){
 function fetchCustomClasses(){
 	
 }
+
+function test(){
+	fetch('/fetch/stuff').then((resp) => resp.json()) /* Transform the data into json*/
+	 .then(function(data) {
+		    alert ("here");/* Create and append the li's to the ul*/
+		    })
+		  
+	  
+}
+

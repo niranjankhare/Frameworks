@@ -78,15 +78,33 @@ function closeMoreProps(e){
 	popup.style.visibility = 'hidden';
 }
 function fetchCustomClasses(){
+	return fetch('/fetch/stuff').then((resp) => resp.json()) /* Transform the data into json*/
+	 .then(function(data) {
+		    result = data;/* Create and append the li's to the ul*/
+		    return data;
+		    })
+   .catch(function(error) {
+		    result = error;/* Create and append the li's to the ul*/
+		    return error;
+		    })
+		    ;
 	
 }
 
 function test(){
-	fetch('/fetch/stuff').then((resp) => resp.json()) /* Transform the data into json*/
-	 .then(function(data) {
-		    alert ("here");/* Create and append the li's to the ul*/
-		    })
-		  
+	/*
+	var result;
+	return Promise.resolve(fetchCustomClasses())
+	.then ( function (data){
+		alert (data);
+		result = JSON.stringify(data);
+	});
 	  
+	*/
+	var result = Promise.resolve(fetchCustomClasses());
+	result.then (function (data){
+		alert (JSON.stringify(data))		
+	})
+
 }
 

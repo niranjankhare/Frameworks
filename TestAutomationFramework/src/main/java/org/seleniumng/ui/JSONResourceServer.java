@@ -48,7 +48,7 @@ public class JSONResourceServer extends HttpServlet {
         String tableName = getParameter(req, "tableName");
         String responseStr = "";
         switch (sPath) {
-            case "/stuff":
+            case "/libdatabase/getcustomtypes":
                 Object response = LibDatabase.getCustomTypes();
                 responseStr = new Gson().toJson(response);
                 break;

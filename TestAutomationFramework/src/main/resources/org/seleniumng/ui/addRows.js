@@ -31,7 +31,6 @@ function add_row(){
 	var popupBtn = document.createElement('button');
 	popupBtn.type = 'button';
 	popupBtn.setAttribute ('onclick','showMoreProps(this)');
-	popupBtn.setAttribute ('onclick','test()');/*Remove this*/
 	popupBtn.id = rowId + '.popupBtn';
 	popupBtn.appendChild(document.createTextNode("Define More\nProperties"));
 	popupBtn.style.resize = 'none';
@@ -57,6 +56,13 @@ function add_row(){
 }
 
 function showMoreProps(e){
+	var selcontent;
+	Promise.resolve(getData('/fetch/libdatabase/getcustomtypes'))
+	.then(function(resp){
+		alert(JSON.stringify(resp))
+	})
+	.catch (function(error){});
+	
 	var id = e.getAttribute('rowid');
 	var idPopup = id+'.popupDiv';
 	var form = document.getElementById('formMainDiv');
@@ -77,34 +83,13 @@ function closeMoreProps(e){
 	row.style.visibility = 'inherit';
 	popup.style.visibility = 'hidden';
 }
-function fetchCustomClasses(){
-	return fetch('/fetch/stuff').then((resp) => resp.json()) /* Transform the data into json*/
-	 .then(function(data) {
-		    result = data;/* Create and append the li's to the ul*/
-		    return data;
-		    })
-   .catch(function(error) {
-		    result = error;/* Create and append the li's to the ul*/
-		    return error;
-		    })
-		    ;
-	
-}
 
-function test(){
-	/*
-	var result;
-	return Promise.resolve(fetchCustomClasses())
-	.then ( function (data){
-		alert (data);
-		result = JSON.stringify(data);
-	});
-	  
-	*/
-	var result = Promise.resolve(fetchCustomClasses());
-	result.then (function (data){
-		alert (JSON.stringify(data))		
-	})
+function getData(u){
+	var request = async () => {
+	    const response = await fetch(u);
+	    json = await response.json();
+	    return json;
+	};
+	return request();
 
 }
-

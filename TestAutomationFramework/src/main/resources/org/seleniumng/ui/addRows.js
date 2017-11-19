@@ -59,18 +59,16 @@ function showMoreProps(e){
 	var selcontent;
 	Promise.resolve(getData('/fetch/libdatabase/getcustomtypes'))
 	.then(function(resp){
-		alert(JSON.stringify(resp))
+		var rowId = e.getAttribute('rowid');
+		var idPopup = rowId+'.popupDiv';
+		var popup = document.getElementById(idPopup);
+		fillPopup (popup, resp);
+		popup.style.visibility = 'visible';
+		showRowById(rowId);
+		disableMainForm();		
 	})
 	.catch (function(error){});
 	
-	var id = e.getAttribute('rowid');
-	var idPopup = id+'.popupDiv';
-	var form = document.getElementById('formMainDiv');
-	form.style.visibility = 'hidden';
-	var row = document.getElementById(id);
-	var popup = document.getElementById(idPopup);
-	row.style.visibility = 'visible';
-	popup.style.visibility = 'visible';
 }
 
 function closeMoreProps(e){
@@ -92,4 +90,20 @@ function getData(u){
 	};
 	return request();
 
+}
+
+function disableMainForm (){
+	var form = document.getElementById('formMainDiv');
+	form.style.visibility = 'hidden';
+}
+
+function showRowById (id){
+	var row = document.getElementById(id);
+	row.style.visibility = 'visible';
+
+}
+
+function fillPopup(p,content){
+	alert (p.getAttribute('id'));
+	alert(JSON.stringify(content));
 }

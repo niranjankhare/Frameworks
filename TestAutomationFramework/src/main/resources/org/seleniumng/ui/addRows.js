@@ -42,7 +42,7 @@ function add_row(){
 }
 
 function getSelectControl (options){
-	control = document.createElement('select');
+	var control = document.createElement('select');
 	for (var j = 0; j < options.length; j++) {
 		var opt = document.createElement('option');
 		opt.text = options[j][1];
@@ -53,21 +53,27 @@ function getSelectControl (options){
 	return control;
 }
 
+function getSelectControlt (options){
+	var control = document.createElement('select');
+	for (var key in options){
+		var opt = document.createElement('option');
+		opt.text = options[key];
+		opt.value = key;
+		control.appendChild(opt);
+	}
+	
+	return control;
+}
+
 function showMoreProps(e){
 	e.disabled = true;
-	var selcontent;
-	Promise.resolve(getData('/fetch/libdatabase/getcustomtypes'))
-	.then(function(resp){
-		var rowId = e.getAttribute('rowid');
-		var idPopup = rowId+'.popupDiv';
-		var popup = document.getElementById(idPopup);
-		fillPopup (popup, resp);
-		popup.style.visibility = 'visible';
-		showRowById(rowId);
-		disableMainForm();		
-	})
-	.catch (function(error){});
-	
+	var rowId = e.getAttribute('rowid');
+	var popup = document.getElementById(rowId+'.popupDiv');
+	if (!popup.contains(popup.querySelector('div[id=\'popupTitle\']')))
+		fillPopup (popup);
+	popup.style.visibility = 'visible';
+	showRowById(rowId);
+	disableMainForm();		
 }
 
 function closeMoreProps(e){
@@ -130,17 +136,26 @@ function resetRowById (id){
 
 
 function fillPopup(p,content){
-	var t = p.querySelector('div[id=\'popupTitle\']');
-	if (p.contains(t)){
-		alert ('contain t');
-	} else {
-		alert ('need to create t');
+	Promise.resolve(getData('/fetch/libdatabase/getcustomtypes'))
+	.then(function(resp){
 		var title = document.createElement ('div');
 		title.setAttribute('id', 'popupTitle');
 		title.appendChild(document.createTextNode("Define More\nProperties"));
 		title.appendChild (getPopupCloseButtonForRowId(p.getAttribute('rowId')));
 		p.appendChild(title);
-	}
+		var content = document.createElement('div');
+		content.appendChild(document.createTextNode("Extend to class:"));
+		
+		var sel = getSelectControlt(resp);
+		content.appendChild(sel);
+		
+		
+		p.appendChild(content);
+	})
+	.catch (function(error){
+		
+	});
+	/*};*/
 	
 	alert (p.getAttribute('id'));
 	alert(JSON.stringify(content));

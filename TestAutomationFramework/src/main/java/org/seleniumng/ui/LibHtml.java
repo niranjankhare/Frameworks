@@ -22,14 +22,7 @@ public class LibHtml {
     private static String addRowScriptTemplateN = getScriptResource("addRows.js");                                                                                                                                                                                      // LibHtml.class.getResourceAsStream("");
 
     public static void main(String[] args) {
-        LinkedHashMap<String, String> availableTypes = LibDatabase.getStandardTypes();
-        String replaceText = "";
-        for (Entry<String, String> e : availableTypes.entrySet()) {
-            replaceText = replaceText + "[" + sq(e.getKey()) + "," + sq(e.getValue()) + "]";
-            replaceText = replaceText + ",";
-        }
-        addRowScriptTemplateN = addRowScriptTemplateN.replaceAll("__OPTIONS__", replaceText.replaceAll(",$", ""));
-        System.out.println(addRowScriptTemplateN);
+
     }
 
     private static String sq(String str) {
@@ -141,11 +134,9 @@ public class LibHtml {
 
         headerRow.appendElement("th").text("More properties");
 
-        String scriptBlock = addRowScriptTemplate.replaceAll("__TABLENAME__", mainPropertiesView)
-                .replaceAll("__FIELDS__", getFieldsArray(mainFieldsList));
-        scriptBlock = addRowScriptTemplateN.replaceAll("__OPTIONS__", getOptionsArray()).replaceAll("__FIELDS__",
+        String scriptBlock = addRowScriptTemplateN/*.replaceAll("__OPTIONS__", getOptionsArray())*/.replaceAll("__FIELDS__",
                 getFieldsArray(mainFieldsList));
-        ;
+
         Document html = Jsoup.parse("<html></html>");
 
         Element scriptElement = new Element("script").text(scriptBlock);

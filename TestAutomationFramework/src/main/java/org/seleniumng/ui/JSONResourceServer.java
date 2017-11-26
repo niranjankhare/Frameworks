@@ -49,8 +49,12 @@ public class JSONResourceServer extends HttpServlet {
         String responseStr = "";
         switch (sPath) {
             case "/libdatabase/getcustomtypes":
-                Object response = LibDatabase.getCustomTypes();
-                responseStr = new Gson().toJson(response);
+                Object cTypes = LibDatabase.getCustomTypes();
+                responseStr = new Gson().toJson(cTypes);
+                break;
+            case "/libdatabase/getstandardypes":
+                Object sTypes = LibDatabase.getStandardTypes();
+                responseStr = new Gson().toJson(sTypes);
                 break;
             case "/favicon.ico":
                 break;

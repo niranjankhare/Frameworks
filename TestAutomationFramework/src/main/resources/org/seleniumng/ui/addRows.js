@@ -108,6 +108,7 @@ function fillPopup(p){
 		var content = document.createElement('div');
 		content.appendChild(document.createTextNode("Extend to class:"));
 		var sel = document.createElement('select');
+		sel.name = p.getAttribute('rowId') + '.MAPPEDCLASS';
 		getSelectControlt(resp, sel);
 		content.appendChild(sel);
 		p.appendChild(content);

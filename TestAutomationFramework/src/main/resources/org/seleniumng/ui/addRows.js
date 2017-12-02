@@ -51,9 +51,9 @@ function getStandardtypes(e){
 }
 
 function getData(u){
-	var request = async () => {
+	const request = async () => {
 	    const response = await fetch(u);
-	    json = await response.json();
+	    const json = await response.json();
 	    return json;
 	};
 	sleep (1000);

@@ -19,6 +19,7 @@ import org.jooq.InsertValuesStep5;
 import org.jooq.Query;
 import org.jooq.Record;
 import org.jooq.Record2;
+import org.jooq.Record3;
 import org.jooq.Result;
 import org.jooq.SQLDialect;
 import org.jooq.SelectConditionStep;
@@ -194,11 +195,14 @@ public class LibDatabase {
     }
 
     public static LinkedHashMap getTypes(String classType) {
-        LinkedHashMap<String, String> list = new LinkedHashMap<String, String>();
-        SelectConditionStep<Record2<String, String>> x = dslContext.select(TYPES.ABRV, TYPES.CLASS).from(TYPES)
+        LinkedHashMap<String,String[]> list = new LinkedHashMap<String, String[]>();
+        SelectConditionStep<Record3<String, String,String>> x = dslContext.select(TYPES.ABRV, TYPES.CLASS, TYPES.PROPERTYMAP).from(TYPES)
                 .where(TYPES.TYPE.eq(classType));
         for (Record rec : x.fetch()) {
-            list.put(rec.get(TYPES.ABRV), rec.get(TYPES.CLASS));
+            String[] nestedMap = new String[2];
+            nestedMap[0]= rec.get(TYPES.CLASS);
+            nestedMap[1]= rec.get(TYPES.PROPERTYMAP);
+            list.put(rec.get(TYPES.ABRV), nestedMap);
         }
         return list;
     }

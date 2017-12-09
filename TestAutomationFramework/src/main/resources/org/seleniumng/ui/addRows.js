@@ -56,7 +56,7 @@ function getData(u){
 	    const json = await response.json();
 	    return json;
 	};
-	sleep (1000);
+	/*sleep (1000);*/
 	return request();
 
 }
@@ -79,7 +79,7 @@ function getSelectControlt (options, element){
 /*	var control = document.createElement('select');*/
 	for (var key in options){
 		var opt = document.createElement('option');
-		opt.text = options[key];
+		opt.text = options[key][0];
 		opt.value = key;
 		element.appendChild(opt);
 	}

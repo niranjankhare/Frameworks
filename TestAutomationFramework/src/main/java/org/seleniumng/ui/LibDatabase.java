@@ -173,35 +173,21 @@ public class LibDatabase {
     }
 
     public static LinkedHashMap getStandardTypes() {
-//        LinkedHashMap<String, String> list = new LinkedHashMap<String, String>();
-//        SelectConditionStep<Record2<String, String>> x = dslContext.select(TYPES.ABRV, TYPES.CLASS).from(TYPES)
-//                .where(TYPES.TYPE.eq("STANDARD"));
-//        for (Record rec : x.fetch()) {
-//            list.put(rec.get(TYPES.ABRV), rec.get(TYPES.CLASS));
-//        }
         return getTypes("STANDARD");
     }
 
     public static LinkedHashMap getCustomTypes() {
-        // LinkedHashMap<String, String> list = new LinkedHashMap<String,
-        // String>();
-        // SelectConditionStep<Record2<String, String>> x =
-        // dslContext.select(TYPES.ABRV, TYPES.CLASS).from(TYPES)
-        // .where(TYPES.TYPE.eq("STANDARD"));
-        // for (Record rec : x.fetch()) {
-        // list.put(rec.get(TYPES.ABRV), rec.get(TYPES.CLASS));
-        // }
         return getTypes("CUSTOM");
     }
 
     public static LinkedHashMap getTypes(String classType) {
-        LinkedHashMap<String,String[]> list = new LinkedHashMap<String, String[]>();
-        SelectConditionStep<Record3<String, String,String>> x = dslContext.select(TYPES.ABRV, TYPES.CLASS, TYPES.PROPERTYMAP).from(TYPES)
-                .where(TYPES.TYPE.eq(classType));
+        LinkedHashMap<String, String[]> list = new LinkedHashMap<String, String[]>();
+        SelectConditionStep<Record3<String, String, String>> x = dslContext
+                .select(TYPES.ABRV, TYPES.CLASS, TYPES.PROPERTYMAP).from(TYPES).where(TYPES.TYPE.eq(classType));
         for (Record rec : x.fetch()) {
             String[] nestedMap = new String[2];
-            nestedMap[0]= rec.get(TYPES.CLASS);
-            nestedMap[1]= rec.get(TYPES.PROPERTYMAP);
+            nestedMap[0] = rec.get(TYPES.CLASS);
+            nestedMap[1] = rec.get(TYPES.PROPERTYMAP);
             list.put(rec.get(TYPES.ABRV), nestedMap);
         }
         return list;

@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Propsview extends TableImpl<PropsviewRecord> {
 
-    private static final long serialVersionUID = 1574498138;
+    private static final long serialVersionUID = 1784833148;
 
     /**
      * The reference instance of <code>automation.propsview</code>
@@ -45,6 +45,11 @@ public class Propsview extends TableImpl<PropsviewRecord> {
     public Class<PropsviewRecord> getRecordType() {
         return PropsviewRecord.class;
     }
+
+    /**
+     * The column <code>automation.propsview.PAGENAME</code>.
+     */
+    public final TableField<PropsviewRecord, String> PAGENAME = createField("PAGENAME", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
 
     /**
      * The column <code>automation.propsview.CONTROLTYPE</code>.

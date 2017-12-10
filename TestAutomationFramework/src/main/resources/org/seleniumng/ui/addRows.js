@@ -5,40 +5,42 @@ function add_row(){
 	var rowId = 'Row' + rowCount;
 	row.id = rowId;
 	row.setAttribute ('style', 'visibility:inherit;');
-	var dbColumns = [__FIELDS__];
-	for (var i = 0; i < dbColumns.length; i++) {
-		var cellContent = null;
-		if (i == 0) {
-			cellContent = document.createElement('select');
-			getStandardtypes(cellContent);
+	var resp = getTableFields('propsview');
+	resp.then(function (dbColumns){
+		for (var i = 1; i < dbColumns.length; i++) {
+			var cellContent = null;
+			if (i == 1) {
+				cellContent = document.createElement('select');
+				getStandardtypes(cellContent);
+			}
+			else {
+				cellContent = document.createElement('textarea');
+			} 
+			cellContent.placeholder = dbColumns[i];
+			cellContent.name = rowId + '.' + dbColumns[i];
+			cellContent.id = cellContent.name;
+			cellContent.style.resize = 'none';
+			var cell = row.insertCell(-1);
+			cell.appendChild(cellContent);
 		}
-		else {
-			cellContent = document.createElement('textarea');
-		} 
-		cellContent.placeholder = dbColumns[i];
-		cellContent.name = rowId + '.' + dbColumns[i];
-		cellContent.id = cellContent.name;
-		cellContent.style.resize = 'none';
-		var cell = row.insertCell(-1);
-		cell.appendChild(cellContent);
-	} 
-	var popupBtn = document.createElement('button');
-	popupBtn.type = 'button';
-	popupBtn.setAttribute ('onclick','showMoreProps(this)');
-	popupBtn.id = rowId + '.popupBtn';
-	popupBtn.appendChild(document.createTextNode("Define More\nProperties"));
-	popupBtn.style.resize = 'none';
-	popupBtn.setAttribute ('rowid', rowId);
-	var cellButton = row.insertCell(-1);
-	cellButton.appendChild(popupBtn);
-	var cellPopupDiv = row.insertCell(-1);
-	cellPopupDiv.setAttribute ('style', 'visibility:hidden;');
-	var popupDiv = document.createElement('div');
-	popupDiv.id = rowId +'.popupDiv';
-	popupDiv.setAttribute ('style', 'visibility:hidden;display:block');
-	popupDiv.setAttribute ('rowid', rowId);
-	cellPopupDiv.appendChild(popupDiv);
-	
+		var popupBtn = document.createElement('button');
+		popupBtn.type = 'button';
+		popupBtn.setAttribute ('onclick','showMoreProps(this)');
+		popupBtn.id = rowId + '.popupBtn';
+		popupBtn.appendChild(document.createTextNode("Define More\nProperties"));
+		popupBtn.style.resize = 'none';
+		popupBtn.setAttribute ('rowid', rowId);
+		var cellButton = row.insertCell(-1);
+		cellButton.appendChild(popupBtn);
+		var cellPopupDiv = row.insertCell(-1);
+		cellPopupDiv.setAttribute ('style', 'visibility:hidden;');
+		var popupDiv = document.createElement('div');
+		popupDiv.id = rowId +'.popupDiv';
+		popupDiv.setAttribute ('style', 'visibility:hidden;display:block');
+		popupDiv.setAttribute ('rowid', rowId);
+		cellPopupDiv.appendChild(popupDiv);
+	});
+
 }
 function getStandardtypes(e){
 	Promise.resolve(getData('/fetch/libdatabase/getstandardypes'))
@@ -53,14 +55,20 @@ function getStandardtypes(e){
 function getData(u){
 	const request = async () => {
 	    const response = await fetch(u);
+	    while (typeof response == 'undefined'){
+		    sleep (1000);
+	    }
 	    const json = await response.json();
 	    return json;
 	};
-	/*sleep (1000);*/
+	
 	return request();
 
 }
 
+function getTableFields(tname){
+	return Promise.resolve(getData('/fetch/libdatabase/gettablefields?'+tname))
+}
 
 function getSelectControl (options){
 /*	var control = document.createElement('select');*/
@@ -111,6 +119,14 @@ function fillPopup(p){
 		sel.name = p.getAttribute('rowId') + '.MAPPEDCLASS';
 		getSelectControlt(resp, sel);
 		content.appendChild(sel);
+		var selKey = sel.options[sel.selectedIndex].value;
+		var props = resp[selKey][1].split(',');
+		for (var i=0;i<props.length; i++){
+			var prop = props[i].split('=');
+			console.log('ColumnName:'+prop[0]);
+			console.log ('DisplayName:'+prop[1]);
+		}
+
 		p.appendChild(content);
 	})
 	.catch (function(error){
@@ -118,7 +134,7 @@ function fillPopup(p){
 	});
 	
 	
-	alert (p.getAttribute('id'));
+/*	alert (p.getAttribute('id'));*/
 	
 }
 

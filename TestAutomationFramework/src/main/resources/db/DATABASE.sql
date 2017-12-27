@@ -113,7 +113,10 @@ SET `pagename` = 'logon',
 `pagedescription` = "Login page";
 
 insert into TYPES (`CLASS`, `TYPE`, `ABRV`)
-values ('EmberSelect','CUSTOM','sel');
+values 
+('InputText','STANDARD','iTxt'),
+('Select','STANDARD','iTxt'),
+('EmberSelect','CUSTOM','emSel');
 
 
 

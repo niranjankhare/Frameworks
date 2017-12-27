@@ -126,6 +126,7 @@ function fillPopup(p){
 		content.appendChild(exPropsTable);
 		
 		exPropsTable.appendChild(document.createElement('tbody'));
+		var hdrRow = exPropsTable.insertRow(-1);	
 		p.appendChild(content);
 		for (var i=0;i<props.length; i++){
 			var prop = props[i].split('=');
@@ -210,7 +211,6 @@ function addRowToPopup(popup,rowContent){
 	var tableId = popup.getAttribute('rowId')+'.exPropsTable';
 	console.log(tableId);
 	var pTable = document.getElementById(tableId);
-	var hdrRow = pTable.insertRow(-1);	
 	var rowCount = pTable.getElementsByTagName('tbody')[0].rows.length;
 	var row = pTable.insertRow(-1);
 	var rowId = 'Row' + rowCount;

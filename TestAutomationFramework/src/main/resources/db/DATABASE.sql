@@ -48,10 +48,10 @@ create table TYPES (
 PRIMARY KEY (`CLASSID`)
 );
 
-insert into TYPES (`CLASS`, `TYPE`, `ABRV`)
-values ('InputText','STANDARD','iTxt'),
-('Select','STANDARD','sel'),
-('EmaberSelect','CUSTOM','sel');
+insert into TYPES (`CLASS`, `TYPE`, `ABRV`,`PROPERTYMAP`)
+values ('InputText','STANDARD','iTxt', null),
+('Select','STANDARD','sel', null),
+('EmberSelect','CUSTOM','emSel', null);
 
 create table EXTENDEDPROPS (
 `EXPROPID` int (10) NOT NULL AUTO_INCREMENT,

@@ -40,10 +40,12 @@ import static db.jooq.generated.automationDb.tables.Pages.*;
 import static db.jooq.generated.automationDb.tables.Types.*;
 import static db.jooq.generated.automationDb.tables.Properties.*;
 
+import static org.seleniumng.utils.TAFConfig.*;
+
 public class LibDatabase {
-    private static String       userName   = "manfriday";
-    private static String       password   = "umsqa";
-    private static String       url        = "jdbc:mysql://localhost:3306/automation";
+    private static String       userName   = dbUser;
+    private static String       password   = dbPass;
+    private static String       url        = dbURL;
     private static Connection   conn       = initDbConnection();
     private static DSLContext   dslContext = DSL.using(conn);
 

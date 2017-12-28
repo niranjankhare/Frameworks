@@ -95,7 +95,7 @@ public class Extendedpropsview extends TableImpl<ExtendedpropsviewRecord> {
      * Create a <code>automation.extendedpropsview</code> table reference
      */
     public Extendedpropsview() {
-        this(DSL.name("extendedpropsview"), null);
+        this(DSL.name("EXTENDEDPROPSVIEW"), null);
     }
 
     /**

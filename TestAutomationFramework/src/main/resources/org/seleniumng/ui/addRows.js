@@ -71,27 +71,22 @@ function getTableFields(tname){
 }
 
 function getSelectControl (options){
-/*	var control = document.createElement('select');*/
 	var opt = document.createElement('option');
 	for (var j = 0; j < options.length; j++) {
-/*		var opt = document.createElement('option'); */
 		opt.text = options[j][1];
 		opt.value = options[j][0];
-/*		control.appendChild(opt); */
 	} 
 	
 	return opt;
 }
 
 function getSelectControlt (options, element){
-/*	var control = document.createElement('select');*/
 	for (var key in options){
 		var opt = document.createElement('option');
 		opt.text = options[key][0];
 		opt.value = key;
 		element.appendChild(opt);
 	}
-/*	return control;*/
 }
 
 function showMoreProps(e){
@@ -101,6 +96,7 @@ function showMoreProps(e){
 	if (!popup.contains(popup.querySelector('div[id=\'popupTitle\']')))
 		fillPopup (popup);
 	popup.style.visibility = 'visible';
+	popup.style.display = 'inline';
 	showRowById(rowId);
 	disableMainForm();		
 }
@@ -120,7 +116,7 @@ function fillPopup(p){
 		getSelectControlt(resp, sel);
 		content.appendChild(sel);
 		var selKey = sel.options[sel.selectedIndex].value;
-		var props = resp[selKey][1].split(',');
+		var propsJson = JSON.parse(resp[selKey][1]);
 		var exPropsTable = document.createElement('table');
 		exPropsTable.setAttribute("id", p.getAttribute('rowId')+'.exPropsTable');
 		content.appendChild(exPropsTable);
@@ -128,21 +124,11 @@ function fillPopup(p){
 		exPropsTable.appendChild(document.createElement('tbody'));
 		var hdrRow = exPropsTable.insertRow(-1);	
 		p.appendChild(content);
-		for (var i=0;i<props.length; i++){
-			var prop = props[i].split('=');
-			addRowToPopup (p, prop);
-			console.log('ColumnName:'+prop[0]);
-			console.log ('DisplayName:'+prop[1]);
-		}
-
-		
+		addRowToPopup (p, propsJson);
 	})
 	.catch (function(error){
 		
 	});
-	
-	
-/*	alert (p.getAttribute('id'));*/
 	
 }
 
@@ -185,6 +171,7 @@ function closeMoreProps(e){
 	var popup = document.getElementById(idPopup);
 	row.style.visibility = 'inherit';
 	popup.style.visibility = 'hidden';
+	popup.style.display = 'none';
 }
 
 function enableMainForm (){
@@ -208,21 +195,23 @@ function sleep(ms) {
 }
 
 function addRowToPopup(popup,rowContent){
-	var tableId = popup.getAttribute('rowId')+'.exPropsTable';
+	var rowId = popup.getAttribute('rowId');
+	var tableId = rowId+'.exPropsTable';
 	console.log(tableId);
 	var pTable = document.getElementById(tableId);
-	var rowCount = pTable.getElementsByTagName('tbody')[0].rows.length;
-	var row = pTable.insertRow(-1);
-	var rowId = 'Row' + rowCount;
-	row.id = popup.getAttribute('rowId');
-	var displayText = rowContent[1];
-	var displayCell = row.insertCell(-1);
-	displayCell.innerHTML =displayText;
-	var cellContent = document.createElement('textarea');
-	cellContent.placeholder = displayText;
-	cellContent.name = rowId + '.' + rowContent[0];
-	cellContent.id = cellContent.name;	
-	var valueCell = row.insertCell(-1);
-	valueCell.appendChild(cellContent);
+	for (var i in rowContent){
+		var row = pTable.insertRow(-1);	
+		var displayText = rowContent[i];
+		var displayCell = row.insertCell(-1);
+		displayCell.innerHTML =displayText;
+		row.id = rowId;
+		var cellContent = document.createElement('textarea');
+		cellContent.placeholder = displayText;
+		cellContent.name = rowId + '.' + i;
+		cellContent.id = cellContent.name;	
+		var valueCell = row.insertCell(-1);
+		valueCell.appendChild(cellContent);
+	}
+	
 }
 

@@ -32,6 +32,8 @@ import org.jooq.TableLike;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 
+import com.google.gson.Gson;
+
 import db.jooq.generated.automationDb.*;
 import db.jooq.generated.automationDb.tables.records.PropertiesRecord;
 
@@ -53,8 +55,11 @@ public class LibDatabase {
 
     public static void main(String[] args) {
 
-        LinkedHashMap<String, LinkedHashMap<String, String>> parammap = new LinkedHashMap<String, LinkedHashMap<String, String>>();
-        getAvailablePages();
+        LinkedHashMap<String, String> parammap = new LinkedHashMap<String, String>();
+        parammap.put("EXPROP1", "showControlId");
+        parammap.put("EXPROP2", "options");
+        System.out.println(new Gson().toJson(parammap));
+        System.out.println();
     }
 
     public static List<String> getTableFields(String tableName) {

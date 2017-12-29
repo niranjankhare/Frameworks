@@ -50,8 +50,8 @@ PRIMARY KEY (`CLASSID`)
 
 insert into TYPES (`CLASS`, `TYPE`, `ABRV`,`PROPERTYMAP`)
 values ('InputText','STANDARD','iTxt', null),
-('Select','STANDARD','sel', null),
-('EmberSelect','CUSTOM','emSel', null);
+('Select','STANDARD','sel', '{"EXPROP1":"options"}'),
+('EmberSelect','CUSTOM','emSel', '{"EXPROP1":"options","EXPROP2":"showControlId"}');
 
 create table EXTENDEDPROPS (
 `EXPROPID` int (10) NOT NULL AUTO_INCREMENT,

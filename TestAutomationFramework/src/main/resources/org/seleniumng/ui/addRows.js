@@ -5,7 +5,7 @@ function add_row(){
 	var rowId = 'Row' + rowCount;
 	row.id = rowId;
 	row.setAttribute ('style', 'visibility:inherit;');
-	var resp = getTableFields('propsview');
+	var resp = Promise.resolve(getTableFields('propsview'));
 	resp.then(function (dbColumns){
 		for (var i = 1; i < dbColumns.length; i++) {
 			var cellContent = null;
@@ -51,7 +51,7 @@ function getStandardtypes(e){
 		return null;
 	});
 }
-
+/*
 function getData(u){
 	const request = async () => {
 	    const response = await fetch(u);
@@ -65,9 +65,14 @@ function getData(u){
 	return request();
 
 }
-
+*/
+async function getData(u){
+	let response = await fetch(u);
+	return response.json();
+}
 function getTableFields(tname){
-	return Promise.resolve(getData('/fetch/libdatabase/gettablefields?'+tname))
+	r = Promise.resolve(getData('/fetch/libdatabase/gettablefields?'+tname)); 
+	return r;
 }
 
 function getSelectControl (options){

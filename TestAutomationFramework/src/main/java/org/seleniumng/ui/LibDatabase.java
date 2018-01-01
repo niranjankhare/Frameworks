@@ -1,22 +1,16 @@
 package org.seleniumng.ui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+
 import java.util.Map.Entry;
-import java.lang.reflect.Field;
+import java.util.Set;
 import java.sql.*;
 
-import org.jooq.Configuration;
 import org.jooq.DSLContext;
-import org.jooq.InsertResultStep;
-import org.jooq.InsertSetStep;
-import org.jooq.InsertValuesStep4;
-import org.jooq.InsertValuesStep5;
-import org.jooq.Query;
+import org.jooq.InsertValuesStepN;
 import org.jooq.Record;
 import org.jooq.Record2;
 import org.jooq.Record3;
@@ -25,22 +19,23 @@ import org.jooq.SQLDialect;
 import org.jooq.SelectConditionStep;
 import org.jooq.SelectField;
 import org.jooq.SelectJoinStep;
-import org.jooq.SelectSelectStep;
-import org.jooq.SelectWhereStep;
 import org.jooq.Table;
+import org.jooq.TableField;
 import org.jooq.TableLike;
-import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 
 import com.google.gson.Gson;
 
 import db.jooq.generated.automationDb.*;
+import db.jooq.generated.automationDb.tables.records.ExtendedpropsRecord;
+import db.jooq.generated.automationDb.tables.records.GuimapRecord;
 import db.jooq.generated.automationDb.tables.records.PropertiesRecord;
 
 import static db.jooq.generated.automationDb.tables.Guimap.*;
 import static db.jooq.generated.automationDb.tables.Pages.*;
 import static db.jooq.generated.automationDb.tables.Types.*;
 import static db.jooq.generated.automationDb.tables.Properties.*;
+import static db.jooq.generated.automationDb.tables.Extendedprops.*;
 
 import static org.seleniumng.utils.TAFConfig.*;
 
@@ -91,44 +86,51 @@ public class LibDatabase {
         try {
             DSLContext create = DSL.using(conn, SQLDialect.MYSQL);
             // https://www.jooq.org/doc/3.8/manual/sql-building/sql-statements/insert-statement/insert-on-duplicate-key/
-
-            Table<?> table = null;
-            //
-            // Field f =
-            // db.jooq.generated.automationDb.Tables.class.getDeclaredField(tableName.toUpperCase());
-            // if (TableLike.class.isAssignableFrom(f.getType())) {
-            // table = TableLike.class.cast(f.get(null));
-            // }
-
-            table = GUIMAP;
-            UniqueKey<?> pk = table.getPrimaryKey();
-            // System.out.println(pk.g)
-            org.jooq.Field[] fields = table.fields();
-
             for (Entry<String, LinkedHashMap<String, String>> row : cleanParamMap.entrySet()) {
-                String controlType = row.getValue().get("CONTROLTYPE");
-                String controlName = row.getValue().get("CONTROLNAME");
-                String controlDescription = row.getValue().get("CONTROLDESCRIPTION");
-                InsertValuesStep5<?, String, String, String, String, String> insertSetStep = create.insertInto(
-                        table.asTable(), GUIMAP.PAGENAME, GUIMAP.CONTROLTYPE, GUIMAP.CONTROLNAME,
-                        GUIMAP.CONTROLDESCRIPTION, GUIMAP.FIELDNAME);
-                insertSetStep.values(pageName, controlType, controlName, controlDescription, controlType + controlName);
-                insertSetStep.returning(GUIMAP.GUIMAPID);
-                Result<?> x = ((InsertResultStep<?>) insertSetStep).fetch();
+                LinkedHashMap<String, String> fieldMap = row.getValue();
+                Set<String> keys = fieldMap.keySet();
 
-                Integer guiMapId = x.getValue(0, GUIMAP.GUIMAPID);
-                String locatorValue = row.getValue().get("LOCATORVALUE");
-                String locatorType = "ID";
-                if (locatorValue.startsWith("/")) {
-                    locatorType = "XPATH";
+                List<TableField<GuimapRecord, ?>> guimapFields = new ArrayList<TableField<GuimapRecord, ?>>();
+                List<String> guimapValues = new ArrayList<String>();
+                guimapFields.add(GUIMAP.PAGENAME);
+                guimapValues.add(pageName);
+
+                List<TableField<PropertiesRecord, ?>> propertiesFields = new ArrayList<TableField<PropertiesRecord, ?>>();
+                List<Object> propertiesValues = new ArrayList<Object>();
+                List<TableField<ExtendedpropsRecord, ?>> expropertiesFields = new ArrayList<TableField<ExtendedpropsRecord, ?>>();
+                List<Object> expropertiesValues = new ArrayList<Object>();
+                for (String key : keys) {
+                    if (GUIMAP.field(key) != null) {
+                        guimapFields.add((TableField<GuimapRecord, ?>) GUIMAP.field(key));
+                        guimapValues.add(fieldMap.get(key));
+                    } else if (PROPERTIES.field(key) != null) {
+                        propertiesFields.add((TableField<PropertiesRecord, ?>) PROPERTIES.field(key));
+                        propertiesValues.add((Object) fieldMap.get(key));
+                    } else if (EXTENDEDPROPS.field(key) != null) {
+                        expropertiesFields.add((TableField<ExtendedpropsRecord, ?>) EXTENDEDPROPS.field(key));
+                        expropertiesValues.add(fieldMap.get(key));
+                    }
                 }
 
-                InsertValuesStep4<PropertiesRecord, Integer, String, String, String> insertProperties = create
-                        .insertInto(PROPERTIES.asTable(), PROPERTIES.GUIMAPID, PROPERTIES.STANDARDCLASS,
-                                PROPERTIES.LOCATORVALUE, PROPERTIES.LOCATORTYPE);
-                insertProperties.values(guiMapId, controlType, locatorValue, locatorType);
-                insertProperties.execute();
+                InsertValuesStepN<?> insertSetStepGuiMap = create.insertInto(GUIMAP, guimapFields);
+                insertSetStepGuiMap.values(guimapValues);
+                Result<?> x = insertSetStepGuiMap.returning(GUIMAP.GUIMAPID).fetch();
+                Integer guiMapId = x.getValue(0, GUIMAP.GUIMAPID);
 
+                propertiesFields.add(PROPERTIES.GUIMAPID);
+                propertiesValues.add(guiMapId);
+                String locatorValue = row.getValue().get("LOCATORVALUE");
+                propertiesFields.add(PROPERTIES.LOCATORTYPE);
+                String locatorType = (locatorValue.startsWith("/")) ? "XPATH" : "ID";
+                propertiesValues.add(locatorType);
+
+                InsertValuesStepN<?> insertSetStepProperties = create.insertInto(PROPERTIES, propertiesFields);
+                insertSetStepProperties.values(propertiesValues).execute();
+
+                expropertiesFields.add(EXTENDEDPROPS.GUIMAPID);
+                expropertiesValues.add(guiMapId);
+                InsertValuesStepN<?> insertSetStepExtendedProps = create.insertInto(EXTENDEDPROPS, expropertiesFields);
+                insertSetStepExtendedProps.values(expropertiesValues).execute();
             }
 
             System.out.println("done");
@@ -162,16 +164,6 @@ public class LibDatabase {
     }
 
     public static LinkedHashMap getAvailablePages() {
-        // LinkedHashMap<String, String> list = new
-        // LinkedHashMap<String,String>();
-        // SelectJoinStep<Record2<String, String>> x =
-        // dslContext.select(PAGES.PAGENAME,PAGES.PAGEDESCRIPTION ).from(PAGES);
-        //// Result<Record2<String, String>> r = x.fetch();
-        // for (Record rec: x.fetch()){
-        //
-        // list.put(rec.get(PAGES.PAGENAME),rec.get(PAGES.PAGEDESCRIPTION));
-        // }
-        //
         return getKeyValues(PAGES.PAGENAME, PAGES.PAGEDESCRIPTION, PAGES);
     }
 

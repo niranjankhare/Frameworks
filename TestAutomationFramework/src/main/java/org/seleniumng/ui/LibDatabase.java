@@ -111,6 +111,11 @@ public class LibDatabase {
                         expropertiesValues.add(fieldMap.get(key));
                     }
                 }
+                
+                // Add calculated fields
+                // GUIMAP
+                guimapFields.add (GUIMAP.FIELDNAME);
+                guimapValues.add(fieldMap.get("CONTROLTYPE")+ fieldMap.get("CONTROLNAME"));
 
                 InsertValuesStepN<?> insertSetStepGuiMap = create.insertInto(GUIMAP, guimapFields);
                 insertSetStepGuiMap.values(guimapValues);

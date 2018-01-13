@@ -17,8 +17,15 @@ import org.jsoup.parser.Parser;
 
 public class LibHtml {
 
-    private static String addRowScriptTemplate  = "function add_fields() {var rowCount = document.getElementById('__TABLENAME__').getElementsByTagName(\"tbody\")[0].rows.length;document.getElementById(\"__TABLENAME__\").insertRow(-1).innerHTML = '__ROWHTML__';} ";
-
+//    private static String addRowScriptTemplate  = "function add_fields() {var rowCount = document.getElementById('__TABLENAME__').getElementsByTagName(\"tbody\")[0].rows.length;document.getElementById(\"__TABLENAME__\").insertRow(-1).innerHTML = '__ROWHTML__';} ";
+/*
+ <input type='radio' name=choice value=new onclick="document.getElementById('newPage').disabled=false;document.getElementById('selectPage').disabled=true">Enter new:</inpur><input type='radio' name=choice value=new onclick="document.getElementById('selectPage').disabled=false;document.getElementById('newPage').disabled=true">Update existing:</input>
+<form action="">
+  <input id=newPage type="text" name="newPage" value="NewPage" style=display:inherit; disabled=true></input><br>
+  <select id=selectPage name="selectPage" value="female" disabled=true><option value=a>value1</option>value2<option value=b></option></select> page<br>
+  <input type="radio" name="gender" value="other"> Other
+</form> 
+ * */
     private static String addRowScriptTemplateN = getScriptResource("addRows.js");                                                                                                                                                                                      // LibHtml.class.getResourceAsStream("");
 
     public static void main(String[] args) {
@@ -55,12 +62,10 @@ public class LibHtml {
         List<String> fieldsList = LibDatabase.getTableFields(tableName);
         if (whereColumn != null)
             fieldsList.remove(whereColumn);
-        String scriptBlock = addRowScriptTemplate.replaceAll("__TABLENAME__", tableName).replaceAll("__ROWHTML__",
-                getFormattedRow(fieldsList));
-        scriptBlock = addRowScriptTemplateN.replaceAll("__OPTIONS__", getOptionsArray());
+
         Document html = Jsoup.parse("<html></html>");
 
-        Element scriptElement = new Element("script").text(scriptBlock);
+        Element scriptElement = new Element("script").text(addRowScriptTemplateN);
 
         Element table = new Element("table").attr("id", tableName);
         Element headerRow = new Element("tr");
@@ -196,41 +201,31 @@ public class LibHtml {
         return replaceText;
     }
 
-    private static void WriteFile(String fileName, String content) {
-        File f = new File(fileName);
-
-        System.out.println(f.getName());
-        FileOutputStream fo = null;
-        if (!f.exists()) {
-            try {
-                f.createNewFile();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        try {
-
-            fo = new FileOutputStream(f);
-            String b = content;
-            fo.write(b.getBytes());
-            fo.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }
-
-    private static Element addColumnsToRow(Element row, List<String> columns) {
-        for (String column : columns) {
-            Element e = getTextArea(column);
-            Element cell = new Element("td").appendChild(e);
-            row.appendChild(cell);
-        }
-
-        return row;
-    }
+//    private static void WriteFile(String fileName, String content) {
+//        File f = new File(fileName);
+//
+//        System.out.println(f.getName());
+//        FileOutputStream fo = null;
+//        if (!f.exists()) {
+//            try {
+//                f.createNewFile();
+//            } catch (IOException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//        }
+//        try {
+//
+//            fo = new FileOutputStream(f);
+//            String b = content;
+//            fo.write(b.getBytes());
+//            fo.close();
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//
+//    }
 
     public static Element getTextArea(String columnName) {
 
@@ -261,22 +256,6 @@ public class LibHtml {
         return addOptionsToSelect(selectElement, availablePages);
     }
 
-    private static Element addAvailableTypes(Element selectElement) {
-        LinkedHashMap<String, String> availableTypes = LibDatabase.getStandardTypes();
-        System.out.println(availableTypes.size());
-        return addOptionsToSelect(selectElement, availableTypes);
-    }
-
-    private static String getOptionsArray() {
-        LinkedHashMap<String, String> availableTypes = LibDatabase.getStandardTypes();
-        String replaceText = "";
-        for (Entry<String, String> e : availableTypes.entrySet()) {
-            replaceText = replaceText + "[" + sq(e.getKey()) + "," + sq(e.getValue()) + "]";
-            replaceText = replaceText + ",";
-        }
-        return replaceText.replaceAll(",$", "");
-    }
-
     private static Element addOptionsToSelect(Element selectElement, LinkedHashMap<String, String> map) {
         for (Entry<String, String> entry : map.entrySet()) {
             selectElement.appendChild(new Element("option").val(entry.getKey()).text(entry.getValue()));
@@ -284,28 +263,28 @@ public class LibHtml {
         return selectElement;
     }
 
-    private static String getFormattedRow(List<String> columns) {
-
-        Element selectType = getTextArea("ELEMENTTYPE");
-        selectType.tagName("select");
-        selectType = addAvailableTypes(selectType);
-        Element row = new Element("tr");
-        row.appendChild(new Element("td").appendChild(selectType));
-        // ones that need to be on main page: 4
-        // for (String column : columns) {
-        int i = 0;
-        for (i = 0; i <= 3; i++) {
-            String column = columns.get(i);
-            Element e = getTextArea(column);
-            Element cell = new Element("td").appendChild(e);
-            row.appendChild(cell);
-        }
-        // now i i propertymap
-        // Move property map to Types
-        String propertyMap = columns.get(i);
-        // move extra props to different table .. all of it goes into
-        // the inline popup!!
-        String strElement = Parser.unescapeEntities(row.toString(), false);
-        return strElement;
-    }
+//    private static String getFormattedRow(List<String> columns) {
+//
+//        Element selectType = getTextArea("ELEMENTTYPE");
+//        selectType.tagName("select");
+//        selectType = addAvailableTypes(selectType);
+//        Element row = new Element("tr");
+//        row.appendChild(new Element("td").appendChild(selectType));
+//        // ones that need to be on main page: 4
+//        // for (String column : columns) {
+//        int i = 0;
+//        for (i = 0; i <= 3; i++) {
+//            String column = columns.get(i);
+//            Element e = getTextArea(column);
+//            Element cell = new Element("td").appendChild(e);
+//            row.appendChild(cell);
+//        }
+//        // now i i propertymap
+//        // Move property map to Types
+//        String propertyMap = columns.get(i);
+//        // move extra props to different table .. all of it goes into
+//        // the inline popup!!
+//        String strElement = Parser.unescapeEntities(row.toString(), false);
+//        return strElement;
+//    }
 }

@@ -4,3 +4,4 @@ bin/
 build/
 test-output/
 .settings/
+application.conf

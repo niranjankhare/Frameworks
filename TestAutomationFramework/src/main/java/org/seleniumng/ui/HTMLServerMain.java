@@ -71,6 +71,7 @@ public class HTMLServerMain extends HttpServlet {
         String sPath = req.getPathInfo().toLowerCase();
 
         String pageName = getParameter(req, "pageName");
+        String operation = getParameter(req, "oper");
         String responseStr = "";
         switch (sPath.toLowerCase()) {
             case "/updatetable":
@@ -81,7 +82,10 @@ public class HTMLServerMain extends HttpServlet {
 
                 break;
             case "/fetchpage":
-                responseStr = LibHtml.getPageEntryForm(pageName);
+                if (operation.equalsIgnoreCase("new"))
+                	responseStr = LibHtml.getPageAddGUIForm(pageName);
+                else 
+                	responseStr = LibHtml.getPageUpdateForm(pageName);
                 break;
             case "/fetchcustomclasses":
                 break;
@@ -89,7 +93,7 @@ public class HTMLServerMain extends HttpServlet {
                 break;
                 
             default:
-                responseStr = LibHtml.getPageEntryForm(pageName);
+                responseStr = LibHtml.getPageAddGUIForm(pageName);
         }
         writeResponse(resp, responseStr,"text/html;charset=UTF-8", null);
     }

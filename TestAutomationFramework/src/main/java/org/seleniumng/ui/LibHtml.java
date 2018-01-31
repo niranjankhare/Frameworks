@@ -119,7 +119,7 @@ public class LibHtml {
         return Parser.unescapeEntities(html.toString(), false);
     }
 
-    public static String getPageEntryForm(String pageName) {
+    public static String getPageAddGUIForm(String pageName) {
         String mainPropertiesView = "propsview";
         String extendedPropertiesView = "extendedpropsview";
         String whereColumn = "PAGENAME";
@@ -243,9 +243,12 @@ public class LibHtml {
 
         Element selectPage = new Element("select").attr("name", "pageName");
         selectPage = addAvailablePages(selectPage);
-
+        Element enterNew = new Element("input").attr("name", "oper").attr("type", "radio").attr("value", "new").text("Add New GUI");
+        Element update = new Element("input").attr("name", "oper").attr("type", "radio").attr("value", "update").attr("checked", "checked").text("Update existing GUI");
         Element form = new Element("form").attr("id", "guimap").attr("method", "post").attr("action", "/fetchPage");
         form.appendChild(selectPage);
+        form.appendChild(enterNew);
+        form.appendChild(update);
         form.appendChild(new Element("input").attr("type", "submit").attr("value", "Fetch Entry Form"));
         html.body().appendChild(form);
         return Parser.unescapeEntities(html.toString(), false);
@@ -263,28 +266,78 @@ public class LibHtml {
         return selectElement;
     }
 
-//    private static String getFormattedRow(List<String> columns) {
-//
-//        Element selectType = getTextArea("ELEMENTTYPE");
-//        selectType.tagName("select");
-//        selectType = addAvailableTypes(selectType);
-//        Element row = new Element("tr");
-//        row.appendChild(new Element("td").appendChild(selectType));
-//        // ones that need to be on main page: 4
-//        // for (String column : columns) {
-//        int i = 0;
-//        for (i = 0; i <= 3; i++) {
-//            String column = columns.get(i);
-//            Element e = getTextArea(column);
-//            Element cell = new Element("td").appendChild(e);
-//            row.appendChild(cell);
-//        }
-//        // now i i propertymap
-//        // Move property map to Types
-//        String propertyMap = columns.get(i);
-//        // move extra props to different table .. all of it goes into
-//        // the inline popup!!
-//        String strElement = Parser.unescapeEntities(row.toString(), false);
-//        return strElement;
-//    }
+
+
+	public static String getPageUpdateForm(String pageName) {
+		String mainPropertiesView = "propsview";
+        String extendedPropertiesView = "extendedpropsview";
+        String whereColumn = "PAGENAME";
+
+        mainPropertiesView.replaceAll(mainPropertiesView, mainPropertiesView.toLowerCase());
+        List<String> mainFieldsList = LibDatabase.getTableFields(mainPropertiesView);
+        List<String> extendedFieldsList = LibDatabase.getTableFields(extendedPropertiesView);
+        mainFieldsList.remove(whereColumn);
+
+        Element table = new Element("table").attr("id", mainPropertiesView);
+        Element headerRow = new Element("tr").attr("id", "headerRow").attr("style", "visibility:visible;");
+
+        // Add columns to the displayed table as header row
+        for (String field : mainFieldsList) {
+            headerRow.appendElement("th").text(field);
+        }
+
+        headerRow.appendElement("th").text("More properties");
+
+        String scriptBlock = addRowScriptTemplateN/*.replaceAll("__OPTIONS__", getOptionsArray())*/.replaceAll("__FIELDS__",
+                getFieldsArray(mainFieldsList));
+
+        Document html = Jsoup.parse("<html></html>");
+
+        Element scriptElement = new Element("script").text(scriptBlock);
+
+        Element tbody = new Element("tbody");
+
+        table.appendChild(tbody);
+        tbody.appendChild(headerRow);
+        // tbody.appendChild(dataRow);
+
+        // Form Submit elements:
+        Element elTableName = new Element("input");
+        elTableName.attr("type", "hidden");
+        elTableName.attr("id", "tableName");
+        elTableName.attr("name", "tableName");
+        elTableName.attr("value", mainPropertiesView);
+
+        Element elPageName = new Element("input");
+        elPageName.attr("type", "hidden");
+        elPageName.attr("id", "pageName");
+        elPageName.attr("name", "pageName");
+        elPageName.attr("value", pageName);
+
+        Element addMore = new Element("input");
+        addMore.attr("type", "button");
+        addMore.attr("id", "addRow");
+        addMore.attr("onclick", "add_row();");
+        addMore.attr("value", "Add row");
+
+        Element submit = new Element("input");
+        submit.attr("type", "submit");
+        submit.attr("id", "submit");
+        submit.attr("value", "Go!");
+        Element parentPageDiv = new Element("div").attr("id", "formMainDiv").attr("style", "visibility=inherit;");
+        parentPageDiv.appendChild(table);
+        Element form = new Element("form").attr("id", "guimap").attr("method", "post").attr("action", "/updateTable");
+        form.appendChild(parentPageDiv);
+        form.appendChild(addMore);
+        form.appendChild(elTableName);
+        if (whereColumn != null)
+            form.appendChild(elPageName);
+        form.appendChild(submit);
+        html.body().before(scriptElement);
+        html.body().appendChild(form);
+        html.body().attr("onload", "add_row()");
+
+        return Parser.unescapeEntities(html.toString(), false);
+
+	}
 }

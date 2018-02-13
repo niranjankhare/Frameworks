@@ -127,7 +127,8 @@ public class LibHtml {
         mainPropertiesView.replaceAll(mainPropertiesView, mainPropertiesView.toLowerCase());
         List<String> mainFieldsList = LibDatabase.getTableFields(mainPropertiesView);
         List<String> extendedFieldsList = LibDatabase.getTableFields(extendedPropertiesView);
-        mainFieldsList.remove(whereColumn);
+//        mainFieldsList.remove(whereColumn);
+//        mainFieldsList.remove("GUIMAPID");
 
         Element table = new Element("table").attr("id", mainPropertiesView);
         Element headerRow = new Element("tr").attr("id", "headerRow").attr("style", "visibility:visible;");
@@ -139,8 +140,8 @@ public class LibHtml {
 
         headerRow.appendElement("th").text("More properties");
 
-        String scriptBlock = addRowScriptTemplateN/*.replaceAll("__OPTIONS__", getOptionsArray())*/.replaceAll("__FIELDS__",
-                getFieldsArray(mainFieldsList));
+        String scriptBlock = addRowScriptTemplateN;//*.replaceAll("__OPTIONS__", getOptionsArray())*/.replaceAll("__FIELDS__",
+//                getFieldsArray(mainFieldsList));
 
         Document html = Jsoup.parse("<html></html>");
 
@@ -168,7 +169,7 @@ public class LibHtml {
         Element addMore = new Element("input");
         addMore.attr("type", "button");
         addMore.attr("id", "addRow");
-        addMore.attr("onclick", "add_row();");
+        addMore.attr("onclick", "add_NewRow();");
         addMore.attr("value", "Add row");
 
         Element submit = new Element("input");
@@ -186,7 +187,7 @@ public class LibHtml {
         form.appendChild(submit);
         html.body().before(scriptElement);
         html.body().appendChild(form);
-        html.body().attr("onload", "add_row()");
+        html.body().attr("onload", "add_NewRow()");
 
         return Parser.unescapeEntities(html.toString(), false);
 
@@ -268,7 +269,7 @@ public class LibHtml {
 
 
 
-	public static String getPageUpdateForm(String pageName) {
+	public static String getPageUpdateGUIForm(String pageName) {
 		String mainPropertiesView = "propsview";
         String extendedPropertiesView = "extendedpropsview";
         String whereColumn = "PAGENAME";
@@ -276,7 +277,7 @@ public class LibHtml {
         mainPropertiesView.replaceAll(mainPropertiesView, mainPropertiesView.toLowerCase());
         List<String> mainFieldsList = LibDatabase.getTableFields(mainPropertiesView);
         List<String> extendedFieldsList = LibDatabase.getTableFields(extendedPropertiesView);
-        mainFieldsList.remove(whereColumn);
+//        mainFieldsList.remove(whereColumn);
 
         Element table = new Element("table").attr("id", mainPropertiesView);
         Element headerRow = new Element("tr").attr("id", "headerRow").attr("style", "visibility:visible;");
@@ -288,8 +289,8 @@ public class LibHtml {
 
         headerRow.appendElement("th").text("More properties");
 
-        String scriptBlock = addRowScriptTemplateN/*.replaceAll("__OPTIONS__", getOptionsArray())*/.replaceAll("__FIELDS__",
-                getFieldsArray(mainFieldsList));
+        String scriptBlock = addRowScriptTemplateN;//*.replaceAll("__OPTIONS__", getOptionsArray())*/.replaceAll("__FIELDS__",
+//                getFieldsArray(mainFieldsList));
 
         Document html = Jsoup.parse("<html></html>");
 
@@ -317,7 +318,7 @@ public class LibHtml {
         Element addMore = new Element("input");
         addMore.attr("type", "button");
         addMore.attr("id", "addRow");
-        addMore.attr("onclick", "add_row();");
+        addMore.attr("onclick", "add_UpdateRow();");
         addMore.attr("value", "Add row");
 
         Element submit = new Element("input");
@@ -335,7 +336,7 @@ public class LibHtml {
         form.appendChild(submit);
         html.body().before(scriptElement);
         html.body().appendChild(form);
-        html.body().attr("onload", "add_row()");
+        html.body().attr("onload", "add_UpdateRow()");
 
         return Parser.unescapeEntities(html.toString(), false);
 

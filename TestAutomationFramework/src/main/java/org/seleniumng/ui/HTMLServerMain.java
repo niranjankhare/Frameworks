@@ -43,18 +43,18 @@ public class HTMLServerMain extends HttpServlet {
     protected void processGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String sPath = req.getPathInfo().toLowerCase();
 
-        String tableName = getParameter(req, "tableName");
+//        String tableName = getParameter(req, "tableName");
         String responseStr = "";
         switch (sPath) {
             case "/favicon.ico":
                 break;
-            case "/test":
-                LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap = processRequestInput(
-                        req.getParameterMap());
-                LibDatabase.updateTable(tableName, cleanParamMap);
-                responseStr = req.getParameterMap().toString();
-
-                break;
+//            case "/test":
+//                LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap = processRequestInput(
+//                        req.getParameterMap());
+//                LibDatabase.updateTable(tableName, cleanParamMap);
+//                responseStr = req.getParameterMap().toString();
+//
+//                break;
             case "/freeform":
                 responseStr = LibHtml.getTableEntryForm("entryform", null, null);
                 break;
@@ -77,7 +77,7 @@ public class HTMLServerMain extends HttpServlet {
             case "/updatetable":
                 LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap = processRequestInput(
                         req.getParameterMap());
-                LibDatabase.updateTable(pageName, cleanParamMap);
+                LibDatabase.updateTable(pageName, cleanParamMap, operation);
                 responseStr = req.getParameterMap().toString();
 
                 break;
@@ -85,7 +85,7 @@ public class HTMLServerMain extends HttpServlet {
                 if (operation.equalsIgnoreCase("new"))
                 	responseStr = LibHtml.getPageAddGUIForm(pageName);
                 else 
-                	responseStr = LibHtml.getPageUpdateForm(pageName);
+                	responseStr = LibHtml.getPageUpdateGUIForm(pageName);
                 break;
             case "/fetchcustomclasses":
                 break;

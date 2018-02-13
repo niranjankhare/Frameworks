@@ -65,7 +65,7 @@ public class JSONResourceServer extends HttpServlet {
             case "/test":
                 LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap = processRequestInput(
                         req.getParameterMap());
-                LibDatabase.updateTable(tableName, cleanParamMap);
+//                LibDatabase.updateTable(tableName, cleanParamMap);
                 responseStr = req.getParameterMap().toString();
 
                 break;
@@ -90,7 +90,7 @@ public class JSONResourceServer extends HttpServlet {
             case "/updatetable":
                 LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap = processRequestInput(
                         req.getParameterMap());
-                LibDatabase.updateTable(pageName, cleanParamMap);
+//                LibDatabase.updateTable(pageName, cleanParamMap);
                 responseStr = req.getParameterMap().toString();
 
                 break;

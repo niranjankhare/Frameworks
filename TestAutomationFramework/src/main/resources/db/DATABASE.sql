@@ -74,7 +74,7 @@ FOREIGN KEY (GUIMAPID)
 );
 
 CREATE VIEW automation.PROPSVIEW AS
-SELECT a.PAGENAME,a.CONTROLTYPE,a.CONTROLNAME, a.CONTROLDESCRIPTION,
+SELECT a.PAGENAME,a.CONTROLTYPE,a.GUIMAPID,a.CONTROLNAME, a.CONTROLDESCRIPTION,
 b.LOCATORVALUE, b.LOCATORTYPE
 FROM
 automation.GUIMAP a, automation.PROPERTIES b;
@@ -111,14 +111,6 @@ INSERT INTO PAGES
 SET `pagename` = 'logon',
 `parentid` = null,
 `pagedescription` = "Login page";
-
-insert into TYPES (`CLASS`, `TYPE`, `ABRV`)
-values 
-('InputText','STANDARD','iTxt'),
-('Select','STANDARD','iTxt'),
-('EmberSelect','CUSTOM','emSel');
-
-
 
 
 

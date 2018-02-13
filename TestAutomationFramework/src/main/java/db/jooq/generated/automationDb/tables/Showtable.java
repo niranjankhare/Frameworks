@@ -105,7 +105,7 @@ public class Showtable extends TableImpl<ShowtableRecord> {
      * Create a <code>automation.showtable</code> table reference
      */
     public Showtable() {
-        this(DSL.name("SHOWTABLE"), null);
+        this(DSL.name("showtable"), null);
     }
 
     /**

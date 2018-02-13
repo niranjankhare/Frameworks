@@ -1,4 +1,12 @@
-function add_row(){
+function add_NewRow(){
+add_Row(false);
+}
+
+function add_UpdateRow(){
+	add_Row(true);
+	}
+
+function add_Row(f){
 	var table = document.getElementById('propsview');
 	var rowCount = table.getElementsByTagName('tbody')[0].rows.length;
 	var row = table.insertRow(-1);
@@ -7,14 +15,30 @@ function add_row(){
 	row.setAttribute ('style', 'visibility:inherit;');
 	var resp = Promise.resolve(getTableFields('propsview'));
 	resp.then(function (dbColumns){
-		for (var i = 1; i < dbColumns.length; i++) {
+		var index = dbColumns.indexOf('CONTROLTYPE');
+		/*if (!f){
+		
+		if (index !== -1) dbColumns.splice(index, 1);
+		}
+		*/
+		for (var i = 0; i < dbColumns.length; i++) {
 			var cellContent = null;
-			if (i == 1) {
+			if (i === index) {
 				cellContent = document.createElement('select');
 				getStandardtypes(cellContent);
 			}
 			else {
-				cellContent = document.createElement('textarea');
+				
+				if (i< index){
+					/*cellContent.setAttribute ('style', 'visibility:hidden;');
+					cellContent.disabled=true;*/
+					cellContent = document.createElement('input');
+					cellContent.setAttribute ('type', 'hidden');
+					if (!f)
+						cellContent.disabled=true;
+					
+				} else
+					cellContent = document.createElement('textarea');
 			} 
 			cellContent.placeholder = dbColumns[i];
 			cellContent.name = rowId + '.' + dbColumns[i];
@@ -42,6 +66,7 @@ function add_row(){
 	});
 
 }
+
 function getStandardtypes(e){
 	Promise.resolve(getData('/fetch/libdatabase/getstandardypes'))
 	.then(function(resp){
@@ -52,20 +77,13 @@ function getStandardtypes(e){
 	});
 }
 /*
-function getData(u){
-	const request = async () => {
-	    const response = await fetch(u);
-	    while (typeof response == 'undefined'){
-		    sleep (1000);
-	    }
-	    const json = await response.json();
-	    return json;
-	};
-	
-	return request();
-
-}
-*/
+ * function getData(u){ const request = async () => { const response = await
+ * fetch(u); while (typeof response == 'undefined'){ sleep (1000); } const json =
+ * await response.json(); return json; };
+ * 
+ * return request();
+ *  }
+ */
 async function getData(u){
 	let response = await fetch(u);
 	return response.json();

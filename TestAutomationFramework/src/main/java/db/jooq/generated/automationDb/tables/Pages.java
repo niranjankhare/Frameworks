@@ -38,7 +38,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Pages extends TableImpl<PagesRecord> {
 
-    private static final long serialVersionUID = -807129800;
+    private static final long serialVersionUID = -1655860577;
 
     /**
      * The reference instance of <code>automation.PAGES</code>
@@ -56,7 +56,7 @@ public class Pages extends TableImpl<PagesRecord> {
     /**
      * The column <code>automation.PAGES.PAGENAME</code>.
      */
-    public final TableField<PagesRecord, String> PAGENAME = createField("PAGENAME", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
+    public final TableField<PagesRecord, String> PAGENAME = createField("PAGENAME", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false).defaultValue(org.jooq.impl.DSL.inline("", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>automation.PAGES.PARENTID</code>.

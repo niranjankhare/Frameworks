@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Guimap extends TableImpl<GuimapRecord> {
 
-    private static final long serialVersionUID = 1254433131;
+    private static final long serialVersionUID = -430610348;
 
     /**
      * The reference instance of <code>automation.GUIMAP</code>
@@ -66,11 +66,6 @@ public class Guimap extends TableImpl<GuimapRecord> {
     public final TableField<GuimapRecord, String> PAGENAME = createField("PAGENAME", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
 
     /**
-     * The column <code>automation.GUIMAP.CONTROLTYPE</code>.
-     */
-    public final TableField<GuimapRecord, String> CONTROLTYPE = createField("CONTROLTYPE", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
      * The column <code>automation.GUIMAP.CONTROLNAME</code>.
      */
     public final TableField<GuimapRecord, String> CONTROLNAME = createField("CONTROLNAME", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
@@ -79,11 +74,6 @@ public class Guimap extends TableImpl<GuimapRecord> {
      * The column <code>automation.GUIMAP.CONTROLDESCRIPTION</code>.
      */
     public final TableField<GuimapRecord, String> CONTROLDESCRIPTION = createField("CONTROLDESCRIPTION", org.jooq.impl.SQLDataType.VARCHAR(150), this, "");
-
-    /**
-     * The column <code>automation.GUIMAP.FIELDNAME</code>.
-     */
-    public final TableField<GuimapRecord, String> FIELDNAME = createField("FIELDNAME", org.jooq.impl.SQLDataType.VARCHAR(150), this, "");
 
     /**
      * Create a <code>automation.GUIMAP</code> table reference

@@ -13,7 +13,6 @@ import org.jooq.Field;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
-import org.jooq.TableField;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
 
@@ -31,7 +30,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Showtable extends TableImpl<ShowtableRecord> {
 
-    private static final long serialVersionUID = 1817705675;
+    private static final long serialVersionUID = 2109070436;
 
     /**
      * The reference instance of <code>automation.showtable</code>
@@ -45,61 +44,6 @@ public class Showtable extends TableImpl<ShowtableRecord> {
     public Class<ShowtableRecord> getRecordType() {
         return ShowtableRecord.class;
     }
-
-    /**
-     * The column <code>automation.showtable.PAGENAME</code>.
-     */
-    public final TableField<ShowtableRecord, String> PAGENAME = createField("PAGENAME", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
-
-    /**
-     * The column <code>automation.showtable.CONTROLTYPE</code>.
-     */
-    public final TableField<ShowtableRecord, String> CONTROLTYPE = createField("CONTROLTYPE", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>automation.showtable.CONTROLNAME</code>.
-     */
-    public final TableField<ShowtableRecord, String> CONTROLNAME = createField("CONTROLNAME", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>automation.showtable.CONTROLDESCRIPTION</code>.
-     */
-    public final TableField<ShowtableRecord, String> CONTROLDESCRIPTION = createField("CONTROLDESCRIPTION", org.jooq.impl.SQLDataType.VARCHAR(150), this, "");
-
-    /**
-     * The column <code>automation.showtable.FIELDNAME</code>.
-     */
-    public final TableField<ShowtableRecord, String> FIELDNAME = createField("FIELDNAME", org.jooq.impl.SQLDataType.VARCHAR(150), this, "");
-
-    /**
-     * The column <code>automation.showtable.PROPERTYID</code>.
-     */
-    public final TableField<ShowtableRecord, Integer> PROPERTYID = createField("PROPERTYID", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
-
-    /**
-     * The column <code>automation.showtable.GUIMAPID</code>.
-     */
-    public final TableField<ShowtableRecord, Integer> GUIMAPID = createField("GUIMAPID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
-
-    /**
-     * The column <code>automation.showtable.STANDARDCLASS</code>.
-     */
-    public final TableField<ShowtableRecord, String> STANDARDCLASS = createField("STANDARDCLASS", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>automation.showtable.MAPPEDCLASS</code>.
-     */
-    public final TableField<ShowtableRecord, String> MAPPEDCLASS = createField("MAPPEDCLASS", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>automation.showtable.LOCATORVALUE</code>.
-     */
-    public final TableField<ShowtableRecord, String> LOCATORVALUE = createField("LOCATORVALUE", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
-
-    /**
-     * The column <code>automation.showtable.LOCATORTYPE</code>.
-     */
-    public final TableField<ShowtableRecord, String> LOCATORTYPE = createField("LOCATORTYPE", org.jooq.impl.SQLDataType.VARCHAR(10).nullable(false), this, "");
 
     /**
      * Create a <code>automation.showtable</code> table reference

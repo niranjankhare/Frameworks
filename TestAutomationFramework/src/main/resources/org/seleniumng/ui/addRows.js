@@ -15,7 +15,7 @@ function add_Row(f){
 	row.setAttribute ('style', 'visibility:inherit;');
 	var resp = Promise.resolve(getTableFields('propsview'));
 	resp.then(function (dbColumns){
-		var index = dbColumns.indexOf('CONTROLTYPE');
+		var index = dbColumns.indexOf('CONTROLNAME');
 		/*if (!f){
 		
 		if (index !== -1) dbColumns.splice(index, 1);
@@ -23,7 +23,7 @@ function add_Row(f){
 		*/
 		for (var i = 0; i < dbColumns.length; i++) {
 			var cellContent = null;
-			if (i === index) {
+			if (i === dbColumns.indexOf('STANDARDCLASS')) {
 				cellContent = document.createElement('select');
 				getStandardtypes(cellContent);
 			}

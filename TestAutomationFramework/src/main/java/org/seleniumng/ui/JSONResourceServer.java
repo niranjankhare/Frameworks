@@ -95,7 +95,7 @@ public class JSONResourceServer extends HttpServlet {
 
                 break;
             case "/fetchpage":
-                responseStr = LibHtml.getPageAddGUIForm(pageName);
+//                responseStr = LibHtml.getPageAddGUIForm(pageName);
                 break;
             case "/fetchcustomclasses":
                 break;
@@ -103,7 +103,7 @@ public class JSONResourceServer extends HttpServlet {
                 break;
                 
             default:
-                responseStr = LibHtml.getPageAddGUIForm(pageName);
+//                responseStr = LibHtml.getPageAddGUIForm(pageName);
         }
         writeResponse(resp, responseStr,"Content-type: application/json; charset=utf-8", null);
     }

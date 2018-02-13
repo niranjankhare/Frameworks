@@ -95,6 +95,7 @@ public class LibDatabase {
 
 				List<TableField<PropertiesRecord, ?>> propertiesFields = new ArrayList<TableField<PropertiesRecord, ?>>();
 				List<Object> propertiesValues = new ArrayList<Object>();
+				
 				List<TableField<ExtendedpropsRecord, ?>> expropertiesFields = new ArrayList<TableField<ExtendedpropsRecord, ?>>();
 				List<Object> expropertiesValues = new ArrayList<Object>();
 				for (String key : keys) {
@@ -112,8 +113,6 @@ public class LibDatabase {
 
 				// Add calculated fields
 				// GUIMAP
-				guimapFields.add(GUIMAP.FIELDNAME);
-				guimapValues.add(fieldMap.get("CONTROLTYPE") + fieldMap.get("CONTROLNAME"));
 				if (operation.equalsIgnoreCase("new")) {
 					InsertValuesStepN<?> insertSetStepGuiMap = getOpenContext().insertInto(GUIMAP, guimapFields);
 					insertSetStepGuiMap.values(guimapValues);
@@ -207,7 +206,7 @@ public class LibDatabase {
 			String[] nestedMap = new String[2];
 			nestedMap[0] = rec.get(TYPES.CLASS);
 			nestedMap[1] = rec.get(TYPES.PROPERTYMAP);
-			list.put(rec.get(TYPES.ABRV), nestedMap);
+			list.put(rec.get(TYPES.CLASS), nestedMap);
 		}
 		return list;
 	}

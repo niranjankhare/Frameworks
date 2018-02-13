@@ -27,7 +27,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements Record7<String, Integer, String, String, String, String, String> {
 
-    private static final long serialVersionUID = -982822468;
+    private static final long serialVersionUID = 418639726;
 
     /**
      * Setter for <code>automation.PROPSVIEW.PAGENAME</code>.
@@ -58,72 +58,72 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
     }
 
     /**
-     * Setter for <code>automation.PROPSVIEW.CONTROLTYPE</code>.
-     */
-    public void setControltype(String value) {
-        set(2, value);
-    }
-
-    /**
-     * Getter for <code>automation.PROPSVIEW.CONTROLTYPE</code>.
-     */
-    public String getControltype() {
-        return (String) get(2);
-    }
-
-    /**
      * Setter for <code>automation.PROPSVIEW.CONTROLNAME</code>.
      */
     public void setControlname(String value) {
-        set(3, value);
+        set(2, value);
     }
 
     /**
      * Getter for <code>automation.PROPSVIEW.CONTROLNAME</code>.
      */
     public String getControlname() {
-        return (String) get(3);
+        return (String) get(2);
     }
 
     /**
      * Setter for <code>automation.PROPSVIEW.CONTROLDESCRIPTION</code>.
      */
     public void setControldescription(String value) {
-        set(4, value);
+        set(3, value);
     }
 
     /**
      * Getter for <code>automation.PROPSVIEW.CONTROLDESCRIPTION</code>.
      */
     public String getControldescription() {
-        return (String) get(4);
+        return (String) get(3);
     }
 
     /**
      * Setter for <code>automation.PROPSVIEW.LOCATORVALUE</code>.
      */
     public void setLocatorvalue(String value) {
-        set(5, value);
+        set(4, value);
     }
 
     /**
      * Getter for <code>automation.PROPSVIEW.LOCATORVALUE</code>.
      */
     public String getLocatorvalue() {
-        return (String) get(5);
+        return (String) get(4);
     }
 
     /**
      * Setter for <code>automation.PROPSVIEW.LOCATORTYPE</code>.
      */
     public void setLocatortype(String value) {
-        set(6, value);
+        set(5, value);
     }
 
     /**
      * Getter for <code>automation.PROPSVIEW.LOCATORTYPE</code>.
      */
     public String getLocatortype() {
+        return (String) get(5);
+    }
+
+    /**
+     * Setter for <code>automation.PROPSVIEW.STANDARDCLASS</code>.
+     */
+    public void setStandardclass(String value) {
+        set(6, value);
+    }
+
+    /**
+     * Getter for <code>automation.PROPSVIEW.STANDARDCLASS</code>.
+     */
+    public String getStandardclass() {
         return (String) get(6);
     }
 
@@ -168,14 +168,6 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
      */
     @Override
     public Field<String> field3() {
-        return Propsview.PROPSVIEW.CONTROLTYPE;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Field<String> field4() {
         return Propsview.PROPSVIEW.CONTROLNAME;
     }
 
@@ -183,7 +175,7 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public Field<String> field5() {
+    public Field<String> field4() {
         return Propsview.PROPSVIEW.CONTROLDESCRIPTION;
     }
 
@@ -191,7 +183,7 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public Field<String> field6() {
+    public Field<String> field5() {
         return Propsview.PROPSVIEW.LOCATORVALUE;
     }
 
@@ -199,8 +191,16 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public Field<String> field7() {
+    public Field<String> field6() {
         return Propsview.PROPSVIEW.LOCATORTYPE;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Field<String> field7() {
+        return Propsview.PROPSVIEW.STANDARDCLASS;
     }
 
     /**
@@ -224,14 +224,6 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
      */
     @Override
     public String component3() {
-        return getControltype();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String component4() {
         return getControlname();
     }
 
@@ -239,7 +231,7 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public String component5() {
+    public String component4() {
         return getControldescription();
     }
 
@@ -247,7 +239,7 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public String component6() {
+    public String component5() {
         return getLocatorvalue();
     }
 
@@ -255,8 +247,16 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public String component7() {
+    public String component6() {
         return getLocatortype();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String component7() {
+        return getStandardclass();
     }
 
     /**
@@ -280,14 +280,6 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
      */
     @Override
     public String value3() {
-        return getControltype();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String value4() {
         return getControlname();
     }
 
@@ -295,7 +287,7 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public String value5() {
+    public String value4() {
         return getControldescription();
     }
 
@@ -303,7 +295,7 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public String value6() {
+    public String value5() {
         return getLocatorvalue();
     }
 
@@ -311,8 +303,16 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public String value7() {
+    public String value6() {
         return getLocatortype();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String value7() {
+        return getStandardclass();
     }
 
     /**
@@ -338,15 +338,6 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
      */
     @Override
     public PropsviewRecord value3(String value) {
-        setControltype(value);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public PropsviewRecord value4(String value) {
         setControlname(value);
         return this;
     }
@@ -355,7 +346,7 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public PropsviewRecord value5(String value) {
+    public PropsviewRecord value4(String value) {
         setControldescription(value);
         return this;
     }
@@ -364,7 +355,7 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public PropsviewRecord value6(String value) {
+    public PropsviewRecord value5(String value) {
         setLocatorvalue(value);
         return this;
     }
@@ -373,8 +364,17 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
      * {@inheritDoc}
      */
     @Override
-    public PropsviewRecord value7(String value) {
+    public PropsviewRecord value6(String value) {
         setLocatortype(value);
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public PropsviewRecord value7(String value) {
+        setStandardclass(value);
         return this;
     }
 
@@ -407,15 +407,15 @@ public class PropsviewRecord extends TableRecordImpl<PropsviewRecord> implements
     /**
      * Create a detached, initialised PropsviewRecord
      */
-    public PropsviewRecord(String pagename, Integer guimapid, String controltype, String controlname, String controldescription, String locatorvalue, String locatortype) {
+    public PropsviewRecord(String pagename, Integer guimapid, String controlname, String controldescription, String locatorvalue, String locatortype, String standardclass) {
         super(Propsview.PROPSVIEW);
 
         set(0, pagename);
         set(1, guimapid);
-        set(2, controltype);
-        set(3, controlname);
-        set(4, controldescription);
-        set(5, locatorvalue);
-        set(6, locatortype);
+        set(2, controlname);
+        set(3, controldescription);
+        set(4, locatorvalue);
+        set(5, locatortype);
+        set(6, standardclass);
     }
 }

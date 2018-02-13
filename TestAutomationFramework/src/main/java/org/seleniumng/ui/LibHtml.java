@@ -119,7 +119,7 @@ public class LibHtml {
         return Parser.unescapeEntities(html.toString(), false);
     }
 
-    public static String getPageAddGUIForm(String pageName) {
+    public static String getPageAddGUIForm(String pageName, String operation) {
         String mainPropertiesView = "propsview";
         String extendedPropertiesView = "extendedpropsview";
         String whereColumn = "PAGENAME";
@@ -166,6 +166,12 @@ public class LibHtml {
         elPageName.attr("name", "pageName");
         elPageName.attr("value", pageName);
 
+        Element elOperation = new Element("input");
+        elOperation.attr("type", "hidden");
+        elOperation.attr("id", "oper");
+        elOperation.attr("name", "oper");
+        elOperation.attr("value", operation);
+
         Element addMore = new Element("input");
         addMore.attr("type", "button");
         addMore.attr("id", "addRow");
@@ -182,8 +188,8 @@ public class LibHtml {
         form.appendChild(parentPageDiv);
         form.appendChild(addMore);
         form.appendChild(elTableName);
-        if (whereColumn != null)
-            form.appendChild(elPageName);
+        form.appendChild(elPageName);
+        form.appendChild( elOperation);
         form.appendChild(submit);
         html.body().before(scriptElement);
         html.body().appendChild(form);
@@ -269,7 +275,7 @@ public class LibHtml {
 
 
 
-	public static String getPageUpdateGUIForm(String pageName) {
+	public static String getPageUpdateGUIForm(String pageName, String operation) {
 		String mainPropertiesView = "propsview";
         String extendedPropertiesView = "extendedpropsview";
         String whereColumn = "PAGENAME";
@@ -315,6 +321,12 @@ public class LibHtml {
         elPageName.attr("name", "pageName");
         elPageName.attr("value", pageName);
 
+        Element elOperation = new Element("input");
+        elOperation.attr("type", "hidden");
+        elOperation.attr("id", "oper");
+        elOperation.attr("name", "oper");
+        elOperation.attr("value", operation);
+
         Element addMore = new Element("input");
         addMore.attr("type", "button");
         addMore.attr("id", "addRow");
@@ -331,8 +343,9 @@ public class LibHtml {
         form.appendChild(parentPageDiv);
         form.appendChild(addMore);
         form.appendChild(elTableName);
-        if (whereColumn != null)
-            form.appendChild(elPageName);
+        form.appendChild(elPageName);
+        form.appendChild(elOperation);
+        
         form.appendChild(submit);
         html.body().before(scriptElement);
         html.body().appendChild(form);

@@ -83,9 +83,9 @@ public class HTMLServerMain extends HttpServlet {
                 break;
             case "/fetchpage":
                 if (operation.equalsIgnoreCase("new"))
-                	responseStr = LibHtml.getPageAddGUIForm(pageName);
+                	responseStr = LibHtml.getPageAddGUIForm(pageName, operation);
                 else 
-                	responseStr = LibHtml.getPageUpdateGUIForm(pageName);
+                	responseStr = LibHtml.getPageUpdateGUIForm(pageName, operation);
                 break;
             case "/fetchcustomclasses":
                 break;
@@ -93,7 +93,7 @@ public class HTMLServerMain extends HttpServlet {
                 break;
                 
             default:
-                responseStr = LibHtml.getPageAddGUIForm(pageName);
+                responseStr = "<html><h2>Not implemented</h2></BR><p>Quit kidding, there's nothing here!!</p></html>";
         }
         writeResponse(resp, responseStr,"text/html;charset=UTF-8", null);
     }

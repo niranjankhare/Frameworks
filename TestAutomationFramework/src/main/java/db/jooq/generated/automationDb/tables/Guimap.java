@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Guimap extends TableImpl<GuimapRecord> {
 
-    private static final long serialVersionUID = -430610348;
+    private static final long serialVersionUID = 1624233884;
 
     /**
      * The reference instance of <code>automation.GUIMAP</code>
@@ -61,9 +61,9 @@ public class Guimap extends TableImpl<GuimapRecord> {
     public final TableField<GuimapRecord, Integer> GUIMAPID = createField("GUIMAPID", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>automation.GUIMAP.PAGENAME</code>.
+     * The column <code>automation.GUIMAP.PAGEID</code>.
      */
-    public final TableField<GuimapRecord, String> PAGENAME = createField("PAGENAME", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
+    public final TableField<GuimapRecord, Integer> PAGEID = createField("PAGEID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>automation.GUIMAP.CONTROLNAME</code>.

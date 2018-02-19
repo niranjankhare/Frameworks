@@ -44,12 +44,14 @@ public class JSONResourceServer extends HttpServlet {
 
     protected void processGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String sPath = req.getPathInfo().toLowerCase();
-
-        String tableName = getParameter(req, "tableName");
+        String tableName = "";
+        String pageName = "";
+        
         String responseStr = "";
         switch (sPath) {
             case "/libdatabase/gettablefields":
-                Object sFields = LibDatabase.getTableFields("propsview");
+            	tableName = getParameter(req, "tableName");
+                Object sFields = LibDatabase.getTableFields(tableName);
                 responseStr = new Gson().toJson(sFields);
                 break;
             case "/libdatabase/getcustomtypes":
@@ -59,6 +61,13 @@ public class JSONResourceServer extends HttpServlet {
             case "/libdatabase/getstandardypes":
                 Object sTypes = LibDatabase.getStandardTypes();
                 responseStr = new Gson().toJson(sTypes);
+                break;
+            case "/libdatabase/gettabledata":
+            	tableName = getParameter(req, "tableName");
+            	pageName = getParameter(req, "pageName");
+                Object oTableData = LibDatabase.getTableData(tableName, pageName);
+                responseStr = new Gson().toJson(oTableData);
+                System.out.println(responseStr);
                 break;
             case "/favicon.ico":
                 break;

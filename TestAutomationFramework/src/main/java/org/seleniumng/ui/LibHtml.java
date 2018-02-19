@@ -121,14 +121,9 @@ public class LibHtml {
 
     public static String getPageAddGUIForm(String pageName, String operation) {
         String mainPropertiesView = "propsview";
-        String extendedPropertiesView = "extendedpropsview";
-        String whereColumn = "PAGENAME";
 
         mainPropertiesView.replaceAll(mainPropertiesView, mainPropertiesView.toLowerCase());
         List<String> mainFieldsList = LibDatabase.getTableFields(mainPropertiesView);
-        List<String> extendedFieldsList = LibDatabase.getTableFields(extendedPropertiesView);
-//        mainFieldsList.remove(whereColumn);
-//        mainFieldsList.remove("GUIMAPID");
 
         Element table = new Element("table").attr("id", mainPropertiesView);
         Element headerRow = new Element("tr").attr("id", "headerRow").attr("style", "visibility:visible;");
@@ -140,18 +135,17 @@ public class LibHtml {
 
         headerRow.appendElement("th").text("More properties");
 
-        String scriptBlock = addRowScriptTemplateN;//*.replaceAll("__OPTIONS__", getOptionsArray())*/.replaceAll("__FIELDS__",
-//                getFieldsArray(mainFieldsList));
+        String scriptBlock = addRowScriptTemplateN;
 
         Document html = Jsoup.parse("<html></html>");
 
         Element scriptElement = new Element("script").text(scriptBlock);
-
         Element tbody = new Element("tbody");
-
+        Element thead = new Element("thead");
+        
+        table.appendChild(thead);
+        thead.appendChild(headerRow);
         table.appendChild(tbody);
-        tbody.appendChild(headerRow);
-        // tbody.appendChild(dataRow);
 
         // Form Submit elements:
         Element elTableName = new Element("input");
@@ -184,7 +178,7 @@ public class LibHtml {
         submit.attr("value", "Go!");
         Element parentPageDiv = new Element("div").attr("id", "formMainDiv").attr("style", "visibility=inherit;");
         parentPageDiv.appendChild(table);
-        Element form = new Element("form").attr("id", "guimap").attr("method", "post").attr("action", "/updateTable");
+        Element form = new Element("form").attr("id", "guimap").attr("method", "post").attr("action", "/insertPageGui");
         form.appendChild(parentPageDiv);
         form.appendChild(addMore);
         form.appendChild(elTableName);
@@ -276,44 +270,42 @@ public class LibHtml {
 
 
 	public static String getPageUpdateGUIForm(String pageName, String operation) {
-		String mainPropertiesView = "propsview";
-        String extendedPropertiesView = "extendedpropsview";
-        String whereColumn = "PAGENAME";
-
+        String mainPropertiesView = "propsview";
+       
         mainPropertiesView.replaceAll(mainPropertiesView, mainPropertiesView.toLowerCase());
         List<String> mainFieldsList = LibDatabase.getTableFields(mainPropertiesView);
-        List<String> extendedFieldsList = LibDatabase.getTableFields(extendedPropertiesView);
-//        mainFieldsList.remove(whereColumn);
 
+        Element elTableName = new Element("input");
+        elTableName.attr("type", "hidden");
+        elTableName.attr("id", "tableName");
+        elTableName.attr("name", "tableName");
+        elTableName.attr("value", mainPropertiesView);
+        
         Element table = new Element("table").attr("id", mainPropertiesView);
         Element headerRow = new Element("tr").attr("id", "headerRow").attr("style", "visibility:visible;");
 
         // Add columns to the displayed table as header row
-        for (String field : mainFieldsList) {
-            headerRow.appendElement("th").text(field);
-        }
+//        for (String field : mainFieldsList) {
+//            headerRow.appendElement("th").text(field);
+//        }
+//
+//        headerRow.appendElement("th").text("More properties");
 
-        headerRow.appendElement("th").text("More properties");
-
-        String scriptBlock = addRowScriptTemplateN;//*.replaceAll("__OPTIONS__", getOptionsArray())*/.replaceAll("__FIELDS__",
-//                getFieldsArray(mainFieldsList));
+        String scriptBlock = addRowScriptTemplateN;
 
         Document html = Jsoup.parse("<html></html>");
 
         Element scriptElement = new Element("script").text(scriptBlock);
 
         Element tbody = new Element("tbody");
-
+        Element thead = new Element("thead");
+        
+        table.appendChild(thead);
+        thead.appendChild(headerRow);
         table.appendChild(tbody);
-        tbody.appendChild(headerRow);
-        // tbody.appendChild(dataRow);
-
-        // Form Submit elements:
-        Element elTableName = new Element("input");
-        elTableName.attr("type", "hidden");
-        elTableName.attr("id", "tableName");
-        elTableName.attr("name", "tableName");
-        elTableName.attr("value", mainPropertiesView);
+//        tbody.appendChild(headerRow);
+        
+       
 
         Element elPageName = new Element("input");
         elPageName.attr("type", "hidden");
@@ -327,11 +319,11 @@ public class LibHtml {
         elOperation.attr("name", "oper");
         elOperation.attr("value", operation);
 
-        Element addMore = new Element("input");
-        addMore.attr("type", "button");
-        addMore.attr("id", "addRow");
-        addMore.attr("onclick", "add_UpdateRow();");
-        addMore.attr("value", "Add row");
+//        Element addMore = new Element("input");
+//        addMore.attr("type", "button");
+//        addMore.attr("id", "addRow");
+//        addMore.attr("onclick", "add_NewRow();");
+//        addMore.attr("value", "Add row");
 
         Element submit = new Element("input");
         submit.attr("type", "submit");
@@ -339,19 +331,19 @@ public class LibHtml {
         submit.attr("value", "Go!");
         Element parentPageDiv = new Element("div").attr("id", "formMainDiv").attr("style", "visibility=inherit;");
         parentPageDiv.appendChild(table);
-        Element form = new Element("form").attr("id", "guimap").attr("method", "post").attr("action", "/updateTable");
+        Element form = new Element("form").attr("id", "guimap").attr("method", "post").attr("action", "/updatePageGui");
         form.appendChild(parentPageDiv);
-        form.appendChild(addMore);
+//        form.appendChild(addMore);
         form.appendChild(elTableName);
         form.appendChild(elPageName);
-        form.appendChild(elOperation);
-        
+        form.appendChild( elOperation);
         form.appendChild(submit);
         html.body().before(scriptElement);
         html.body().appendChild(form);
         html.body().attr("onload", "add_UpdateRow()");
 
         return Parser.unescapeEntities(html.toString(), false);
+
 
 	}
 }

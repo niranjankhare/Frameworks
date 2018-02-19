@@ -1,17 +1,21 @@
 package org.seleniumng.ui;
 
 import java.util.ArrayList;
-
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import java.util.Map.Entry;
 import java.util.Set;
+import java.net.URL;
 import java.sql.*;
 
+import org.jooq.Condition;
 import org.jooq.DSLContext;
+import org.jooq.Field;
 import org.jooq.InsertValuesStepN;
 import org.jooq.Record;
+import org.jooq.Record1;
 import org.jooq.Record2;
 import org.jooq.Record3;
 import org.jooq.Result;
@@ -31,9 +35,12 @@ import db.jooq.generated.automationDb.tables.records.ExtendedpropsRecord;
 import db.jooq.generated.automationDb.tables.records.GuimapRecord;
 import db.jooq.generated.automationDb.tables.records.PropertiesRecord;
 
+import static db.jooq.generated.automationDb.Automation.AUTOMATION;
 import static db.jooq.generated.automationDb.tables.Guimap.*;
 import static db.jooq.generated.automationDb.tables.Pages.*;
 import static db.jooq.generated.automationDb.tables.Types.*;
+import static db.jooq.generated.automationDb.tables.Propsview.*;
+
 import static db.jooq.generated.automationDb.tables.Properties.*;
 import static db.jooq.generated.automationDb.tables.Extendedprops.*;
 
@@ -43,7 +50,9 @@ public class LibDatabase {
 	private static String userName = dbUser;
 	private static String password = dbPass;
 	private static String url = dbURL;
+	private static URL database = null;
 	private static Connection conn = initDbConnection();
+
 	// private static DSLContext dslContext = DSL.using(conn);
 
 	private static List<String> allTables = getTableList();
@@ -70,7 +79,7 @@ public class LibDatabase {
 				break;
 			}
 		}
-
+		// TODO: validate and throw error if result is still null;
 		org.jooq.Field<?>[] fieldList = result.fields();
 
 		List<String> returnList = new ArrayList<String>();
@@ -81,21 +90,24 @@ public class LibDatabase {
 		return returnList;
 	}
 
-	public static void updateTable(String pageName, LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap,
-			String operation) {
+	public static void insertGuiMap(String pageName,
+			LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap) {
 		try {
 			for (Entry<String, LinkedHashMap<String, String>> row : cleanParamMap.entrySet()) {
 				LinkedHashMap<String, String> fieldMap = row.getValue();
 				Set<String> keys = fieldMap.keySet();
 
 				List<TableField<GuimapRecord, ?>> guimapFields = new ArrayList<TableField<GuimapRecord, ?>>();
-				List<String> guimapValues = new ArrayList<String>();
-				guimapFields.add(GUIMAP.PAGENAME);
-				guimapValues.add(pageName);
+				List<Object> guimapValues = new ArrayList<Object>();
+				guimapFields.add(GUIMAP.PAGEID);
+
+				Integer pageId = getOpenContext().select(PAGES.PAGEID).from(PAGES).where(PAGES.PAGENAME.eq(pageName))
+						.execute();
+				guimapValues.add(pageId);
 
 				List<TableField<PropertiesRecord, ?>> propertiesFields = new ArrayList<TableField<PropertiesRecord, ?>>();
 				List<Object> propertiesValues = new ArrayList<Object>();
-				
+
 				List<TableField<ExtendedpropsRecord, ?>> expropertiesFields = new ArrayList<TableField<ExtendedpropsRecord, ?>>();
 				List<Object> expropertiesValues = new ArrayList<Object>();
 				for (String key : keys) {
@@ -111,33 +123,93 @@ public class LibDatabase {
 					}
 				}
 
-				// Add calculated fields
-				// GUIMAP
-				if (operation.equalsIgnoreCase("new")) {
-					InsertValuesStepN<?> insertSetStepGuiMap = getOpenContext().insertInto(GUIMAP, guimapFields);
-					insertSetStepGuiMap.values(guimapValues);
-					Result<?> x = insertSetStepGuiMap.returning(GUIMAP.GUIMAPID).fetch();
-					Integer guiMapId = x.getValue(0, GUIMAP.GUIMAPID);
+				InsertValuesStepN<?> insertSetStepGuiMap = getOpenContext().insertInto(GUIMAP, guimapFields);
+				insertSetStepGuiMap.values(guimapValues);
+				Result<?> x = insertSetStepGuiMap.returning(GUIMAP.GUIMAPID).fetch();
+				Integer guiMapId = x.getValue(0, GUIMAP.GUIMAPID);
 
-					propertiesFields.add(PROPERTIES.GUIMAPID);
-					propertiesValues.add(guiMapId);
-					String locatorValue = row.getValue().get("LOCATORVALUE");
-					propertiesFields.add(PROPERTIES.LOCATORTYPE);
-					String locatorType = (locatorValue.startsWith("/")) ? "XPATH" : "ID";
-					propertiesValues.add(locatorType);
+				propertiesFields.add(PROPERTIES.GUIMAPID);
+				propertiesValues.add(guiMapId);
+				String locatorValue = row.getValue().get("LOCATORVALUE");
+				propertiesFields.add(PROPERTIES.LOCATORTYPE);
+				String locatorType = (locatorValue.startsWith("/")) ? "XPATH" : "ID";
+				propertiesValues.add(locatorType);
 
-					InsertValuesStepN<?> insertSetStepProperties = getOpenContext().insertInto(PROPERTIES,
-							propertiesFields);
-					insertSetStepProperties.values(propertiesValues).execute();
+				InsertValuesStepN<?> insertSetStepProperties = getOpenContext().insertInto(PROPERTIES,
+						propertiesFields);
+				insertSetStepProperties.values(propertiesValues).execute();
 
-					expropertiesFields.add(EXTENDEDPROPS.GUIMAPID);
-					expropertiesValues.add(guiMapId);
-					InsertValuesStepN<?> insertSetStepExtendedProps = getOpenContext().insertInto(EXTENDEDPROPS,
-							expropertiesFields);
-					insertSetStepExtendedProps.values(expropertiesValues).execute();
-				} else {
-					// TODO: Update workflow
+				expropertiesFields.add(EXTENDEDPROPS.GUIMAPID);
+				expropertiesValues.add(guiMapId);
+				InsertValuesStepN<?> insertSetStepExtendedProps = getOpenContext().insertInto(EXTENDEDPROPS,
+						expropertiesFields);
+				insertSetStepExtendedProps.values(expropertiesValues).execute();
+
+			}
+
+			System.out.println("done");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	public static void updateGuiMap(String pageName,
+			LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap) {
+		try {
+			for (Entry<String, LinkedHashMap<String, String>> row : cleanParamMap.entrySet()) {
+				LinkedHashMap<String, String> fieldMap = row.getValue();
+				Set<String> keys = fieldMap.keySet();
+
+				List<TableField<GuimapRecord, ?>> guimapFields = new ArrayList<TableField<GuimapRecord, ?>>();
+				List<Object> guimapValues = new ArrayList<Object>();
+				guimapFields.add(GUIMAP.PAGEID);
+
+				Integer pageId = getOpenContext().select(PAGES.PAGEID).from(PAGES).where(PAGES.PAGENAME.eq(pageName))
+						.execute();
+				guimapValues.add(pageId);
+
+				List<TableField<PropertiesRecord, ?>> propertiesFields = new ArrayList<TableField<PropertiesRecord, ?>>();
+				List<Object> propertiesValues = new ArrayList<Object>();
+
+				List<TableField<ExtendedpropsRecord, ?>> expropertiesFields = new ArrayList<TableField<ExtendedpropsRecord, ?>>();
+				List<Object> expropertiesValues = new ArrayList<Object>();
+				for (String key : keys) {
+					if (GUIMAP.field(key) != null) {
+						guimapFields.add((TableField<GuimapRecord, ?>) GUIMAP.field(key));
+						guimapValues.add(fieldMap.get(key));
+					} else if (PROPERTIES.field(key) != null) {
+						propertiesFields.add((TableField<PropertiesRecord, ?>) PROPERTIES.field(key));
+						propertiesValues.add((Object) fieldMap.get(key));
+					} else if (EXTENDEDPROPS.field(key) != null) {
+						expropertiesFields.add((TableField<ExtendedpropsRecord, ?>) EXTENDEDPROPS.field(key));
+						expropertiesValues.add(fieldMap.get(key));
+					}
 				}
+
+				InsertValuesStepN<?> insertSetStepGuiMap = getOpenContext().insertInto(GUIMAP, guimapFields);
+				insertSetStepGuiMap.values(guimapValues);
+				Result<?> x = insertSetStepGuiMap.returning(GUIMAP.GUIMAPID).fetch();
+				Integer guiMapId = x.getValue(0, GUIMAP.GUIMAPID);
+
+				propertiesFields.add(PROPERTIES.GUIMAPID);
+				propertiesValues.add(guiMapId);
+				String locatorValue = row.getValue().get("LOCATORVALUE");
+				propertiesFields.add(PROPERTIES.LOCATORTYPE);
+				String locatorType = (locatorValue.startsWith("/")) ? "XPATH" : "ID";
+				propertiesValues.add(locatorType);
+
+				InsertValuesStepN<?> insertSetStepProperties = getOpenContext().insertInto(PROPERTIES,
+						propertiesFields);
+				insertSetStepProperties.values(propertiesValues).execute();
+
+				expropertiesFields.add(EXTENDEDPROPS.GUIMAPID);
+				expropertiesValues.add(guiMapId);
+				InsertValuesStepN<?> insertSetStepExtendedProps = getOpenContext().insertInto(EXTENDEDPROPS,
+						expropertiesFields);
+				insertSetStepExtendedProps.values(expropertiesValues).execute();
+
 			}
 
 			System.out.println("done");
@@ -152,11 +224,19 @@ public class LibDatabase {
 		try {
 			if (conn.isClosed()) {
 				conn = initDbConnection();
+			} else {
+				try {
+					DSLContext d = DSL.using(conn);
+					d.fetch("SELECT VERSION();");
+				} catch (Exception e) {
+					conn = initDbConnection();
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		return DSL.using(conn);
 	}
 
@@ -220,6 +300,32 @@ public class LibDatabase {
 		}
 		return list;
 
+	}
+
+	public static Object getTableData(String tableName, String pageName) {
+		// Connection is the only JDBC resource that we need
+		// PreparedStatement and ResultSet are handled by jOOQ, internally
+		Table<?> table = AUTOMATION.getTable(tableName.toUpperCase());
+		Collection<Condition> conditions = new ArrayList<Condition>();
+		SelectConditionStep<?> x = getOpenContext().selectFrom(table).where(PROPSVIEW.PAGENAME.equal(pageName));
+		List<Object> returnList = new ArrayList<Object>();
+		Result<?> result = x.fetch();
+		List<Object> values = new ArrayList<Object>();
+		for (Field<?> f : result.fields()) {
+			values.add(f.getName());
+		}
+		returnList.add(values);
+
+		for (Record r : result) {
+			values = new ArrayList<Object>();
+			for (Field<?> f : r.fields()) {
+				values.add(r.get(f));
+			}
+			returnList.add(values);
+
+		}
+
+		return returnList;
 	}
 
 }

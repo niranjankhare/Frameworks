@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Extendedprops extends TableImpl<ExtendedpropsRecord> {
 
-    private static final long serialVersionUID = 1446943257;
+    private static final long serialVersionUID = -689954367;
 
     /**
      * The reference instance of <code>automation.EXTENDEDPROPS</code>
@@ -152,7 +152,7 @@ public class Extendedprops extends TableImpl<ExtendedpropsRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.EXTENDEDPROPS_FK_GUIMAP_EXTENDEDPROPS, Indexes.EXTENDEDPROPS_PRIMARY);
+        return Arrays.<Index>asList(Indexes.EXTENDEDPROPS_FK_GUIMAP_EX, Indexes.EXTENDEDPROPS_PRIMARY);
     }
 
     /**
@@ -184,7 +184,7 @@ public class Extendedprops extends TableImpl<ExtendedpropsRecord> {
      */
     @Override
     public List<ForeignKey<ExtendedpropsRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ExtendedpropsRecord, ?>>asList(Keys.FK_GUIMAP_EXTENDEDPROPS);
+        return Arrays.<ForeignKey<ExtendedpropsRecord, ?>>asList(Keys.FK_GUIMAP_EX);
     }
 
     /**

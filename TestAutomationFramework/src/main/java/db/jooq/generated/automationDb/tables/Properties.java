@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Properties extends TableImpl<PropertiesRecord> {
 
-    private static final long serialVersionUID = -1831038593;
+    private static final long serialVersionUID = 798955159;
 
     /**
      * The reference instance of <code>automation.PROPERTIES</code>
@@ -127,7 +127,7 @@ public class Properties extends TableImpl<PropertiesRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.PROPERTIES_FK_GUIMAP_PROPERTIES, Indexes.PROPERTIES_PRIMARY);
+        return Arrays.<Index>asList(Indexes.PROPERTIES_FK_GUIMAP, Indexes.PROPERTIES_PRIMARY);
     }
 
     /**
@@ -159,7 +159,7 @@ public class Properties extends TableImpl<PropertiesRecord> {
      */
     @Override
     public List<ForeignKey<PropertiesRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<PropertiesRecord, ?>>asList(Keys.FK_GUIMAP_PROPERTIES);
+        return Arrays.<ForeignKey<PropertiesRecord, ?>>asList(Keys.FK_GUIMAP);
     }
 
     /**

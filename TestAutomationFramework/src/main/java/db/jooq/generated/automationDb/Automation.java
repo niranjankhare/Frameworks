@@ -10,7 +10,6 @@ import db.jooq.generated.automationDb.tables.Guimap;
 import db.jooq.generated.automationDb.tables.Pages;
 import db.jooq.generated.automationDb.tables.Properties;
 import db.jooq.generated.automationDb.tables.Propsview;
-import db.jooq.generated.automationDb.tables.Showtable;
 import db.jooq.generated.automationDb.tables.Types;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Automation extends SchemaImpl {
 
-    private static final long serialVersionUID = 902746951;
+    private static final long serialVersionUID = -381181792;
 
     /**
      * The reference instance of <code>automation</code>
@@ -75,11 +74,6 @@ public class Automation extends SchemaImpl {
     public final Propsview PROPSVIEW = db.jooq.generated.automationDb.tables.Propsview.PROPSVIEW;
 
     /**
-     * VIEW
-     */
-    public final Showtable SHOWTABLE = db.jooq.generated.automationDb.tables.Showtable.SHOWTABLE;
-
-    /**
      * The table <code>automation.TYPES</code>.
      */
     public final Types TYPES = db.jooq.generated.automationDb.tables.Types.TYPES;
@@ -115,7 +109,6 @@ public class Automation extends SchemaImpl {
             Pages.PAGES,
             Properties.PROPERTIES,
             Propsview.PROPSVIEW,
-            Showtable.SHOWTABLE,
             Types.TYPES);
     }
 }

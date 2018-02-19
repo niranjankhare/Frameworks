@@ -10,7 +10,6 @@ import db.jooq.generated.automationDb.tables.Guimap;
 import db.jooq.generated.automationDb.tables.Pages;
 import db.jooq.generated.automationDb.tables.Properties;
 import db.jooq.generated.automationDb.tables.Propsview;
-import db.jooq.generated.automationDb.tables.Showtable;
 import db.jooq.generated.automationDb.tables.Types;
 
 import javax.annotation.Generated;
@@ -58,11 +57,6 @@ public class Tables {
      * VIEW
      */
     public static final Propsview PROPSVIEW = db.jooq.generated.automationDb.tables.Propsview.PROPSVIEW;
-
-    /**
-     * VIEW
-     */
-    public static final Showtable SHOWTABLE = db.jooq.generated.automationDb.tables.Showtable.SHOWTABLE;
 
     /**
      * The table <code>automation.TYPES</code>.

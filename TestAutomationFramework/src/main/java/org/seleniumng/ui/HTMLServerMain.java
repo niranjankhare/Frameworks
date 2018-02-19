@@ -73,11 +73,20 @@ public class HTMLServerMain extends HttpServlet {
         String pageName = getParameter(req, "pageName");
         String operation = getParameter(req, "oper");
         String responseStr = "";
+        LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap = processRequestInput(
+                req.getParameterMap());
         switch (sPath.toLowerCase()) {
-            case "/updatetable":
-                LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap = processRequestInput(
-                        req.getParameterMap());
-                LibDatabase.updateTable(pageName, cleanParamMap, operation);
+            case "/insertpagegui":
+//                LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap = processRequestInput(
+//                        req.getParameterMap());
+                LibDatabase.insertGuiMap(pageName, cleanParamMap);
+                responseStr = req.getParameterMap().toString();
+
+                break;
+            case "/updatepagegui":
+//                LinkedHashMap<String, LinkedHashMap<String, String>> cleanParamMap = processRequestInput(
+//                        req.getParameterMap());
+                LibDatabase.updateGuiMap(pageName, cleanParamMap);
                 responseStr = req.getParameterMap().toString();
 
                 break;

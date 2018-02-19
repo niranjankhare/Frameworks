@@ -15,6 +15,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
@@ -38,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Pages extends TableImpl<PagesRecord> {
 
-    private static final long serialVersionUID = -1655860577;
+    private static final long serialVersionUID = 1024726007;
 
     /**
      * The reference instance of <code>automation.PAGES</code>
@@ -54,9 +55,14 @@ public class Pages extends TableImpl<PagesRecord> {
     }
 
     /**
+     * The column <code>automation.PAGES.PAGEID</code>.
+     */
+    public final TableField<PagesRecord, Integer> PAGEID = createField("PAGEID", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
+
+    /**
      * The column <code>automation.PAGES.PAGENAME</code>.
      */
-    public final TableField<PagesRecord, String> PAGENAME = createField("PAGENAME", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false).defaultValue(org.jooq.impl.DSL.inline("", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<PagesRecord, String> PAGENAME = createField("PAGENAME", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
      * The column <code>automation.PAGES.PARENTID</code>.
@@ -110,7 +116,15 @@ public class Pages extends TableImpl<PagesRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.PAGES_PRIMARY);
+        return Arrays.<Index>asList(Indexes.PAGES_PAGENAME, Indexes.PAGES_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Identity<PagesRecord, Integer> getIdentity() {
+        return Keys.IDENTITY_PAGES;
     }
 
     /**
@@ -126,7 +140,7 @@ public class Pages extends TableImpl<PagesRecord> {
      */
     @Override
     public List<UniqueKey<PagesRecord>> getKeys() {
-        return Arrays.<UniqueKey<PagesRecord>>asList(Keys.KEY_PAGES_PRIMARY);
+        return Arrays.<UniqueKey<PagesRecord>>asList(Keys.KEY_PAGES_PRIMARY, Keys.KEY_PAGES_PAGENAME);
     }
 
     /**

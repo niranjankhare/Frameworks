@@ -2,6 +2,7 @@ function add_NewRow(){
 add_Row(false);
 }
 
+var propertyMap = null;
 
 function add_Row(f){
 	var table = document.getElementById('propsview');
@@ -25,10 +26,6 @@ function add_Row(f){
 			else {
 				
 				if (i< index){
-					/*
-					 * cellContent.setAttribute ('style', 'visibility:hidden;');
-					 * cellContent.disabled=true;
-					 */
 					cellContent = document.createElement('input');
 					if (!f){
 						cellContent.setAttribute ('type', 'hidden');
@@ -127,30 +124,6 @@ function add_UpdateRow(){
 			 
 		});
 	}
-/*
- * for (String field : mainFieldsList) {
- * headerRow.appendElement("th").text(field); } var rowCount =
- * elTable.getElementsByTagName('tbody')[0].rows.length; var row =
- * elTable.insertRow(-1); var rowId = 'Row' + rowCount; row.id = rowId;
- * row.setAttribute ('style', 'visibility:inherit;');
- * ==================================================
- * ==================================================
- * 
- * var index = dbColumns.indexOf('CONTROLNAME');
- * 
- * for (var i = 0; i < dbColumns.length; i++) { var cellContent = null; if (i
- * === dbColumns.indexOf('STANDARDCLASS')) { cellContent =
- * document.createElement('select'); getStandardtypes(cellContent); } else {
- * 
- * if (i< index){
- * 
- * cellContent = document.createElement('input'); cellContent.setAttribute
- * ('type', 'hidden'); cellContent.disabled=true; } else cellContent =
- * document.createElement('textarea'); } cellContent.placeholder = dbColumns[i];
- * cellContent.name = rowId + '.' + dbColumns[i]; cellContent.id =
- * cellContent.name; cellContent.style.resize = 'none'; var cell =
- * row.insertCell(-1); cell.appendChild(cellContent); }
- */		
 
 function getStandardtypes(e){
 	Promise.resolve(getData('/fetch/libdatabase/getstandardypes'))
@@ -161,13 +134,7 @@ function getStandardtypes(e){
 		return null;
 	});
 }
-/*
- * function getData(u){ const request = async () => { const response = await
- * fetch(u); while (typeof response == 'undefined'){ sleep (1000); } const json =
- * await response.json(); return json; };
- * 
- * return request(); }
- */
+
 async function getData(u){
 	let response = await fetch(u);
 	return response.json();
@@ -179,6 +146,11 @@ function getTableFields(tname){
 
 function getTableData(tname,pname){
 	r = Promise.resolve(getData('/fetch/libdatabase/gettabledata?tableName='+tname+"&pageName="+ pname)); 
+	return r;
+}
+
+function getExtendedPageGuiData(tname,pname){
+	r = Promise.resolve(getData('/fetch/libdatabase/pageguiextendedprops?tableName='+tname+"&pageName="+ pname)); 
 	return r;
 }
 
@@ -214,8 +186,22 @@ function showMoreProps(e , op){
 }
 
 function fillPopup(p, op){
-	Promise.resolve(getData('/fetch/libdatabase/getcustomtypes'))
+	var title = document.createElement ('div');
+	title.setAttribute('id', 'popupTitle');
+	title.appendChild(document.createTextNode("Define More\nProperties"));
+	title.appendChild (getPopupCloseButtonForRowId(p.getAttribute('rowId'), op));
+	p.appendChild(title);
+	var content = document.createElement('div');
+	content.appendChild(document.createTextNode("Extend to class:"));
+	var sel = document.createElement('select');
+	var rowId = p.getAttribute('rowId');
+	sel.name = rowId + '.MAPPEDCLASS';
+	sel.setAttribute('rowId',rowId);
+	sel.setAttribute ('onchange','refreshPopup(document.getElementById("'+p.id +'"), this, this.value)');
+	content.appendChild(sel);
+	Promise.resolve(getData('/fetch/libdatabase/getextendedproptypes'))
 	.then(function(resp){
+		/*
 		var title = document.createElement ('div');
 		title.setAttribute('id', 'popupTitle');
 		title.appendChild(document.createTextNode("Define More\nProperties"));
@@ -225,22 +211,38 @@ function fillPopup(p, op){
 		content.appendChild(document.createTextNode("Extend to class:"));
 		var sel = document.createElement('select');
 		sel.name = p.getAttribute('rowId') + '.MAPPEDCLASS';
+		*/
+		if (propertyMap ===null){
+			propertyMap = resp;
+		}
 		getSelectControlt(resp, sel);
-		content.appendChild(sel);
-		var selKey = sel.options[sel.selectedIndex].value;
-		var propsJson = JSON.parse(resp[selKey][1]);
 		var exPropsTable = document.createElement('table');
+		exPropsTable.appendChild(document.createElement('tbody'));
 		exPropsTable.setAttribute("id", p.getAttribute('rowId')+'.exPropsTable');
 		content.appendChild(exPropsTable);
 		
-		exPropsTable.appendChild(document.createElement('tbody'));
-		var hdrRow = exPropsTable.insertRow(-1);	
+		/*refreshPopup (exPropsTable, sel, sel.value );*/
+		
+		var selKey = sel.options[sel.selectedIndex].value;
+		var propsJson = JSON.parse(propertyMap[selKey][1]);
+		
 		p.appendChild(content);
 		addRowToPopup (p, propsJson);
 	})
 	.catch (function(error){
 		
 	});
+	if (op === 'update'){
+		var tableName = document.getElementById('tableName').value;
+		var pageName = document.getElementById('pageName').value;
+		Promise.resolve(getData(getExtendedPageGuiData (tableName, pageName)))
+		.then(function(data){
+			
+		});
+	}
+	
+	
+	
 	
 }
 
@@ -316,19 +318,49 @@ function addRowToPopup(popup,rowContent){
 	var tableId = rowId+'.exPropsTable';
 	console.log(tableId);
 	var pTable = document.getElementById(tableId);
+	var existingRowCount = pTable.rows.length;
+	var contentIndex = 0;
+	var displayCell;
+	var displayText;
+	var cellContent;
+	var valueCell ;
 	for (var i in rowContent){
-		var row = pTable.insertRow(-1);	
-		var displayText = rowContent[i];
-		var displayCell = row.insertCell(-1);
-		displayCell.innerHTML =displayText;
+		var row;
+		displayText = rowContent[i];
+		if (contentIndex>(existingRowCount-1)){
+			row = pTable.insertRow(-1);	
+			displayCell = row.insertCell(-1);
+			cellContent = document.createElement('textarea');
+			
+			
+			valueCell =	row.insertCell(-1);
+			
+		}	
+		else {
+			row =pTable.rows[contentIndex];
+			displayCell = row.cells[0];
+			valueCell = row.cells[1];
+			cellContent = valueCell.getElementsByTagName("textarea")[0];
+		}
 		row.id = rowId;
-		var cellContent = document.createElement('textarea');
-		cellContent.placeholder = displayText;
+		displayCell.innerHTML =displayText;
 		cellContent.name = rowId + '.' + i;
 		cellContent.id = cellContent.name;	
-		var valueCell = row.insertCell(-1);
-		valueCell.appendChild(cellContent);
+		cellContent.placeholder = displayText;
+		valueCell.innerHTML = cellContent.outerHTML;
+		contentIndex++;
 	}
+	for (var d=0; d<(existingRowCount-contentIndex);d++){
+		pTable.deleteRow(contentIndex);
+	}
+	console.log ('was: existingRowCount:' + existingRowCount);
+	console.log ('contentIndex:' + contentIndex);
+	console.log ('new:'+ pTable.rows.length);
+	
 	
 }
 
+function refreshPopup (popup, s, val){
+var propsJson = JSON.parse(propertyMap[val][1]);
+addRowToPopup (popup, propsJson);
+}

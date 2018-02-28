@@ -43,16 +43,17 @@ create table TYPES (
 `CLASSID` int (10) NOT NULL AUTO_INCREMENT,
 `CLASS` VARCHAR (20) NOT NULL,
 `TYPE` VARCHAR (20) NOT NULL, 
-`ABRV` VARCHAR (10) NOT NULL, 
+`ABRV` VARCHAR (10) NOT NULL,
+`EXTENDEDPROPS` Boolean,
 `PROPERTYMAP` VARCHAR  (1000),
 PRIMARY KEY (`CLASSID`)
 );
 
-insert into TYPES (`CLASS`, `TYPE`, `ABRV`,`PROPERTYMAP`)
-values  ('Button','STANDARD','btn', null),
-('InputText','STANDARD','iTxt', null),
-('Select','STANDARD','sel', '{"EXPROP1":"options"}'),
-('EmberSelect','CUSTOM','emSel', '{"EXPROP1":"options","EXPROP2":"showControlId"}');
+insert into TYPES (`CLASS`, `TYPE`, `ABRV`,`HASEXTENDEDPROPS`,`PROPERTYMAP`)
+values  ('Button','STANDARD','btn',null, null),
+('InputText','STANDARD','iTxt',null, null),
+('Select','STANDARD','sel',true,'{"EXPROP1":"options"}'),
+('EmberSelect','CUSTOM','emSel',true, '{"EXPROP1":"options","EXPROP2":"showControlId"}');
 
 create table EXTENDEDPROPS (
 `EXPROPID` int (10) NOT NULL AUTO_INCREMENT,

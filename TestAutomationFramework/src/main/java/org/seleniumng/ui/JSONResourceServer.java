@@ -67,8 +67,21 @@ public class JSONResourceServer extends HttpServlet {
             	pageName = getParameter(req, "pageName");
                 Object oTableData = LibDatabase.getTableData(tableName, pageName);
                 responseStr = new Gson().toJson(oTableData);
-                System.out.println(responseStr);
                 break;
+            case "/libdatabase/pageguiextendedprops":
+            	tableName = getParameter(req, "tableName");
+            	pageName = getParameter(req, "pageName");
+            	Object oMoreProps = LibDatabase.getPageExtendedProperties(tableName, pageName);
+                responseStr = new Gson().toJson(oMoreProps);
+                System.out.println(responseStr);
+            	break;
+            case "/libdatabase/getextendedproptypes":
+            	tableName = getParameter(req, "tableName");
+            	pageName = getParameter(req, "pageName");
+            	Object oExtendedPropTypes = LibDatabase.getExtendedProptypes(tableName, pageName);
+                responseStr = new Gson().toJson(oExtendedPropTypes);
+                System.out.println(responseStr);
+            	break;
             case "/favicon.ico":
                 break;
             case "/test":

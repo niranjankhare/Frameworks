@@ -328,4 +328,22 @@ public class LibDatabase {
 		return returnList;
 	}
 
+	public static Object getPageExtendedProperties(String tableName, String pageName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static Object getExtendedProptypes(String tableName, String pageName) {
+		LinkedHashMap<String, String[]> list = new LinkedHashMap<String, String[]>();
+		SelectConditionStep<Record3<String, String, String>> x = getOpenContext()
+				.select(TYPES.ABRV, TYPES.CLASS, TYPES.PROPERTYMAP).from(TYPES).where(TYPES.HASEXTENDEDPROPS.isTrue());
+		for (Record rec : x.fetch()) {
+			String[] nestedMap = new String[2];
+			nestedMap[0] = rec.get(TYPES.CLASS);
+			nestedMap[1] = rec.get(TYPES.PROPERTYMAP);
+			list.put(rec.get(TYPES.CLASS), nestedMap);
+		}
+		return list;
+	}
+
 }

@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Types extends TableImpl<TypesRecord> {
 
-    private static final long serialVersionUID = 1038295411;
+    private static final long serialVersionUID = 1837043364;
 
     /**
      * The reference instance of <code>automation.TYPES</code>
@@ -73,6 +73,11 @@ public class Types extends TableImpl<TypesRecord> {
      * The column <code>automation.TYPES.ABRV</code>.
      */
     public final TableField<TypesRecord, String> ABRV = createField("ABRV", org.jooq.impl.SQLDataType.VARCHAR(10).nullable(false), this, "");
+
+    /**
+     * The column <code>automation.TYPES.HASEXTENDEDPROPS</code>.
+     */
+    public final TableField<TypesRecord, Byte> HASEXTENDEDPROPS = createField("HASEXTENDEDPROPS", org.jooq.impl.SQLDataType.TINYINT, this, "");
 
     /**
      * The column <code>automation.TYPES.PROPERTYMAP</code>.

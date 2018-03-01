@@ -178,7 +178,7 @@ function showMoreProps(e , op){
 	var rowId = e.getAttribute('rowid');
 	var popup = document.getElementById(rowId+'.popupDiv');
 	if (!popup.contains(popup.querySelector('div[id=\'popupTitle\']')))
-		fillPopup (popup, op);
+		fillPopup_new (popup, op);
 	popup.style.visibility = 'visible';
 	popup.style.display = 'inline';
 	showRowById(rowId);
@@ -202,16 +202,15 @@ function fillPopup(p, op){
 	Promise.resolve(getData('/fetch/libdatabase/getextendedproptypes'))
 	.then(function(resp){
 		/*
-		var title = document.createElement ('div');
-		title.setAttribute('id', 'popupTitle');
-		title.appendChild(document.createTextNode("Define More\nProperties"));
-		title.appendChild (getPopupCloseButtonForRowId(p.getAttribute('rowId'), op));
-		p.appendChild(title);
-		var content = document.createElement('div');
-		content.appendChild(document.createTextNode("Extend to class:"));
-		var sel = document.createElement('select');
-		sel.name = p.getAttribute('rowId') + '.MAPPEDCLASS';
-		*/
+		 * var title = document.createElement ('div'); title.setAttribute('id',
+		 * 'popupTitle'); title.appendChild(document.createTextNode("Define
+		 * More\nProperties")); title.appendChild
+		 * (getPopupCloseButtonForRowId(p.getAttribute('rowId'), op));
+		 * p.appendChild(title); var content = document.createElement('div');
+		 * content.appendChild(document.createTextNode("Extend to class:")); var
+		 * sel = document.createElement('select'); sel.name =
+		 * p.getAttribute('rowId') + '.MAPPEDCLASS';
+		 */
 		if (propertyMap ===null){
 			propertyMap = resp;
 		}
@@ -221,7 +220,7 @@ function fillPopup(p, op){
 		exPropsTable.setAttribute("id", p.getAttribute('rowId')+'.exPropsTable');
 		content.appendChild(exPropsTable);
 		
-		/*refreshPopup (exPropsTable, sel, sel.value );*/
+		/* refreshPopup (exPropsTable, sel, sel.value ); */
 		
 		var selKey = sel.options[sel.selectedIndex].value;
 		var propsJson = JSON.parse(propertyMap[selKey][1]);
@@ -364,3 +363,126 @@ function refreshPopup (popup, s, val){
 var propsJson = JSON.parse(propertyMap[val][1]);
 addRowToPopup (popup, propsJson);
 }
+
+function fillPopup_new(p, op){
+	var rowId = p.getAttribute('rowId');
+	var title = document.createElement ('div');
+	title.setAttribute('id', 'popupTitle');
+	title.appendChild(document.createTextNode("Define More\nProperties"));
+	title.appendChild (getPopupCloseButtonForRowId(rowId, op));
+	p.appendChild(title);
+	var content = document.createElement('div');
+	content.setAttribute ('id', rowId+'.contentDiv');
+	content.appendChild(document.createTextNode("Extend to class:"));
+	var sel = document.createElement('select');
+	
+	sel.name = rowId + '.MAPPEDCLASS';
+	sel.setAttribute('rowId',rowId);
+	sel.setAttribute ('onchange','refreshPopup(document.getElementById("'+p.id +'"), this, this.value)');
+	content.appendChild(sel);
+	p.appendChild(content);
+	Promise.resolve(getData('/fetch/libdatabase/getextendedproptypes'))
+	.then(function(resp){
+		if (propertyMap ===null){
+			propertyMap = resp;
+		}
+		getSelectControlt(resp, sel);
+		
+		for (var k in sel.options){
+			var tableData = propertyMap[sel.options[k].value];
+			addTableToPopup (p, tableData[0], JSON.parse(tableData[1]));
+		}
+		
+		/*
+		 * var exPropsTable = document.createElement('table');
+		 * exPropsTable.appendChild(document.createElement('tbody'));
+		 * exPropsTable.setAttribute("id",
+		 * p.getAttribute('rowId')+'.exPropsTable');
+		 * content.appendChild(exPropsTable);
+		 */
+		
+		
+		var selKey = sel.options[sel.selectedIndex].value;
+		var propsJson = JSON.parse(propertyMap[selKey][1]);
+		
+		
+/*		addRowToPopup (p, propsJson);*/
+	})
+	.catch (function(error){
+		
+	});
+	if (op === 'update'){
+		var tableName = document.getElementById('tableName').value;
+		var pageName = document.getElementById('pageName').value;
+		Promise.resolve(getData(getExtendedPageGuiData (tableName, pageName)))
+		.then(function(data){
+			
+		});
+	}
+	
+	
+	
+	
+}
+
+function addTableToPopup(popup,tbit, rowContent){
+
+	var rowId = popup.getAttribute('rowId');
+	var content = document.getElementById(rowId+'.contentDiv');
+	var tableId = rowId+'.exPropsTable.'+ tbit ;
+	var exPropsTable = document.createElement('table');
+	exPropsTable.appendChild(document.createElement('tbody'));
+	exPropsTable.setAttribute("id", tableId);
+	content.appendChild(exPropsTable);
+	console.log(tableId);
+	var pTable = document.getElementById(tableId);
+	var existingRowCount = pTable.rows.length;
+	var contentIndex = 0;
+	var displayCell;
+	var displayText;
+	var cellContent;
+	var valueCell ;
+	for (var i in rowContent){
+		var row;
+		displayText = rowContent[i];
+		if (contentIndex>(existingRowCount-1)){
+			row = pTable.insertRow(-1);	
+			displayCell = row.insertCell(-1);
+			cellContent = document.createElement('textarea');
+			
+			
+			valueCell =	row.insertCell(-1);
+			
+		}	
+		else {
+			row =pTable.rows[contentIndex];
+			displayCell = row.cells[0];
+			valueCell = row.cells[1];
+			cellContent = valueCell.getElementsByTagName("textarea")[0];
+		}
+		row.id = rowId;
+		displayCell.innerHTML =displayText;
+		cellContent.name = rowId + '.' + i;
+		cellContent.id = cellContent.name;	
+		cellContent.placeholder = displayText;
+		valueCell.innerHTML = cellContent.outerHTML;
+		contentIndex++;
+	}
+	exPropsTable.disabled=true;
+	exPropsTable.style.visibility = 'hidden';
+	exPropsTable.style.display = 'none';
+	
+	console.log ('was: existingRowCount:' + existingRowCount);
+	console.log ('contentIndex:' + contentIndex);
+	console.log ('new:'+ pTable.rows.length);
+	
+	
+}
+/*
+function addTableToPopup (popup,tData){
+	var propsJson = tData[1];
+	var tableType = tData[0];
+	addTableToPopup (popup, tableType, propsJson);
+}
+*/
+

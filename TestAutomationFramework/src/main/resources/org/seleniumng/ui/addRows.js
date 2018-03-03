@@ -359,11 +359,27 @@ function addRowToPopup(popup,rowContent){
 	
 }
 
-function refreshPopup (popup, s, val){
-var propsJson = JSON.parse(propertyMap[val][1]);
-addRowToPopup (popup, propsJson);
-}
+function refreshPopup (popup, val){
 
+	var rowId= popup.getAttribute('rowId');
+	var content = document.getElementById(rowId+'.contentDiv');
+	var tableId = rowId+'.exPropsTable.'+ val;
+	var displayTable = document.getElementById(tableId);
+	displayTable.disabled=false;
+	displayTable.style.visibility = 'inherit';
+	displayTable.style.display = 'block';
+	var tables = content.getElementsByTagName('table');
+	for (var t of tables){
+		if (t.id=== tableId) continue ;
+		t.disabled=true;
+		t.style.visibility = 'hidden';
+		t.style.display = 'none';
+	}
+	
+}
+	
+	
+	
 function fillPopup_new(p, op){
 	var rowId = p.getAttribute('rowId');
 	var title = document.createElement ('div');
@@ -378,7 +394,7 @@ function fillPopup_new(p, op){
 	
 	sel.name = rowId + '.MAPPEDCLASS';
 	sel.setAttribute('rowId',rowId);
-	sel.setAttribute ('onchange','refreshPopup(document.getElementById("'+p.id +'"), this, this.value)');
+	sel.setAttribute ('onchange','refreshPopup(document.getElementById("'+p.id +'"), this.value)');
 	content.appendChild(sel);
 	p.appendChild(content);
 	Promise.resolve(getData('/fetch/libdatabase/getextendedproptypes'))
@@ -388,25 +404,15 @@ function fillPopup_new(p, op){
 		}
 		getSelectControlt(resp, sel);
 		
-		for (var k in sel.options){
-			var tableData = propertyMap[sel.options[k].value];
+		for (var k of sel.options){
+			var tableData = propertyMap[k.value];
 			addTableToPopup (p, tableData[0], JSON.parse(tableData[1]));
 		}
 		
-		/*
-		 * var exPropsTable = document.createElement('table');
-		 * exPropsTable.appendChild(document.createElement('tbody'));
-		 * exPropsTable.setAttribute("id",
-		 * p.getAttribute('rowId')+'.exPropsTable');
-		 * content.appendChild(exPropsTable);
-		 */
+		refreshPopup (p,sel.value);
 		
 		
-		var selKey = sel.options[sel.selectedIndex].value;
-		var propsJson = JSON.parse(propertyMap[selKey][1]);
 		
-		
-/*		addRowToPopup (p, propsJson);*/
 	})
 	.catch (function(error){
 		

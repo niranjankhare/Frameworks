@@ -87,8 +87,9 @@ function add_UpdateRow(){
 				
 				var rowData = tableData[k];
 				var row = (elTable.getElementsByTagName('tbody')[0]).insertRow(-1);
+				var rowIdmain = 'Row' + (k-1);
 				for (var r=0; r<rowData.length; r++){
-					var rowId = 'Row' + (k-1) + '.' + dbColumns[r];
+					var rowId = rowIdmain + '.' + dbColumns[r];
 					var cell = row.insertCell(-1);
 					var hiddenInput = document.createElement('input');
 					if (r< indexToHide){
@@ -103,19 +104,19 @@ function add_UpdateRow(){
 				popupBtn.type = 'button'; 
 				popupBtn.setAttribute
 					  ('onclick','showMoreProps(this, "' + oper.value + '")');
-				popupBtn.id = rowId +
+				popupBtn.id = rowIdmain +
 					  '.popupBtn'; 
 				popupBtn.appendChild(document.createTextNode("Define More\nProperties")); 
 			  popupBtn.style.resize = 'none';
-			  popupBtn.setAttribute ('rowid', rowId); 
+			  popupBtn.setAttribute ('rowid', rowIdmain); 
 			  var cellButton = row.insertCell(-1); 
 			  cellButton.appendChild(popupBtn); 
 			  var cellPopupDiv = row.insertCell(-1); 
 			  cellPopupDiv.setAttribute ('style', 'visibility:hidden;'); 
 			  var popupDiv = document.createElement('div'); 
-			  popupDiv.id = rowId +'.popupDiv';
+			  popupDiv.id = rowIdmain +'.popupDiv';
 			  popupDiv.setAttribute ('style', 'visibility:hidden;display:block'); 
-			  popupDiv.setAttribute ('rowid', rowId); 
+			  popupDiv.setAttribute ('rowid', rowIdmain); 
 			  cellPopupDiv.appendChild(popupDiv); 
 				
 			}

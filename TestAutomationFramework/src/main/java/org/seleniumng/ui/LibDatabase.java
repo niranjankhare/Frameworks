@@ -275,15 +275,15 @@ public class LibDatabase {
 			fields.add(f.getName());
 		}
 		returnList.add(fields);
-		List<Object> values = new ArrayList<Object>();
+
 		for (Record r : result) {
+			List<Object>	values1 = new ArrayList<Object>();
 			for (Field<?> f : r.fields()) {
-				values.add(r.get(f));
+				values1.add(r.get(f));
 			}
-		returnList.add(values);
+			returnList.add(values1);
 
 		}
-
 		return returnList;
 	}
 

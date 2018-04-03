@@ -103,7 +103,7 @@ function add_UpdateRow(){
 				var popupBtn = document.createElement('button'); 
 				popupBtn.type = 'button'; 
 				popupBtn.setAttribute
-					  ('onclick','showMoreProps(this, "' + oper.value + '")');
+					  ('onclick','showMoreProps(this, "' + oper + '")');
 				popupBtn.id = rowIdmain +
 					  '.popupBtn'; 
 				popupBtn.appendChild(document.createTextNode("Define More\nProperties")); 
@@ -391,25 +391,31 @@ function fillPopup_new(p, op){
 	var content = document.createElement('div');
 	content.setAttribute ('id', rowId+'.contentDiv');
 	content.appendChild(document.createTextNode("Extend to class:"));
+	var sel = document.createElement('select');
+	p.appendChild(content);
+	sel.name = rowId + '.MAPPEDCLASS';
+	sel.setAttribute('rowId',rowId);
+	sel.setAttribute ('onchange','refreshPopup(document.getElementById("'+p.id +'"), this.value)');
+	content.appendChild(sel);
 	
 	
 	var guimapId = document.getElementById(rowId+ '.GUIMAPID').value;
 	var tableName = 'EXTENDEDPROPSVIEW';
 	var pageName = document.getElementById('pageName').value;
+	if (op==='update'){
 	Promise.resolve(getExtendedPageGuiData(tableName, guimapId))
 	 .then(function(resp){
 		console.log (resp);
+/*
+ * add stuff for update here!
+ * */		
 	})
 	.catch (function(error){
 		
 	});
-	var sel = document.createElement('select');
 	
-	sel.name = rowId + '.MAPPEDCLASS';
-	sel.setAttribute('rowId',rowId);
-	sel.setAttribute ('onchange','refreshPopup(document.getElementById("'+p.id +'"), this.value)');
-	content.appendChild(sel);
-	p.appendChild(content);
+}
+	if (op==='new'){
 	Promise.resolve(getData('/fetch/libdatabase/getextendedproptypes'))
 	.then(function(resp){
 		if (propertyMap ===null){
@@ -421,6 +427,8 @@ function fillPopup_new(p, op){
 			var tableData = propertyMap[k.value];
 			addTableToPopup (p, tableData[0], JSON.parse(tableData[1]), op);
 		}
+		
+	p.appendChild(content);
 		refreshPopup (p,sel.value);
 		
 		
@@ -428,16 +436,7 @@ function fillPopup_new(p, op){
 	.catch (function(error){
 		
 	});
-/*	
-	if (op === 'update'){
-		var tableName = document.getElementById('tableName').value;
-		var pageName = document.getElementById('pageName').value;
-		Promise.resolve(getData(getExtendedPageGuiData (tableName, pageName)))
-		.then(function(data){
-			
-		});
 	}
-	*/
 	
 }
 
@@ -495,10 +494,7 @@ function addTableToPopup(popup,tbit, rowContent, operation){
 	
 }
 /*
-function addTableToPopup (popup,tData){
-	var propsJson = tData[1];
-	var tableType = tData[0];
-	addTableToPopup (popup, tableType, propsJson);
-}
-*/
+ * function addTableToPopup (popup,tData){ var propsJson = tData[1]; var
+ * tableType = tData[0]; addTableToPopup (popup, tableType, propsJson); }
+ */
 

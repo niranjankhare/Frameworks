@@ -63,11 +63,11 @@ function add_Row(f){
 
 
 function add_UpdateRow(){
-	var tableName = document.getElementById('tableName').value;
+	var tname = 'propsview';
 	var pageName = document.getElementById('pageName').value;
-	var elTable = document.getElementById(tableName);
+	var elTable = document.getElementById(tname);
 	
-	var respFields = Promise.resolve(getTableData(tableName, pageName));
+	var respFields = Promise.resolve(getTableData(tname, pageName));
 	var oper = document.getElementById('oper').value;
 	respFields.then(function (tableData){
 		var headerRow = document.getElementById('headerRow');
@@ -184,66 +184,6 @@ function showMoreProps(e , op){
 	popup.style.display = 'inline';
 	showRowById(rowId);
 	disableMainForm(op);		
-}
-
-function fillPopup(p, op){
-	var title = document.createElement ('div');
-	title.setAttribute('id', 'popupTitle');
-	title.appendChild(document.createTextNode("Define More\nProperties"));
-	title.appendChild (getPopupCloseButtonForRowId(p.getAttribute('rowId'), op));
-	p.appendChild(title);
-	var content = document.createElement('div');
-	content.appendChild(document.createTextNode("Extend to class:"));
-	var sel = document.createElement('select');
-	var rowId = p.getAttribute('rowId');
-	sel.name = rowId + '.MAPPEDCLASS';
-	sel.setAttribute('rowId',rowId);
-	sel.setAttribute ('onchange','refreshPopup(document.getElementById("'+p.id +'"), this, this.value)');
-	content.appendChild(sel);
-	Promise.resolve(getData('/fetch/libdatabase/getextendedproptypes'))
-	.then(function(resp){
-		/*
-		 * var title = document.createElement ('div'); title.setAttribute('id',
-		 * 'popupTitle'); title.appendChild(document.createTextNode("Define
-		 * More\nProperties")); title.appendChild
-		 * (getPopupCloseButtonForRowId(p.getAttribute('rowId'), op));
-		 * p.appendChild(title); var content = document.createElement('div');
-		 * content.appendChild(document.createTextNode("Extend to class:")); var
-		 * sel = document.createElement('select'); sel.name =
-		 * p.getAttribute('rowId') + '.MAPPEDCLASS';
-		 */
-		if (propertyMap ===null){
-			propertyMap = resp;
-		}
-		getSelectControlt(resp, sel);
-		var exPropsTable = document.createElement('table');
-		exPropsTable.appendChild(document.createElement('tbody'));
-		exPropsTable.setAttribute("id", p.getAttribute('rowId')+'.exPropsTable');
-		content.appendChild(exPropsTable);
-		
-		/* refreshPopup (exPropsTable, sel, sel.value ); */
-		
-		var selKey = sel.options[sel.selectedIndex].value;
-		var propsJson = JSON.parse(propertyMap[selKey][1]);
-		
-		p.appendChild(content);
-		addRowToPopup (p, propsJson);
-	})
-	.catch (function(error){
-		
-	});
-	if (op === 'update'){
-		var tableName = document.getElementById('tableName').value;
-		var pageName = document.getElementById('pageName').value;
-		Promise.resolve(getData(getExtendedPageGuiData (tableName, pageName)))
-		.then(function(data){
-			
-		});
-	}
-	
-	
-	
-	
 }
 
 function showRowById (id){
@@ -379,6 +319,14 @@ function refreshPopup (popup, val){
 	
 }
 	
+function getOptionId (el, mapClass){
+	var i = 0;
+	for (var o of el.options){
+		if (o.text === mapClass){}
+		 i = o.index;
+		}
+	return i;
+}
 	
 	
 function fillPopup_new(p, op){
@@ -402,20 +350,7 @@ function fillPopup_new(p, op){
 	var guimapId = document.getElementById(rowId+ '.GUIMAPID').value;
 	var tableName = 'EXTENDEDPROPSVIEW';
 	var pageName = document.getElementById('pageName').value;
-	if (op==='update'){
-	Promise.resolve(getExtendedPageGuiData(tableName, guimapId))
-	 .then(function(resp){
-		console.log (resp);
-/*
- * add stuff for update here!
- * */		
-	})
-	.catch (function(error){
-		
-	});
-	
-}
-	if (op==='new'){
+	/*if (op==='new'){*/
 	Promise.resolve(getData('/fetch/libdatabase/getextendedproptypes'))
 	.then(function(resp){
 		if (propertyMap ===null){
@@ -428,7 +363,27 @@ function fillPopup_new(p, op){
 			addTableToPopup (p, tableData[0], JSON.parse(tableData[1]), op);
 		}
 		
-	p.appendChild(content);
+		p.appendChild(content);
+		
+		if (op==='update'){
+			Promise.resolve(getExtendedPageGuiData(tableName, guimapId))
+			 .then(function(resp){
+				console.log (resp);
+				var mapClass = document.getElementById(rowId+'.MAPPEDCLASS');
+				sel.value = getOptionId (sel, mapClass.value);
+			})
+			.catch (function(error){
+				
+			});
+			
+			}
+		
+		
+		
+		
+		
+		
+		
 		refreshPopup (p,sel.value);
 		
 		
@@ -436,7 +391,7 @@ function fillPopup_new(p, op){
 	.catch (function(error){
 		
 	});
-	}
+	/*}*/	
 	
 }
 
@@ -493,8 +448,5 @@ function addTableToPopup(popup,tbit, rowContent, operation){
 	
 	
 }
-/*
- * function addTableToPopup (popup,tData){ var propsJson = tData[1]; var
- * tableType = tData[0]; addTableToPopup (popup, tableType, propsJson); }
- */
+
 

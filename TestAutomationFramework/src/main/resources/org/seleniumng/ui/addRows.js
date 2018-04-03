@@ -150,8 +150,8 @@ function getTableData(tname,pname){
 	return r;
 }
 
-function getExtendedPageGuiData(tname,pname){
-	r = Promise.resolve(getData('/fetch/libdatabase/pageguiextendedprops?tableName='+tname+"&pageName="+ pname)); 
+function getExtendedPageGuiData(tname,guiId){
+	r = Promise.resolve(getData('/fetch/libdatabase/pageguiextendedprops?tableName='+tname+"&guiId="+ guiId)); 
 	return r;
 }
 
@@ -391,6 +391,18 @@ function fillPopup_new(p, op){
 	var content = document.createElement('div');
 	content.setAttribute ('id', rowId+'.contentDiv');
 	content.appendChild(document.createTextNode("Extend to class:"));
+	
+	
+	var guimapId = document.getElementById(rowId+ '.GUIMAPID').value;
+	var tableName = 'EXTENDEDPROPSVIEW';
+	var pageName = document.getElementById('pageName').value;
+	Promise.resolve(getExtendedPageGuiData(tableName, guimapId))
+	 .then(function(resp){
+		console.log (resp);
+	})
+	.catch (function(error){
+		
+	});
 	var sel = document.createElement('select');
 	
 	sel.name = rowId + '.MAPPEDCLASS';
@@ -407,17 +419,16 @@ function fillPopup_new(p, op){
 		
 		for (var k of sel.options){
 			var tableData = propertyMap[k.value];
-			addTableToPopup (p, tableData[0], JSON.parse(tableData[1]));
+			addTableToPopup (p, tableData[0], JSON.parse(tableData[1]), op);
 		}
-		
 		refreshPopup (p,sel.value);
-		
 		
 		
 	})
 	.catch (function(error){
 		
 	});
+/*	
 	if (op === 'update'){
 		var tableName = document.getElementById('tableName').value;
 		var pageName = document.getElementById('pageName').value;
@@ -426,13 +437,11 @@ function fillPopup_new(p, op){
 			
 		});
 	}
-	
-	
-	
+	*/
 	
 }
 
-function addTableToPopup(popup,tbit, rowContent){
+function addTableToPopup(popup,tbit, rowContent, operation){
 
 	var rowId = popup.getAttribute('rowId');
 	var content = document.getElementById(rowId+'.contentDiv');

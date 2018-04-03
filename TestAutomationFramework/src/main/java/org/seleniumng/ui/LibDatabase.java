@@ -38,7 +38,7 @@ import static db.jooq.generated.automationDb.tables.Guimap.*;
 import static db.jooq.generated.automationDb.tables.Pages.*;
 import static db.jooq.generated.automationDb.tables.Types.*;
 import static db.jooq.generated.automationDb.tables.Propsview.*;
-
+import static db.jooq.generated.automationDb.tables.Extendedpropsview.*;
 import static db.jooq.generated.automationDb.tables.Properties.*;
 import static db.jooq.generated.automationDb.tables.Extendedprops.*;
 
@@ -270,27 +270,45 @@ public class LibDatabase {
 				.where(PROPSVIEW.PAGENAME.equal(pageName));
 		List<Object> returnList = new ArrayList<Object>();
 		Result<?> result = x.fetch();
-		List<Object> values = new ArrayList<Object>();
+		List<Object> fields = new ArrayList<Object>();
 		for (Field<?> f : result.fields()) {
-			values.add(f.getName());
+			fields.add(f.getName());
 		}
-		returnList.add(values);
-
+		returnList.add(fields);
+		List<Object> values = new ArrayList<Object>();
 		for (Record r : result) {
-			values = new ArrayList<Object>();
 			for (Field<?> f : r.fields()) {
 				values.add(r.get(f));
 			}
-			returnList.add(values);
+		returnList.add(values);
 
 		}
 
 		return returnList;
 	}
 
-	public static Object getPageExtendedProperties(String tableName, String pageName) {
-		// TODO Auto-generated method stub
-		return null;
+	public static Object getPageExtendedProperties(String tableName, Integer gId) {
+		Table<?> table = AUTOMATION.getTable(tableName.toUpperCase());
+		Collection<Condition> conditions = new ArrayList<Condition>();
+		SelectConditionStep<?> x = DbManager.getOpenContext().selectFrom(table)
+				.where(EXTENDEDPROPSVIEW.GUIMAPID.equal(gId));
+		List<Object> returnList = new ArrayList<Object>();
+		Result<?> result = x.fetch();
+		List<Object> fields = new ArrayList<Object>();
+		for (Field<?> f : result.fields()) {
+			fields.add(f.getName());
+		}
+		returnList.add(fields);
+		List<Object> values = new ArrayList<Object>();
+		for (Record r : result) {
+			for (Field<?> f : r.fields()) {
+				values.add(r.get(f));
+			}
+		returnList.add(values);
+
+		}
+
+		return returnList;
 	}
 
 	public static Object getExtendedProptypes(String tableName, String pageName) {

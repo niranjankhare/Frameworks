@@ -86,8 +86,9 @@ function add_UpdateRow(){
 		for (var k = 1; k < tableData.length; k++) {
 				
 				var rowData = tableData[k];
-				var row = (elTable.getElementsByTagName('tbody')[0]).insertRow(-1);
 				var rowIdmain = 'Row' + (k-1);
+				var row = (elTable.getElementsByTagName('tbody')[0]).insertRow(-1);
+				row.id = rowIdmain;
 				for (var r=0; r<rowData.length; r++){
 					var rowId = rowIdmain + '.' + dbColumns[r];
 					var cell = row.insertCell(-1);
@@ -377,6 +378,16 @@ function fillPopup_new(p, op){
 				var mapClass = document.getElementById(rowId+'.MAPPEDCLASS').value;
 				sel.value = mapClass;
 				refreshPopup (p,sel.value);
+				var keys = JSON.parse(propertyMap[mapClass][1]);
+				var flds = resp[0];
+				var vals = resp[1];
+				for (var key in keys){
+					console.log(key);
+					var valueCell = document.getElementById(rowId + '.' + key);
+					valueCell.value = vals[flds.indexOf(key)];
+				}
+				
+				
 			})
 			.catch (function(error){
 				

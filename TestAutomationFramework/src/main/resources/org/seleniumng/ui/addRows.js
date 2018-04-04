@@ -386,8 +386,7 @@ function fillPopup_new(p, op){
 					var valueCell = document.getElementById(rowId + '.' + key);
 					valueCell.value = vals[flds.indexOf(key)];
 				}
-				
-				
+				content.style.visibility='inherit';
 			})
 			.catch (function(error){
 				
@@ -395,7 +394,9 @@ function fillPopup_new(p, op){
 			
 			}
 		else {
+			
 			refreshPopup (p,sel.value);
+			content.style.visibility='inherit';
 		}
 		
 		
@@ -504,6 +505,7 @@ function addExtendedPropsTableToPopup(popup, operation){
 		cellContent.placeholder = labelText;
 		valueCell.innerHTML = cellContent.outerHTML;
 	}
+	content.style.visibility='hidden';
 
 }
 

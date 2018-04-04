@@ -301,20 +301,26 @@ function addRowToPopup(popup,rowContent){
 }
 
 function refreshPopup (popup, val){
-
+	var keys = JSON.parse(propertyMap[val][1]);
 	var rowId= popup.getAttribute('rowId');
-	var content = document.getElementById(rowId+'.contentDiv');
-	var tableId = rowId+'.exPropsTable.'+ val;
-	var displayTable = document.getElementById(tableId);
-	displayTable.disabled=false;
-	displayTable.style.visibility = 'inherit';
-	displayTable.style.display = 'block';
-	var tables = content.getElementsByTagName('table');
-	for (var t of tables){
-		if (t.id=== tableId) continue ;
-		t.disabled=true;
-		t.style.visibility = 'hidden';
-		t.style.display = 'none';
+	
+	for (var i=0; i < 9; i++){
+		var placeholder = 'EXPROP'+(i+1);
+		var currentRow = document.getElementById(rowId+'.POPUP.'+ placeholder);
+		
+		if (keys[placeholder] == null){
+			currentRow.disabled=true;
+			currentRow.style.visibility = 'hidden';
+			currentRow.style.display = 'none';
+		} else{
+			var labelCell = document.getElementById(rowId + '.' + placeholder+'.label');
+			labelCell.innerHTML = keys[placeholder];
+			var valueCell = document.getElementById(rowId + '.' + placeholder);
+			valueCell.placeholder = labelCell.innerHTML;
+			currentRow.disabled=false;
+			currentRow.style.visibility = 'inherit';
+			currentRow.style.display = 'block';
+		}
 	}
 	
 }
@@ -322,8 +328,11 @@ function refreshPopup (popup, val){
 function getOptionId (el, mapClass){
 	var i = 0;
 	for (var o of el.options){
-		if (o.text === mapClass){}
-		 i = o.index;
+		if (o.text === mapClass){
+			i = o.index;
+			break;
+		}
+		 
 		}
 	return i;
 }
@@ -350,7 +359,7 @@ function fillPopup_new(p, op){
 	var guimapId = document.getElementById(rowId+ '.GUIMAPID').value;
 	var tableName = 'EXTENDEDPROPSVIEW';
 	var pageName = document.getElementById('pageName').value;
-	/*if (op==='new'){*/
+	
 	Promise.resolve(getData('/fetch/libdatabase/getextendedproptypes'))
 	.then(function(resp){
 		if (propertyMap ===null){
@@ -358,25 +367,25 @@ function fillPopup_new(p, op){
 		}
 		getSelectControlt(resp, sel);
 		
-		for (var k of sel.options){
-			var tableData = propertyMap[k.value];
-			addTableToPopup (p, tableData[0], JSON.parse(tableData[1]), op);
-		}
-		
+		addExtendedPropsTableToPopup (p, op);
 		p.appendChild(content);
 		
 		if (op==='update'){
 			Promise.resolve(getExtendedPageGuiData(tableName, guimapId))
 			 .then(function(resp){
 				console.log (resp);
-				var mapClass = document.getElementById(rowId+'.MAPPEDCLASS');
-				sel.value = getOptionId (sel, mapClass.value);
+				var mapClass = document.getElementById(rowId+'.MAPPEDCLASS').value;
+				sel.value = mapClass;
+				refreshPopup (p,sel.value);
 			})
 			.catch (function(error){
 				
 			});
 			
 			}
+		else {
+			refreshPopup (p,sel.value);
+		}
 		
 		
 		
@@ -384,18 +393,18 @@ function fillPopup_new(p, op){
 		
 		
 		
-		refreshPopup (p,sel.value);
+		
 		
 		
 	})
 	.catch (function(error){
 		
 	});
-	/*}*/	
+		
 	
 }
 
-function addTableToPopup(popup,tbit, rowContent, operation){
+function addTableToPopupDeprecated(popup,tbit, rowContent, operation){
 
 	var rowId = popup.getAttribute('rowId');
 	var content = document.getElementById(rowId+'.contentDiv');
@@ -447,6 +456,44 @@ function addTableToPopup(popup,tbit, rowContent, operation){
 	console.log ('new:'+ pTable.rows.length);
 	
 	
+}
+
+function addExtendedPropsTableToPopup(popup, operation){
+
+	var rowId = popup.getAttribute('rowId');
+	var content = document.getElementById(rowId+'.contentDiv');
+	var tableId = rowId+'.exPropsTable';
+	var exPropsTable = document.createElement('table');
+	exPropsTable.appendChild(document.createElement('tbody'));
+	exPropsTable.setAttribute("id", tableId);
+	content.appendChild(exPropsTable);
+	console.log(tableId);
+	var pTable = document.getElementById(tableId);
+	var existingRowCount = pTable.rows.length;
+	var contentIndex = 0;
+	var labelCell;
+	var labelText;
+	var cellContent;
+	var valueCell ;
+	
+	for (var i=0; i < 9; i++){
+		var row = pTable.insertRow(-1);	
+		var placeholder = 'EXPROP'+(i+1);
+		labelText = placeholder;
+		labelCell = row.insertCell(-1);
+		cellContent = document.createElement('textarea');
+		
+		
+		valueCell =	row.insertCell(-1); 
+		row.id = rowId+'.POPUP.'+ placeholder;
+		labelCell.innerHTML =labelText;
+		cellContent.name = rowId + '.'+ 'EXPROP'+(i+1);
+		cellContent.id = cellContent.name;
+		labelCell.id = cellContent.id+'.label';
+		cellContent.placeholder = labelText;
+		valueCell.innerHTML = cellContent.outerHTML;
+	}
+
 }
 
 
